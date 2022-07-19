@@ -27,13 +27,6 @@ function Product() {
       setCategory(e.target.value);
    };
 
-   const {
-      register,
-      handleSubmit,
-      watch,
-      formState: { errors }
-   } = useForm();
-
    useEffect(() => {
       const getCategories = async () => {
          await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/categories`, {
@@ -122,10 +115,10 @@ function Product() {
                            <MenuItem disabled value="None">
                               <em>None</em>
                            </MenuItem>
-                           {categories.map((category) => (
-                              <MenuItem key={category.ID} value={category.Name}>
-                                 <ListItemText primary={category.Name} />
-                                 <Chip sx={{ ml: 1 }} label={category.ItemsAmount} />
+                           {categories.map((categoryItem) => (
+                              <MenuItem key={categoryItem.ID} value={categoryItem.Name}>
+                                 <ListItemText primary={categoryItem.Name} />
+                                 <Chip sx={{ ml: 1 }} label={categoryItem.ItemsAmount} />
                               </MenuItem>
                            ))}
                         </Select>
