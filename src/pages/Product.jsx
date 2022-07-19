@@ -15,7 +15,6 @@ import {
    InputLabel,
    FormControl
 } from '@mui/material';
-import { useForm } from 'react-hook-form';
 
 function Product() {
    const [isLoading, setIsLoading] = useState(true);
