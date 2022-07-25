@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import {
    Container,
    Paper,
@@ -13,14 +14,25 @@ import {
    Chip,
    MenuItem,
    InputLabel,
-   FormControl
+   FormControl,
+   Input,
+   ImageList,
+   ImageListItem
 } from '@mui/material';
+import PanoramaIcon from '@mui/icons-material/Panorama';
 
 function Product() {
    const [isLoading, setIsLoading] = useState(true);
    const [categories, setCategories] = useState([]);
 
    const [category, setCategory] = useState('None');
+
+   const {
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors }
+   } = useForm();
 
    const handleCategoryChange = (e) => {
       setCategory(e.target.value);
@@ -38,10 +50,38 @@ function Product() {
       };
 
       getCategories();
-      console.log('categories', categories);
       setIsLoading(false);
-      console.log(category);
    }, []);
+
+   const productImages = watch('productImages');
+
+   const onSubmit = async (data) => {
+      if (Object.values(data).every((item) => typeof item !== 'undefined')) {
+         const productData = new FormData();
+
+         console.log(data);
+         for (const key in data) {
+            if (key === 'productImages') {
+               Array.from(data.productImages).map((image) => {
+                  productData.append('productImages', image, image.name);
+               });
+            } else {
+               productData.append(key, data[key]);
+            }
+            productData.append('productCategory', category);
+         }
+
+         for (var pair of productData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+         }
+
+         await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products`, {
+            method: 'POST',
+            mode: 'cors',
+            body: productData
+         });
+      }
+   };
 
    if (isLoading) {
       return <>Loading...</>;
@@ -53,7 +93,12 @@ function Product() {
             <Typography component="h1" variant="h4" align="center">
                Add a Product
             </Typography>
-            <Grid container spacing={3}>
+            <Grid
+               container
+               spacing={3}
+               component="form"
+               noValidate
+               onSubmit={handleSubmit(onSubmit)}>
                <Grid item xs={12}>
                   <TextField
                      required
@@ -63,6 +108,7 @@ function Product() {
                      fullWidth
                      autoComplete="product"
                      variant="standard"
+                     {...register('productName', { required: true })}
                   />
                </Grid>
                <Grid item xs={12}>
@@ -71,9 +117,11 @@ function Product() {
                      id="productEan"
                      name="productEan"
                      label="EAN"
+                     type="number"
                      fullWidth
                      autoComplete="ean"
                      variant="standard"
+                     {...register('productEan', { required: true })}
                   />
                </Grid>
                <Grid item xs={12}>
@@ -82,10 +130,12 @@ function Product() {
                      id="productPrice"
                      name="productPrice"
                      label="Price"
+                     type="number"
                      startAdornment={<InputAdornment position="start">$</InputAdornment>}
                      fullWidth
                      autoComplete="price"
                      variant="standard"
+                     {...register('productPrice', { required: true })}
                   />
                </Grid>
                <Grid item xs={12}>
@@ -95,14 +145,16 @@ function Product() {
                      label="Description"
                      fullWidth
                      multiline
+                     rows={3}
                      maxRows={5}
                      autoComplete="description"
-                     variant="standard"
+                     variant="outlined"
+                     {...register('productDescription', { required: true })}
                   />
                </Grid>
                {categories && (
                   <Grid item xs={12}>
-                     <FormControl variant="filled" fullWidth sx={{ m: 1 }}>
+                     <FormControl variant="filled" fullWidth>
                         <InputLabel id="productCategoryLabel">Category</InputLabel>
                         <Select
                            labelId="productCategoryLabel"
@@ -125,7 +177,45 @@ function Product() {
                   </Grid>
                )}
                <Grid item xs={12}>
-                  <Button sx={{}} variant="contained">
+                  <label htmlFor="productImages">
+                     <Input
+                        accept="image/jpeg,image/jpg,image/png"
+                        multiple={true}
+                        type="file"
+                        name="productImages"
+                        id="productImages"
+                        sx={{ display: 'none' }}
+                        {...register('productImages', {
+                           required: true
+                        })}
+                        inputProps={{ multiple: true }}
+                     />
+                     <Button
+                        startIcon={<PanoramaIcon />}
+                        variant="contained"
+                        component="span"
+                        sx={{ my: 2, px: 2, py: 1 }}>
+                        Add images
+                     </Button>
+                  </label>
+               </Grid>
+               {productImages && productImages.length > 0 && (
+                  <Grid item xs={12}>
+                     <ImageList sx={{ width: '99%' }} cols={3} rowHeight={164}>
+                        {Array.from(productImages).map((image, index) => (
+                           <ImageListItem key={index}>
+                              <img
+                                 src={URL.createObjectURL(image)}
+                                 alt={image.name}
+                                 loading="lazy"
+                              />
+                           </ImageListItem>
+                        ))}
+                     </ImageList>
+                  </Grid>
+               )}
+               <Grid item xs={12}>
+                  <Button sx={{}} variant="contained" type="submit">
                      Submit
                   </Button>
                </Grid>
