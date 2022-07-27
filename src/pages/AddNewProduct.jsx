@@ -22,7 +22,7 @@ import {
 } from '@mui/material';
 import PanoramaIcon from '@mui/icons-material/Panorama';
 
-function Product() {
+function AddNewProduct() {
    const [isLoading, setIsLoading] = useState(true);
    const [categories, setCategories] = useState([]);
 
@@ -41,17 +41,17 @@ function Product() {
       setCategory(e.target.value);
    };
 
-   useEffect(() => {
-      const getCategories = async () => {
-         await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/categories`, {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache'
-         })
-            .then((response) => response.json())
-            .then((data) => setCategories(data));
-      };
+   const getCategories = async () => {
+      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/categories`, {
+         method: 'GET',
+         mode: 'cors',
+         cache: 'no-cache'
+      })
+         .then((response) => response.json())
+         .then((data) => setCategories(data));
+   };
 
+   useEffect(() => {
       getCategories();
       setIsLoading(false);
    }, []);
@@ -205,4 +205,4 @@ function Product() {
    );
 }
 
-export default Product;
+export default AddNewProduct;

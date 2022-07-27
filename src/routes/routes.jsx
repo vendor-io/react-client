@@ -1,9 +1,14 @@
-import Product from '../pages/Product';
+import AddNewProduct from '../pages/AddNewProduct';
 
 export const routes = [
    {
-      path: '/product',
+      path: '/products/new',
       name: 'Product',
-      component: <Product />
+      component: <AddNewProduct />
+   },
+   {
+      path: '/products/all',
+      name: 'Product',
+      component: <AddNewProduct />
    }
 ];
