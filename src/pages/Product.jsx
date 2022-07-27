@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useProduct } from '../hooks/useProduct';
 import {
    Container,
    Paper,
@@ -34,6 +35,8 @@ function Product() {
       formState: { errors }
    } = useForm();
 
+   const { addNewProduct } = useProduct();
+
    const handleCategoryChange = (e) => {
       setCategory(e.target.value);
    };
@@ -55,32 +58,9 @@ function Product() {
 
    const productImages = watch('productImages');
 
-   const onSubmit = async (data) => {
-      if (Object.values(data).every((item) => typeof item !== 'undefined')) {
-         const productData = new FormData();
-
-         console.log(data);
-         for (const key in data) {
-            if (key === 'productImages') {
-               Array.from(data.productImages).map((image) => {
-                  productData.append('productImages', image, image.name);
-               });
-            } else {
-               productData.append(key, data[key]);
-            }
-            productData.append('productCategory', category);
-         }
-
-         for (var pair of productData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-         }
-
-         await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products`, {
-            method: 'POST',
-            mode: 'cors',
-            body: productData
-         });
-      }
+   const onSubmit = (data) => {
+      data = { ...data, productCategory: category };
+      addNewProduct(data);
    };
 
    if (isLoading) {
