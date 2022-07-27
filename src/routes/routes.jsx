@@ -1,14 +1,15 @@
 import AddNewProduct from '../pages/AddNewProduct';
+import AllProducts from '../pages/AllProducts';
 
 export const routes = [
    {
       path: '/products/new',
-      name: 'Product',
+      name: 'Add new Product',
       component: <AddNewProduct />
    },
    {
       path: '/products/all',
-      name: 'Product',
-      component: <AddNewProduct />
+      name: 'All products',
+      component: <AllProducts />
    }
 ];
