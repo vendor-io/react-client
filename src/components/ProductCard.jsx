@@ -1,14 +1,20 @@
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import {
+   Grid,
+   Card,
+   CardActions,
+   CardContent,
+   CardMedia,
+   Button,
+   Typography,
+   Link
+} from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link as RouterLink } from 'react-router-dom';
 
 export const ProductCard = (props) => {
    const { name, price, image, id } = props;
 
-   const formatPrice = () => {
+   const formatPrice = (price) => {
       const stringPrice = price.toString();
       return `${stringPrice.substring(0, stringPrice.length - 2)}.${stringPrice.substring(
          stringPrice.length - 2,
@@ -16,19 +22,29 @@ export const ProductCard = (props) => {
       )}`;
    };
    return (
-      <Card sx={{ maxWidth: 345 }}>
+      <Card>
          <CardMedia component="img" alt={name} height="140" image={image} />
          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Link
+               gutterBottom
+               component={RouterLink}
+               sx={{ display: 'block' }}
+               to={`/products/${id}`}
+               variant="h5">
                {name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" textAlign="right">
-               {formatPrice()} $
+            </Link>
+            <Typography variant="button" color="text.secondary" textAlign="right">
+               {formatPrice(price)} $
             </Typography>
          </CardContent>
          <CardActions>
-            <Button size="small">Add to cart</Button>
-            <Button size="small">Learn More</Button>
+            <Grid container sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+               <Grid item>
+                  <Button startIcon={<ShoppingCartIcon />} variant="contained">
+                     Add to cart
+                  </Button>
+               </Grid>
+            </Grid>
          </CardActions>
       </Card>
    );
