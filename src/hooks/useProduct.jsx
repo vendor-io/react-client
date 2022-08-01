@@ -1,4 +1,7 @@
+import { useState } from 'react';
 export const useProduct = () => {
+   const [response, setResponse] = useState(null);
+
    const addNewProduct = async (data) => {
       if (Object.values(data).every((item) => typeof item !== 'undefined')) {
          const productData = new FormData();
@@ -17,9 +20,11 @@ export const useProduct = () => {
             method: 'POST',
             mode: 'cors',
             body: productData
-         });
+         })
+            .then((response) => response.json())
+            .then((res) => setResponse(res));
       }
    };
 
-   return { addNewProduct };
+   return { addNewProduct, response };
 };
