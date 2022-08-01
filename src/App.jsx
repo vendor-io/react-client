@@ -1,43 +1,37 @@
-import styled from 'styled-components';
 import { theme } from './styles/theme';
 import { ThemeProvider } from '@mui/system';
 import { CssBaseline } from '@mui/material';
 import { routes } from './routes/routes';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { AuthContext } from './context/auth-context';
 
-const AppContainer = styled.main`
-   width: 100%;
-   min-height: 100vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-`;
+import Dev from './pages/Dev';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 let routesHandler = (
    <Switch>
-      {routes.map((route) => (
-         <Route path={route.path} exact key={route.path}>
-            {route.component}
-         </Route>
+      {routes.map((route, index) => (
+         <Route path={route.path} exact key={index} component={route.component} />
       ))}
+      {import.meta.env.DEV && <Route path="/dev" exact component={Dev} />}
+      <Redirect to="/" />
    </Switch>
 );
 
+console.log(routesHandler);
+let token = 'token';
+
 function App() {
    return (
-      <ThemeProvider theme={theme}>
-         <CssBaseline />
-         <BrowserRouter>
-            {routesHandler}
-            <ul>
-               {routes.map((route, index) => (
-                  <li key={index}>
-                     <Link to={route.path}>{route.name}</Link>
-                  </li>
-               ))}
-            </ul>
-         </BrowserRouter>
-      </ThemeProvider>
+      <AuthContext.Provider
+         value={{ isLoggedIn: !!token, login: () => {}, logout: () => {}, userId: '123' }}>
+         <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Router>{routesHandler}</Router>
+         </ThemeProvider>
+      </AuthContext.Provider>
    );
 }
 
