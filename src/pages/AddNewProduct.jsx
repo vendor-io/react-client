@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useProduct } from '../hooks/useProduct';
+import { useHistory } from 'react-router-dom';
+
 import {
    Container,
    Paper,
@@ -35,7 +37,8 @@ function AddNewProduct() {
       formState: { errors }
    } = useForm();
 
-   const { addNewProduct } = useProduct();
+   const history = useHistory();
+   const { addNewProduct, response } = useProduct();
 
    const handleCategoryChange = (e) => {
       setCategory(e.target.value);
@@ -62,6 +65,12 @@ function AddNewProduct() {
       data = { ...data, productCategory: category };
       addNewProduct(data);
    };
+
+   useEffect(() => {
+      if (response) {
+         history.push(`/products/${response.ID}`);
+      }
+   }, [response]);
 
    if (isLoading) {
       return <>Loading...</>;
