@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Container, Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { ProductCard } from './../components/ProductCard';
 
@@ -27,19 +27,24 @@ function AllProducts() {
       return <div>Loading...</div>;
    }
    return (
-      <Grid container>
-         {products.map((product) => {
-            return (
-               <Grid item key={product.id}>
-                  <ProductCard
-                     name={product.Name}
-                     price={product.Price}
-                     image={product.MainImage}
-                  />
-               </Grid>
-            );
-         })}
-      </Grid>
+      <Container component="main" maxWidth="xl" sx={{ mb: 4 }}>
+         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+            <Grid container spacing={5}>
+               {products.map((product) => {
+                  return (
+                     <Grid item xs={3} key={product.id}>
+                        <ProductCard
+                           name={product.Name}
+                           price={product.Price}
+                           image={product.MainImage}
+                           id={product.ID}
+                        />
+                     </Grid>
+                  );
+               })}
+            </Grid>
+         </Paper>
+      </Container>
    );
 }
 
