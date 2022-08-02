@@ -4,11 +4,29 @@ import { Link } from 'react-router-dom';
 function Dev() {
    return (
       <ul>
-         {routes.map((route, index) => (
-            <li key={index}>
-               <Link to={route.path}>{route.name}</Link>
-            </li>
-         ))}
+         {routes.map((route, index) => {
+            if (route.subroutes) {
+               return (
+                  <li key={index}>
+                     {route.path}
+                     <ul>
+                        {route.subroutes.map((subRoute, index) => {
+                           return (
+                              <li key={index}>
+                                 <Link to={`${route.path}/${subRoute.path}`}>{subRoute.name}</Link>
+                              </li>
+                           );
+                        })}
+                     </ul>
+                  </li>
+               );
+            }
+            return (
+               <li key={index}>
+                  <Link to={route.path}>{route.name}</Link>
+               </li>
+            );
+         })}
       </ul>
    );
 }
