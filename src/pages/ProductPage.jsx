@@ -7,6 +7,7 @@ import { Container, Grid, Paper, Typography, Link, Divider, Button, Chip } from 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import { mainSliderOptions, subSliderOptions } from '../constant/sliderOptions';
+import { useAuth } from '../hooks/useAuth';
 
 function ProductPage() {
    const [isLoading, setIsLoading] = useState(true);
@@ -19,11 +20,16 @@ function ProductPage() {
 
    const { pid } = useParams();
 
+   const { token } = useAuth();
+
    const getProduct = async (id) => {
       await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products/${id}`, {
          method: 'GET',
          mode: 'cors',
-         cache: 'no-cache'
+         cache: 'no-cache',
+         headers: {
+            Authorization: `Bearer ${token}`
+         }
       })
          .then((response) => response.json())
          .then((data) => setProduct(data));
@@ -34,8 +40,10 @@ function ProductPage() {
    };
 
    useEffect(() => {
-      getProduct(pid);
-   }, []);
+      if (token) {
+         getProduct(pid);
+      }
+   }, [token]);
 
    useEffect(() => {
       if (product) {
