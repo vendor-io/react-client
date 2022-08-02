@@ -2,53 +2,69 @@ import { theme } from './styles/theme';
 import { ThemeProvider } from '@mui/system';
 import { CssBaseline } from '@mui/material';
 import { routes } from './routes/routes';
-import { AuthContext } from './context/auth-context';
+
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from './firebase/config';
 
 import Dev from './pages/Dev';
-import { Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-let routesHandler = (
-   <Routes>
-      {routes.map((route, index) => {
-         console.log(route);
-         if (route.subroutes) {
-            return (
-               <Route path={route.path} key={index}>
-                  {route.subroutes.map((subRoute, index) => {
-                     console.log(subRoute);
-                     if (subRoute.path === '/') {
-                        return <Route index element={subRoute.component} key={index} />;
-                     } else {
-                        return (
-                           <Route path={subRoute.path} element={subRoute.component} key={index} />
-                        );
-                     }
-                  })}
-               </Route>
-            );
-         } else {
-            return <Route path={route.path} element={route.component} key={index} />;
-         }
-      })}
-      {import.meta.env.DEV && <Route path="/dev" element={<Dev />} />}
-   </Routes>
-);
+const token = sessionStorage.getItem('Auth Token');
 
-console.log(routesHandler);
-let token = 'token';
+let routesHandler;
+if (token) {
+   routesHandler = (
+      <Routes>
+         {routes.map((route, index) => {
+            if (route.subroutes) {
+               return (
+                  <Route path={route.path} key={index}>
+                     {route.subroutes.map((subRoute, index) => {
+                        if (subRoute.path === '/') {
+                           return <Route index element={subRoute.component} key={index} />;
+                        } else {
+                           return (
+                              <Route
+                                 path={subRoute.path}
+                                 element={subRoute.component}
+                                 key={index}
+                              />
+                           );
+                        }
+                     })}
+                  </Route>
+               );
+            } else if (!route.notLoggedIn) {
+               return <Route path={route.path} element={route.component} key={index} />;
+            }
+         })}
+         {import.meta.env.DEV && <Route path="/dev" element={<Dev />} />}
+         <Route path="*" element={<Navigate to="/products" replace />} />
+      </Routes>
+   );
+} else {
+   routesHandler = (
+      <Routes>
+         <Route path="/login" element={<Login />} />
+         <Route path="/register" element={<Register />} />
+         <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+   );
+}
+
+initializeApp(firebaseConfig);
 
 function App() {
    return (
-      <AuthContext.Provider
-         value={{ isLoggedIn: !!token, login: () => {}, logout: () => {}, userId: '123' }}>
-         <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {routesHandler}
-         </ThemeProvider>
-      </AuthContext.Provider>
+      <ThemeProvider theme={theme}>
+         <CssBaseline />
+         {routesHandler}
+      </ThemeProvider>
    );
 }
 
