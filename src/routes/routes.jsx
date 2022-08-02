@@ -9,6 +9,7 @@ export const routes = [
    {
       path: '/',
       name: 'Home',
+      breadcrumb: 'Home',
       component: <Home />
    },
    {
@@ -25,20 +26,24 @@ export const routes = [
    },
    {
       path: '/products',
+      breadcrumb: 'Products',
       subroutes: [
          {
             path: '/',
             name: 'All products',
+            breadcrumb: 'All products',
             component: <AllProducts />
          },
          {
             path: ':pid',
             name: 'Product Page',
+            breadcrumb: 'Product',
             component: <ProductPage />
          },
          {
             path: 'new',
             name: 'Add new Product',
+            breadcrumb: 'Add new product',
             component: <AddNewProduct />
          }
       ]
