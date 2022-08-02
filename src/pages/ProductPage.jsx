@@ -57,7 +57,7 @@ function ProductPage() {
    }
 
    return (
-      <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
+      <Container component="main" maxWidth="xl" sx={{ mb: 4 }}>
          <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
             <Grid container spacing={5}>
                <Grid item xs={6}>

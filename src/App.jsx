@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 import { Navbar } from './components/Navbar';
+import { NavBreadcrumbs } from './components/NavBreadcrumbs';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -68,6 +69,7 @@ function App() {
       <ThemeProvider theme={theme}>
          <CssBaseline />
          {isSignedIn && <Navbar />}
+         {isSignedIn && <NavBreadcrumbs />}
          {routesHandler}
       </ThemeProvider>
    );
