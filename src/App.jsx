@@ -5,19 +5,36 @@ import { routes } from './routes/routes';
 import { AuthContext } from './context/auth-context';
 
 import Dev from './pages/Dev';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 let routesHandler = (
-   <Switch>
-      {routes.map((route, index) => (
-         <Route path={route.path} exact key={index} component={route.component} />
-      ))}
-      {import.meta.env.DEV && <Route path="/dev" exact component={Dev} />}
-      <Redirect to="/" />
-   </Switch>
+   <Routes>
+      {routes.map((route, index) => {
+         console.log(route);
+         if (route.subroutes) {
+            return (
+               <Route path={route.path} key={index}>
+                  {route.subroutes.map((subRoute, index) => {
+                     console.log(subRoute);
+                     if (subRoute.path === '/') {
+                        return <Route index element={subRoute.component} key={index} />;
+                     } else {
+                        return (
+                           <Route path={subRoute.path} element={subRoute.component} key={index} />
+                        );
+                     }
+                  })}
+               </Route>
+            );
+         } else {
+            return <Route path={route.path} element={route.component} key={index} />;
+         }
+      })}
+      {import.meta.env.DEV && <Route path="/dev" element={<Dev />} />}
+   </Routes>
 );
 
 console.log(routesHandler);
@@ -29,7 +46,7 @@ function App() {
          value={{ isLoggedIn: !!token, login: () => {}, logout: () => {}, userId: '123' }}>
          <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Router>{routesHandler}</Router>
+            {routesHandler}
          </ThemeProvider>
       </AuthContext.Provider>
    );
