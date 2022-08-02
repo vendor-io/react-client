@@ -2,7 +2,6 @@ import AddNewProduct from '../pages/AddNewProduct';
 import AllProducts from '../pages/AllProducts';
 import ProductPage from '../pages/ProductPage';
 import Home from '../pages/Home';
-import NotFound from './../pages/404';
 import Login from '../pages/Login';
 import Register from './../pages/Register';
 

@@ -5,11 +5,14 @@ import { routes } from './routes/routes';
 
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebase/config';
+import { useAuth } from './hooks/useAuth';
 
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Dev from './pages/Dev';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { Routes, Route, Navigate } from 'react-router-dom';
+
+import { Navbar } from './components/Navbar';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -60,9 +63,11 @@ if (token) {
 initializeApp(firebaseConfig);
 
 function App() {
+   const { isSignedIn } = useAuth();
    return (
       <ThemeProvider theme={theme}>
          <CssBaseline />
+         {isSignedIn && <Navbar />}
          {routesHandler}
       </ThemeProvider>
    );
