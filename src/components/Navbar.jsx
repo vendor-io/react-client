@@ -204,7 +204,10 @@ export const Navbar = () => {
                            </MenuItem>
                            <Divider />
                            {categories.map((category) => (
-                              <MenuItem key={category.ID} onClick={handleCloseCategoriesMenu}>
+                              <MenuItem
+                                 key={category.ID}
+                                 onClick={handleCloseCategoriesMenu}
+                                 sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                  <Link
                                     color="inherit"
                                     underline="none"
@@ -212,6 +215,7 @@ export const Navbar = () => {
                                     to={`/categories/${category.Slug}`}>
                                     {category.Name}
                                  </Link>
+                                 <Chip sx={{ ml: 3 }} label={category.ItemsAmount} />
                               </MenuItem>
                            ))}
                         </Menu>

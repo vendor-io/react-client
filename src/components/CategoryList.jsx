@@ -6,7 +6,8 @@ import {
    List,
    ListItemButton,
    ListItemIcon,
-   ListItemText
+   ListItemText,
+   Chip
 } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
 
@@ -30,6 +31,7 @@ export const CategoryList = (props) => {
                            <FolderIcon />
                         </ListItemIcon>
                         <ListItemText primary={category.Name} secondary={category.Description} />
+                        <Chip sx={{ ml: 3 }} label={category.ItemsAmount} />
                      </ListItemButton>
                   );
                })}
