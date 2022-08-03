@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { useProduct } from '../hooks/useProduct';
 
 import { Grid, Container, Paper } from '@mui/material';
 import { ProductCard } from './../components/ProductCard';
@@ -9,23 +10,11 @@ function AllProducts() {
    const [products, setProducts] = useState([]);
 
    const { token } = useAuth();
-
-   const getAllProducts = async () => {
-      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products`, {
-         method: 'GET',
-         mode: 'cors',
-         cache: 'no-cache',
-         headers: {
-            Authorization: `Bearer ${token}`
-         }
-      })
-         .then((response) => response.json())
-         .then((data) => setProducts(data));
-   };
+   const { getAllProducts } = useProduct();
 
    useEffect(() => {
       if (token) {
-         getAllProducts();
+         getAllProducts(token).then((data) => setProducts(data));
          setIsLoading(false);
       }
    }, [token]);
