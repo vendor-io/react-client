@@ -5,6 +5,8 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Logout from '../pages/Logout';
 import Register from './../pages/Register';
+import AllCategories from '../pages/AllCategories';
+import AddNewNewCategory from '../pages/AddNewCategory';
 
 export const routes = [
    {
@@ -51,6 +53,24 @@ export const routes = [
             name: 'Add new Product',
             breadcrumb: 'Add new product',
             component: <AddNewProduct />
+         }
+      ]
+   },
+   {
+      path: '/categories',
+      breadcrumb: 'Categories',
+      subroutes: [
+         {
+            path: '/',
+            name: 'All categories',
+            breadcrumb: 'All categories',
+            component: <AllCategories />
+         },
+         {
+            path: 'new',
+            name: 'Add new Category',
+            breadcrumb: 'Add new category',
+            component: <AddNewNewCategory />
          }
       ]
    }
