@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { differenceInDays } from 'date-fns';
+import { BreadcrumbsContext } from '../context/breadcrumbs-context';
 
 import Slider from 'react-slick';
 import { Container, Grid, Paper, Typography, Link, Divider, Button, Chip } from '@mui/material';
@@ -17,6 +18,8 @@ function ProductPage() {
 
    const [mainNav, setMainNav] = useState();
    const [subNav, setSubNav] = useState();
+
+   const { setCurrentBreadcrumb } = useContext(BreadcrumbsContext);
 
    const { pid } = useParams();
 
@@ -48,8 +51,10 @@ function ProductPage() {
    useEffect(() => {
       if (product) {
          setImages(product.Images.split(';'));
+         setCurrentBreadcrumb(product.Name);
          setIsLoading(false);
       }
+      return () => setCurrentBreadcrumb(null);
    }, [product]);
 
    if (isLoading) {

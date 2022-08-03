@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
+import { BreadcrumbsContext } from '../context/breadcrumbs-context';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Container, Paper, Breadcrumbs, Link } from '@mui/material';
@@ -8,6 +10,7 @@ import { routes } from '../routes/routes';
 
 export const NavBreadcrumbs = () => {
    const breadcrumbs = useBreadcrumbs();
+   const { currentBreadcrumb } = useContext(BreadcrumbsContext);
 
    const getAllRoutes = () => {
       const allRoutes = [];
@@ -43,7 +46,7 @@ export const NavBreadcrumbs = () => {
                key={breadcrumb.key}
                color="inherit"
                to={breadcrumb.key}>
-               {route?.name ? route.name : breadcrumb.key}
+               {route?.name ? route.name : currentBreadcrumb}
             </Link>
          );
       });

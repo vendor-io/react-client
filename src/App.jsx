@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { theme } from './styles/theme';
 import { ThemeProvider } from '@mui/system';
 import { CssBaseline } from '@mui/material';
@@ -14,6 +15,7 @@ import Register from './pages/Register';
 
 import { Navbar } from './components/Navbar';
 import { NavBreadcrumbs } from './components/NavBreadcrumbs';
+import { BreadcrumbsContext } from './context/breadcrumbs-context';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -21,6 +23,7 @@ import 'slick-carousel/slick/slick-theme.css';
 initializeApp(firebaseConfig);
 
 function App() {
+   const [currentBreadcrumb, setCurrentBreadcrumb] = useState(null);
    const { isSignedIn, token } = useAuth();
 
    let routesHandler;
@@ -64,12 +67,14 @@ function App() {
    }
 
    return (
-      <ThemeProvider theme={theme}>
-         <CssBaseline />
-         {isSignedIn && <Navbar />}
-         {isSignedIn && <NavBreadcrumbs />}
-         {routesHandler}
-      </ThemeProvider>
+      <BreadcrumbsContext.Provider value={{ currentBreadcrumb, setCurrentBreadcrumb }}>
+         <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {isSignedIn && <Navbar />}
+            {isSignedIn && <NavBreadcrumbs />}
+            {routesHandler}
+         </ThemeProvider>
+      </BreadcrumbsContext.Provider>
    );
 }
 
