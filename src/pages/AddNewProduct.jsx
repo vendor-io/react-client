@@ -50,7 +50,7 @@ function AddNewProduct() {
          mode: 'cors',
          cache: 'no-cache'
       })
-         .then((response) => response.json())
+         .then((res) => res.json())
          .then((data) => setCategories(data));
    };
 

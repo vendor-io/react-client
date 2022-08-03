@@ -21,8 +21,8 @@ export const useProduct = () => {
             mode: 'cors',
             body: productData
          })
-            .then((response) => response.json())
-            .then((res) => setResponse(res));
+            .then((res) => res.json())
+            .then((data) => setResponse(data));
       }
    };
 
