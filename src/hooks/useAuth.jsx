@@ -8,6 +8,7 @@ export function useAuth() {
       user: null
    });
    const [token, setToken] = useState(null);
+   const [response, setResponse] = useState(null);
 
    const auth = getAuth();
 
@@ -26,18 +27,28 @@ export function useAuth() {
       return () => unregisterAuthObserver();
    }, []);
 
+   const createUser = async (data) => {
+      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/user/new`, {
+         method: 'POST',
+         mode: 'cors',
+         headers: new Headers({ 'content-type': 'application/json' }),
+         body: JSON.stringify(data)
+      })
+         .then((res) => res.json())
+         .then((resData) => setResponse(resData));
+   };
+
    const logout = () => {
-      const logoutUser = auth.signOut((res) => {
+      const logoutUser = auth.signOut(() => {
          setAuthState({
             isSignedIn: false,
             pending: true,
             user: null
          });
          setToken(null);
-         console.log(res);
       });
       return () => logoutUser();
    };
 
-   return { auth, token, ...authState, logout };
+   return { auth, token, ...authState, logout, createUser };
 }

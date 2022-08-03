@@ -1,5 +1,6 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../hooks/useAuth';
 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
@@ -14,18 +15,28 @@ export const RegisterForm = () => {
    } = useForm();
 
    const navigate = useNavigate();
+   const { createUser } = useAuth();
 
    const onSubmit = async (data) => {
-      console.log(data);
-
       const authentication = getAuth();
+
+      let newUserData;
 
       await createUserWithEmailAndPassword(authentication, data.email, data.password).then(
          (response) => {
-            navigate('/products');
-            sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
+            console.log('response', response);
+
+            newUserData = {
+               email: data.email,
+               uid: response.user.uid
+            };
          }
       );
+      console.log('left await block');
+      createUser(newUserData);
+      console.log('newUserData', newUserData);
+
+      navigate('/products');
    };
 
    return (

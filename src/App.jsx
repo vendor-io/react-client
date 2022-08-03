@@ -51,7 +51,7 @@ function App() {
                }
             })}
             {import.meta.env.DEV && <Route path="/dev" element={<Dev />} />}
-            <Route path="*" element={<Navigate to="/products" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
          </Routes>
       );
    } else {
@@ -59,7 +59,6 @@ function App() {
          <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Navigate to="/login" replace />} />
          </Routes>
       );
    }
