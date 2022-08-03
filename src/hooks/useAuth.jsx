@@ -15,7 +15,8 @@ export function useAuth() {
       const unregisterAuthObserver = auth.onAuthStateChanged((user) => {
          setAuthState({ ...authState, user, pending: false, isSignedIn: !!user });
          user.getIdToken().then((data) => {
-            setToken(data), sessionStorage.setItem('Auth Token', data);
+            setToken(data);
+            sessionStorage.setItem('Auth Token', data);
          });
       });
       if (authState.user) {
