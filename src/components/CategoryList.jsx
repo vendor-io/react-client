@@ -13,7 +13,19 @@ import FolderIcon from '@mui/icons-material/Folder';
 
 export const CategoryList = (props) => {
    const { categories } = props;
-   console.log(categories);
+
+   if (categories.length === 0) {
+      return (
+         <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
+            <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+               <Typography component="h4" variant="h4" align="center">
+                  Currently there are no categories {':('}
+               </Typography>
+            </Paper>
+         </Container>
+      );
+   }
+
    return (
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
          <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>

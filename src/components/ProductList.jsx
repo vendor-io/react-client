@@ -1,8 +1,20 @@
-import { Container, Paper, Grid } from '@mui/material';
+import { Container, Paper, Grid, Typography } from '@mui/material';
 import { ProductCard } from './ProductCard';
 
 export const ProductList = (props) => {
    const { products } = props;
+
+   if (products.length === 0) {
+      return (
+         <Container component="main" maxWidth="xl" sx={{ mb: 4 }}>
+            <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+               <Typography variant="h4" textAlign="center">
+                  Currently there are no products {':('}
+               </Typography>
+            </Paper>
+         </Container>
+      );
+   }
 
    return (
       <Container component="main" maxWidth="xl" sx={{ mb: 4 }}>

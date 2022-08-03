@@ -78,7 +78,7 @@ export const Navbar = () => {
       }
    }, [token]);
 
-   if (user && categories.length > 0) {
+   if (user) {
       return (
          <>
             <div style={{ height: '70px' }} />
@@ -202,7 +202,7 @@ export const Navbar = () => {
                                  All categories
                               </Link>
                            </MenuItem>
-                           <Divider />
+                           {categories.length > 0 && <Divider />}
                            {categories.map((category) => (
                               <MenuItem
                                  key={category.ID}
