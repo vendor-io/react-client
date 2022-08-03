@@ -46,5 +46,21 @@ export const useProduct = () => {
       return products;
    };
 
-   return { addNewProduct, getAllProducts, response };
+   const getProductsFromCategory = async (token, slug) => {
+      let products;
+      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products/category/${slug}`, {
+         method: 'GET',
+         mode: 'cors',
+         cache: 'no-cache',
+         headers: {
+            Authorization: `Bearer ${token}`
+         }
+      })
+         .then((response) => response.json())
+         .then((data) => (products = data));
+
+      return products;
+   };
+
+   return { addNewProduct, getAllProducts, getProductsFromCategory, response };
 };
