@@ -54,7 +54,7 @@ export const Navbar = () => {
    const handleCloseUserMenu = () => {
       setAnchorElUser(null);
    };
-   const handleCloseCategoriesMenu = (event) => {
+   const handleCloseCategoriesMenu = () => {
       setAnchorElCategories(null);
    };
 
