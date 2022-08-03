@@ -14,7 +14,9 @@ export function useAuth() {
    useEffect(() => {
       const unregisterAuthObserver = auth.onAuthStateChanged((user) => {
          setAuthState({ ...authState, user, pending: false, isSignedIn: !!user });
-         user.getIdToken().then((data) => setToken(data));
+         user.getIdToken().then((data) => {
+            setToken(data), sessionStorage.setItem('Auth Token', data);
+         });
       });
       if (authState.user) {
          authState.user.getIdToken().then((data) => {

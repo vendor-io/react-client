@@ -28,15 +28,15 @@ if (token) {
             if (route.subroutes) {
                return (
                   <Route path={route.path} key={index}>
-                     {route.subroutes.map((subRoute, index) => {
+                     {route.subroutes.map((subRoute, subIndex) => {
                         if (subRoute.path === '/') {
-                           return <Route index element={subRoute.component} key={index} />;
+                           return <Route index element={subRoute.component} key={subIndex} />;
                         } else {
                            return (
                               <Route
                                  path={subRoute.path}
                                  element={subRoute.component}
-                                 key={index}
+                                 key={subIndex}
                               />
                            );
                         }
@@ -65,6 +65,7 @@ initializeApp(firebaseConfig);
 
 function App() {
    const { isSignedIn } = useAuth();
+
    return (
       <ThemeProvider theme={theme}>
          <CssBaseline />
