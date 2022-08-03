@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 import { Navbar } from './components/Navbar';
+import { CartFab } from './components/CartFab';
 import { NavBreadcrumbs } from './components/NavBreadcrumbs';
 import { BreadcrumbsContext } from './context/breadcrumbs-context';
 
@@ -72,6 +73,7 @@ function App() {
             <CssBaseline />
             {isSignedIn && <Navbar />}
             {isSignedIn && <NavBreadcrumbs />}
+            {isSignedIn && <CartFab />}
             {routesHandler}
          </ThemeProvider>
       </BreadcrumbsContext.Provider>
