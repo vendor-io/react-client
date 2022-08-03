@@ -11,9 +11,9 @@ export const NavBreadcrumbs = () => {
 
    const getAllRoutes = () => {
       const allRoutes = [];
-      routes.map((route) => {
+      routes.forEach((route) => {
          if (route.subroutes) {
-            route.subroutes.map((subRoute) => {
+            route.subroutes.forEach((subRoute) => {
                allRoutes.push({
                   path: subRoute.path === '/' ? route.path : `${route.path}/${subRoute.path}`,
                   name: subRoute.breadcrumb
@@ -30,14 +30,12 @@ export const NavBreadcrumbs = () => {
 
    const getBreadcrumbsComponents = () => {
       const allRoutes = getAllRoutes();
-      console.log('allRoutes', allRoutes);
 
       let elements = [];
       breadcrumbs.map((breadcrumb) => {
          const route = allRoutes.find((element) => {
             return element.path === breadcrumb.key;
          });
-         console.log(route?.name);
          elements.push(
             <Link
                component={RouterLink}
