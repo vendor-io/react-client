@@ -40,7 +40,7 @@ function AllProducts() {
             <Grid container spacing={5}>
                {products.map((product) => {
                   return (
-                     <Grid item xs={3} key={product.id}>
+                     <Grid item xs={3} key={product.ID}>
                         <ProductCard
                            name={product.Name}
                            price={product.Price}
