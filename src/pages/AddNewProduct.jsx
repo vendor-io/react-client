@@ -24,6 +24,7 @@ import {
    ImageListItem
 } from '@mui/material';
 import PanoramaIcon from '@mui/icons-material/Panorama';
+import { Spinner } from '../components/Spinner';
 
 function AddNewProduct() {
    const [isLoading, setIsLoading] = useState(true);
@@ -76,7 +77,7 @@ function AddNewProduct() {
    }, [response]);
 
    if (isLoading) {
-      return <>Loading...</>;
+      return <Spinner />;
    }
 
    return (
