@@ -2,7 +2,7 @@ import { useState } from 'react';
 export const useProduct = () => {
    const [response, setResponse] = useState(null);
 
-   const addNewProduct = async (data) => {
+   const addNewProduct = async (data, token, uid) => {
       if (Object.values(data).every((item) => typeof item !== 'undefined')) {
          const productData = new FormData();
 
@@ -16,10 +16,14 @@ export const useProduct = () => {
             }
          }
 
-         await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products`, {
+         await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/su/products`, {
             method: 'POST',
             mode: 'cors',
-            body: productData
+            body: productData,
+            headers: {
+               Authorization: `Bearer ${token}`,
+               UID: uid
+            }
          })
             .then((res) => res.json())
             .then((resData) => setResponse(resData));

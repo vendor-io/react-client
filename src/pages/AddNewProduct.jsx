@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useProduct } from '../hooks/useProduct';
 import { useNavigate } from 'react-router-dom';
+import { useProduct } from '../hooks/useProduct';
+import { useAuth } from '../hooks/useAuth';
 
 import {
    Container,
@@ -39,6 +40,7 @@ function AddNewProduct() {
 
    const navigate = useNavigate();
    const { addNewProduct, response } = useProduct();
+   const { token, user } = useAuth();
 
    const handleCategoryChange = (e) => {
       setCategory(e.target.value);
@@ -48,27 +50,33 @@ function AddNewProduct() {
       await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/categories`, {
          method: 'GET',
          mode: 'cors',
-         cache: 'no-cache'
+         cache: 'no-cache',
+         headers: {
+            Authorization: `Bearer ${token}`
+         }
       })
          .then((res) => res.json())
          .then((data) => setCategories(data));
    };
 
    useEffect(() => {
-      getCategories();
-      setIsLoading(false);
-   }, []);
+      if (token) {
+         getCategories();
+         setIsLoading(false);
+      }
+   }, [token]);
 
    const productImages = watch('productImages');
 
    const onSubmit = (data) => {
       data = { ...data, productCategory: category };
-      addNewProduct(data);
+      addNewProduct(data, token, user.uid);
    };
 
    useEffect(() => {
-      if (response) {
-         navigate.push(`/products/${response.ID}`);
+      if (typeof response?.ID !== 'undefined') {
+         console.log(response);
+         navigate(`/products/${response?.ID}`);
       }
    }, [response]);
 
@@ -168,11 +176,11 @@ function AddNewProduct() {
                <Grid item xs={12}>
                   <label htmlFor="productImages">
                      <Input
-                        accept="image/jpeg,image/jpg,image/png"
                         multiple={true}
                         type="file"
                         name="productImages"
                         id="productImages"
+                        accept="image/*"
                         sx={{ display: 'none' }}
                         {...register('productImages', {
                            required: true
