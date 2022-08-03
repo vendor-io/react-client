@@ -39,9 +39,9 @@ export function useAuth() {
                }
             })
                .then((res) => res.json())
-               .then((resData) => {
-                  resData === 'true' ? setAuthState({ ...authState, isSuperUser: true }) : null;
-               });
+               .then((resData) =>
+                  resData === 'true' ? setAuthState({ ...authState, isSuperUser: true }) : null
+               );
          };
 
          checkIfUserIsSuperUser();
