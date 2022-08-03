@@ -10,7 +10,6 @@ export const RegisterForm = () => {
    const {
       register,
       handleSubmit,
-      watch,
       formState: { errors }
    } = useForm();
 
