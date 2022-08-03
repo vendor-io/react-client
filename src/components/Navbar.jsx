@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { NavLink, Link as RouterLink } from 'react-router-dom';
 
+import styled from 'styled-components';
 import {
    AppBar,
    Box,
@@ -15,7 +16,8 @@ import {
    Tooltip,
    MenuItem,
    Divider,
-   Link
+   Link,
+   Chip
 } from '@mui/material';
 import AdbIcon from '@mui/icons-material/Adb';
 import KeyboardIcon from '@mui/icons-material/Keyboard';
@@ -35,7 +37,7 @@ export const Navbar = () => {
    const [anchorElUser, setAnchorElUser] = useState(null);
    const [anchorElCategories, setAnchorElCategories] = useState(null);
 
-   const { token, user } = useAuth();
+   const { token, user, isSuperUser } = useAuth();
 
    const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -101,7 +103,11 @@ export const Navbar = () => {
                         }}>
                         Keyboardify
                      </Typography>
-                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                     <Box
+                        sx={{
+                           flexGrow: 1,
+                           display: { xs: 'flex', md: 'none' }
+                        }}>
                         <IconButton
                            size="large"
                            aria-label="account of current user"
@@ -126,7 +132,7 @@ export const Navbar = () => {
                            open={Boolean(anchorElNav)}
                            onClose={handleCloseNavMenu}
                            sx={{
-                              display: { xs: 'block', md: 'none' }
+                              display: { xs: 'block', md: 'none', width: 'fit-content' }
                            }}>
                            <MenuItem onClick={handleCloseNavMenu}>
                               <Link component={NavLink} to="/products" textAlign="center">
@@ -200,8 +206,32 @@ export const Navbar = () => {
                               </MenuItem>
                            ))}
                         </Menu>
+                        {isSuperUser && (
+                           <>
+                              <Button
+                                 component={NavLink}
+                                 to="/products/new"
+                                 sx={{ ml: 3, my: 2, color: 'white', display: 'block' }}>
+                                 Add new Product
+                              </Button>
+                              <Button
+                                 component={NavLink}
+                                 to="/categories/new"
+                                 sx={{ my: 2, color: 'white', display: 'block' }}>
+                                 Add new Category
+                              </Button>
+                           </>
+                        )}
                      </Box>
                      <Box sx={{ flexGrow: 0 }}>
+                        {isSuperUser && (
+                           <Chip
+                              sx={{ mr: 2 }}
+                              label="Superuser"
+                              color="secondary"
+                              variant="contained"
+                           />
+                        )}
                         <Tooltip title="Open settings">
                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                               <Avatar alt={user?.email} src={user?.photoURL} />

@@ -5,7 +5,8 @@ export function useAuth() {
    const [authState, setAuthState] = useState({
       isSignedIn: false,
       pending: true,
-      user: null
+      user: null,
+      isSuperUser: false
    });
    const [token, setToken] = useState(null);
    const [response, setResponse] = useState(null);
@@ -26,6 +27,26 @@ export function useAuth() {
       }
       return () => unregisterAuthObserver();
    }, []);
+
+   useEffect(() => {
+      if (authState.user && token) {
+         const checkIfUserIsSuperUser = async () => {
+            await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/su/${authState.user.uid}`, {
+               method: 'GET',
+               mode: 'cors',
+               headers: {
+                  Authorization: `Bearer ${token}`
+               }
+            })
+               .then((res) => res.json())
+               .then((resData) => {
+                  resData === 'true' ? setAuthState({ ...authState, isSuperUser: true }) : null;
+               });
+         };
+
+         checkIfUserIsSuperUser();
+      }
+   }, [authState.user, token]);
 
    const createUser = async (data) => {
       await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/user/new`, {
