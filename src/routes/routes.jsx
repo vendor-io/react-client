@@ -3,6 +3,7 @@ import AllProducts from '../pages/AllProducts';
 import ProductPage from '../pages/ProductPage';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
+import Logout from '../pages/Logout';
 import Register from './../pages/Register';
 
 export const routes = [
@@ -17,6 +18,11 @@ export const routes = [
       name: 'Login',
       component: <Login />,
       notLoggedIn: true
+   },
+   {
+      path: '/logout',
+      name: 'Logout',
+      component: <Logout />
    },
    {
       path: '/register',

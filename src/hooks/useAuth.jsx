@@ -16,7 +16,6 @@ export function useAuth() {
          setAuthState({ ...authState, user, pending: false, isSignedIn: !!user });
          user.getIdToken().then((data) => {
             setToken(data);
-            sessionStorage.setItem('Auth Token', data);
          });
       });
       if (authState.user) {
@@ -27,5 +26,18 @@ export function useAuth() {
       return () => unregisterAuthObserver();
    }, []);
 
-   return { auth, token, ...authState };
+   const logout = () => {
+      const logoutUser = auth.signOut((res) => {
+         setAuthState({
+            isSignedIn: false,
+            pending: true,
+            user: null
+         });
+         setToken(null);
+         console.log(res);
+      });
+      return () => logoutUser();
+   };
+
+   return { auth, token, ...authState, logout };
 }
