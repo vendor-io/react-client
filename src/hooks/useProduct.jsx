@@ -22,7 +22,7 @@ export const useProduct = () => {
             body: productData
          })
             .then((res) => res.json())
-            .then((data) => setResponse(data));
+            .then((resData) => setResponse(resData));
       }
    };
 
