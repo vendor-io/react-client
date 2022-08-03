@@ -10,9 +10,9 @@ function Dev() {
                   <li key={index}>
                      {route.path}
                      <ul>
-                        {route.subroutes.map((subRoute, index) => {
+                        {route.subroutes.map((subRoute, subIndex) => {
                            return (
-                              <li key={index}>
+                              <li key={subIndex}>
                                  <Link to={`${route.path}/${subRoute.path}`}>{subRoute.name}</Link>
                               </li>
                            );
