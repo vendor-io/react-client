@@ -55,8 +55,8 @@ export const NavBreadcrumbs = () => {
 
    if (breadcrumbs[0].location.pathname !== '/') {
       return (
-         <Container component="main" maxWidth="xl" sx={{ mb: 4 }}>
-            <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+         <Container component="main" maxWidth="xl">
+            <Paper variant="outlined" sx={{ mt: { xs: 3, md: 6 }, mb: 1, p: { xs: 2, md: 3 } }}>
                <Breadcrumbs
                   separator={<NavigateNextIcon fontSize="small" />}
                   aria-label="breadcrumb">
