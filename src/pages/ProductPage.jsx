@@ -1,14 +1,15 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
-import { differenceInDays } from 'date-fns';
+import { useAuth } from '../hooks/useAuth';
 import { BreadcrumbsContext } from '../context/breadcrumbs-context';
+import { differenceInDays } from 'date-fns';
 
 import Slider from 'react-slick';
 import { Container, Grid, Paper, Typography, Link, Divider, Button, Chip } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { ProductPageSkeleton } from '../components/ProductPageSkeleton';
 
 import { mainSliderOptions, subSliderOptions } from '../constant/sliderOptions';
-import { useAuth } from '../hooks/useAuth';
 
 function ProductPage() {
    const [isLoading, setIsLoading] = useState(true);
@@ -58,7 +59,7 @@ function ProductPage() {
    }, [product]);
 
    if (isLoading) {
-      return <>Loading...</>;
+      return <ProductPageSkeleton />;
    }
 
    return (
