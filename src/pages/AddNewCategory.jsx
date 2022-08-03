@@ -58,6 +58,20 @@ function AddNewCategory() {
                   />
                </Grid>
                <Grid item xs={12}>
+                  <TextField
+                     id="categoryDescription"
+                     name="categoryDescription"
+                     label="Description"
+                     fullWidth
+                     multiline
+                     rows={3}
+                     maxRows={5}
+                     autoComplete="description"
+                     variant="outlined"
+                     {...register('Description', { required: true })}
+                  />
+               </Grid>
+               <Grid item xs={12}>
                   <Button sx={{}} variant="contained" type="submit">
                      Submit
                   </Button>
