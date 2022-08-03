@@ -1,7 +1,5 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 
 import {
