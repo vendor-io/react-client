@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { NavLink, Link as RouterLink } from 'react-router-dom';
 
-import styled from 'styled-components';
 import {
    AppBar,
    Box,
@@ -194,6 +193,16 @@ export const Navbar = () => {
                            }}
                            open={Boolean(anchorElCategories)}
                            onClose={handleCloseCategoriesMenu}>
+                           <MenuItem onClick={handleCloseCategoriesMenu}>
+                              <Link
+                                 color="inherit"
+                                 underline="none"
+                                 component={RouterLink}
+                                 to="/categories">
+                                 All categories
+                              </Link>
+                           </MenuItem>
+                           <Divider />
                            {categories.map((category) => (
                               <MenuItem key={category.ID} onClick={handleCloseCategoriesMenu}>
                                  <Link
