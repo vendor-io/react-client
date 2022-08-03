@@ -14,8 +14,8 @@ import { Link as RouterLink } from 'react-router-dom';
 export const ProductCard = (props) => {
    const { name, price, image, id } = props;
 
-   const formatPrice = (price) => {
-      const stringPrice = price.toString();
+   const formatPrice = (value) => {
+      const stringPrice = value.toString();
       return `${stringPrice.substring(0, stringPrice.length - 2)}.${stringPrice.substring(
          stringPrice.length - 2,
          stringPrice.length
