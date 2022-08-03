@@ -29,7 +29,7 @@ export const CategoryList = (props) => {
                         <ListItemIcon>
                            <FolderIcon />
                         </ListItemIcon>
-                        <ListItemText primary={category.Name} secondary="Secondary text" />
+                        <ListItemText primary={category.Name} secondary={category.Description} />
                      </ListItemButton>
                   );
                })}
