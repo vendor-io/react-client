@@ -31,12 +31,7 @@ function AddNewProduct() {
 
    const [category, setCategory] = useState('None');
 
-   const {
-      register,
-      handleSubmit,
-      watch,
-      formState: { errors }
-   } = useForm();
+   const { register, handleSubmit, watch } = useForm();
 
    const navigate = useNavigate();
    const { addNewProduct, response } = useProduct();
