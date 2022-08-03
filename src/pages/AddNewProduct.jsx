@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useProduct } from '../hooks/useProduct';
 import { useAuth } from '../hooks/useAuth';
+import { useCategory } from '../hooks/useCategory';
 
 import {
    Container,
@@ -38,26 +39,15 @@ function AddNewProduct() {
    const { addNewProduct, response } = useProduct();
    const { token, user } = useAuth();
 
+   const { getCategories } = useCategory();
+
    const handleCategoryChange = (e) => {
       setCategory(e.target.value);
    };
 
-   const getCategories = async () => {
-      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/categories`, {
-         method: 'GET',
-         mode: 'cors',
-         cache: 'no-cache',
-         headers: {
-            Authorization: `Bearer ${token}`
-         }
-      })
-         .then((res) => res.json())
-         .then((data) => setCategories(data));
-   };
-
    useEffect(() => {
       if (token) {
-         getCategories();
+         getCategories(token).then((data) => setCategories(data));
          setIsLoading(false);
       }
    }, [token]);
