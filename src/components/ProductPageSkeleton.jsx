@@ -49,6 +49,12 @@ export const ProductPageSkeleton = () => {
                      <Grid item xs={12} md={10}>
                         <Skeleton variant="text" width="25%" height={30} />
                      </Grid>
+                     <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Typography variant="overline">Price</Typography>
+                     </Grid>
+                     <Grid item xs={12} md={10}>
+                        <Skeleton variant="text" width="18%" height={30} />
+                     </Grid>
                   </Grid>
                   <Divider sx={{ mt: 2, mb: 2 }} />
                   <Button

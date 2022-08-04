@@ -8,6 +8,7 @@ import Slider from 'react-slick';
 import { Container, Grid, Paper, Typography, Link, Divider, Button, Chip } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ProductPageSkeleton } from '../components/ProductPageSkeleton';
+import { formatPrice } from '../util/format-price';
 
 import { mainSliderOptions, subSliderOptions } from '../constant/sliderOptions';
 
@@ -132,6 +133,12 @@ function ProductPage() {
                      </Grid>
                      <Grid item xs={12} md={10}>
                         <Typography variant="h5">{product?.EAN}</Typography>
+                     </Grid>
+                     <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Typography variant="overline">Price</Typography>
+                     </Grid>
+                     <Grid item xs={12} md={10}>
+                        <Typography variant="h5">{formatPrice(product?.Price)} $</Typography>
                      </Grid>
                   </Grid>
                   <Divider sx={{ mt: 2, mb: 2 }} />
