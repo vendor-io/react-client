@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { useCategory } from '../hooks/useCategory';
 import { NavLink, Link as RouterLink } from 'react-router-dom';
 
 import {
@@ -38,6 +39,8 @@ export const Navbar = () => {
 
    const { token, user, isSuperUser } = useAuth();
 
+   const { getCategories } = useCategory();
+
    const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
    };
@@ -59,22 +62,9 @@ export const Navbar = () => {
       setAnchorElCategories(null);
    };
 
-   const getAllCategories = async () => {
-      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/categories`, {
-         method: 'GET',
-         mode: 'cors',
-         cache: 'no-cache',
-         headers: {
-            Authorization: `Bearer ${token}`
-         }
-      })
-         .then((response) => response.json())
-         .then((data) => setCategories(data));
-   };
-
    useEffect(() => {
       if (token) {
-         getAllCategories();
+         getCategories(token).then((data) => setCategories(data));
       }
    }, [token]);
 
