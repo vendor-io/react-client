@@ -193,28 +193,21 @@ export const Navbar = () => {
                            }}
                            open={Boolean(anchorElCategories)}
                            onClose={handleCloseCategoriesMenu}>
-                           <MenuItem onClick={handleCloseCategoriesMenu}>
-                              <Link
-                                 color="inherit"
-                                 underline="none"
-                                 component={RouterLink}
-                                 to="/categories">
-                                 All categories
-                              </Link>
+                           <MenuItem
+                              component={RouterLink}
+                              to="/categories"
+                              onClick={handleCloseCategoriesMenu}>
+                              <Typography color="inherit">All categories</Typography>
                            </MenuItem>
                            {categories.length > 0 && <Divider />}
                            {categories.map((category) => (
                               <MenuItem
                                  key={category.ID}
+                                 component={RouterLink}
+                                 to={`/categories/${category.Slug}`}
                                  onClick={handleCloseCategoriesMenu}
                                  sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                 <Link
-                                    color="inherit"
-                                    underline="none"
-                                    component={RouterLink}
-                                    to={`/categories/${category.Slug}`}>
-                                    {category.Name}
-                                 </Link>
+                                 <Typography color="inherit">{category.Name}</Typography>
                                  <Chip sx={{ ml: 3 }} label={category.ItemsAmount} />
                               </MenuItem>
                            ))}
