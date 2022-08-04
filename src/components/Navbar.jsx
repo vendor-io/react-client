@@ -24,6 +24,8 @@ import KeyboardIcon from '@mui/icons-material/Keyboard';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
+import { DarkModeSwitch } from './DarkModeSwitch';
+
 const userLinks = [
    { name: 'Cart', path: '/cart' },
    { name: 'Orders', path: '/orders' },
@@ -264,6 +266,7 @@ export const Navbar = () => {
                            ))}
                         </Menu>
                      </Box>
+                     <DarkModeSwitch />
                   </Toolbar>
                </Container>
             </AppBar>

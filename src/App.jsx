@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { theme } from './styles/theme';
+import { theme, darkTheme } from './styles/theme';
 import { ThemeProvider } from '@mui/system';
 import { CssBaseline } from '@mui/material';
 import { routes } from './routes/routes';
@@ -16,7 +16,9 @@ import Register from './pages/Register';
 import { Navbar } from './components/Navbar';
 import { CartFab } from './components/CartFab';
 import { NavBreadcrumbs } from './components/NavBreadcrumbs';
+
 import { BreadcrumbsContext } from './context/breadcrumbs-context';
+import { ThemeContext } from './context/theme-context';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -25,6 +27,7 @@ initializeApp(firebaseConfig);
 
 function App() {
    const [currentBreadcrumb, setCurrentBreadcrumb] = useState(null);
+   const [darkMode, setDarkMode] = useState(false);
    const { isSignedIn, token } = useAuth();
 
    let routesHandler;
@@ -69,13 +72,15 @@ function App() {
 
    return (
       <BreadcrumbsContext.Provider value={{ currentBreadcrumb, setCurrentBreadcrumb }}>
-         <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {isSignedIn && <Navbar />}
-            {isSignedIn && <NavBreadcrumbs />}
-            {isSignedIn && <CartFab />}
-            {routesHandler}
-         </ThemeProvider>
+         <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+            <ThemeProvider theme={darkMode ? darkTheme : theme}>
+               <CssBaseline />
+               {isSignedIn && <Navbar />}
+               {isSignedIn && <NavBreadcrumbs />}
+               {isSignedIn && <CartFab />}
+               {routesHandler}
+            </ThemeProvider>
+         </ThemeContext.Provider>
       </BreadcrumbsContext.Provider>
    );
 }
