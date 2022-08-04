@@ -11,22 +11,10 @@ import {
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link as RouterLink } from 'react-router-dom';
+import { formatPrice } from '../util/format-price';
 
 export const ProductCard = (props) => {
    const { name, price, image, id } = props;
-
-   const formatPrice = (value) => {
-      const stringPrice = value.toString();
-      if (stringPrice.length === 1) {
-         return `0.0${stringPrice}`;
-      } else if (stringPrice.length === 2) {
-         return `0.${stringPrice.substring(stringPrice.length - 2, stringPrice.length)}`;
-      }
-      return `${stringPrice.substring(0, stringPrice.length - 2)}.${stringPrice.substring(
-         stringPrice.length - 2,
-         stringPrice.length
-      )}`;
-   };
 
    return (
       <Card
