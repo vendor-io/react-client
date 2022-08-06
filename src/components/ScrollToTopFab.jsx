@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+
+import styled from 'styled-components';
+import { keyframes } from 'styled-components';
 import { Tooltip, Fab, Box } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
@@ -15,8 +18,26 @@ export const ScrollToTopFab = () => {
    };
 
    const scrollToTop = () => {
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
    };
+
+   const fadeIn = keyframes`
+      from {
+         opacity: 0
+      }
+
+      to {
+         opacity: 1
+      }
+   `;
+
+   const FadeInFixedBox = styled(Box)`
+      position: fixed;
+      z-index: 999;
+      bottom: 106px;
+      right: 34px;
+      animation: ${fadeIn} 0.3s linear;
+   `;
 
    useEffect(() => {
       window.addEventListener('scroll', handleScroll, { passive: true });
@@ -27,14 +48,8 @@ export const ScrollToTopFab = () => {
    }, []);
    return (
       visible && (
-         <Box
-            sx={{
-               position: 'fixed',
-               zIndex: 9999,
-               bottom: '36px',
-               right: '90px'
-            }}>
-            <Tooltip title="Scroll to top" arrow placement="top-end">
+         <FadeInFixedBox>
+            <Tooltip title="Scroll to top" arrow placement="top">
                <Fab
                   color="secondary"
                   aria-label="add"
@@ -48,7 +63,7 @@ export const ScrollToTopFab = () => {
                   <ArrowUpwardIcon />
                </Fab>
             </Tooltip>
-         </Box>
+         </FadeInFixedBox>
       )
    );
 };
