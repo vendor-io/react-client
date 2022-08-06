@@ -3,7 +3,7 @@ import useBreadcrumbs from 'use-react-router-breadcrumbs';
 import { BreadcrumbsContext } from '../context/breadcrumbs-context';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Container, Paper, Breadcrumbs, Link } from '@mui/material';
+import { Container, Paper, Breadcrumbs, Link, Skeleton } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 import { routes } from '../routes/routes';
@@ -46,7 +46,13 @@ export const NavBreadcrumbs = () => {
                key={breadcrumb.key}
                color="inherit"
                to={breadcrumb.key}>
-               {route?.name ? route.name : currentBreadcrumb}
+               {route?.name ? (
+                  route.name
+               ) : currentBreadcrumb === null ? (
+                  <Skeleton variant="text" width={150} />
+               ) : (
+                  currentBreadcrumb
+               )}
             </Link>
          );
       });
