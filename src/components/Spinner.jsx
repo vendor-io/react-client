@@ -1,4 +1,4 @@
-import { Container, Paper, CircularProgress, Hidden } from '@mui/material';
+import { Container, Paper, CircularProgress } from '@mui/material';
 
 export const Spinner = (props) => {
    const { variant } = props;
