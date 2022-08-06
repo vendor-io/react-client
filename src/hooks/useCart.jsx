@@ -18,7 +18,7 @@ export function useCart() {
          .then((res) => res.json())
          .then((data) => (cart = data));
 
-      localStorage.setItem('cartItemsAmount', cart?.Products?.length);
+      localStorage.setItem('cartItemsAmount', cart?.products?.length);
       return cart;
    };
 

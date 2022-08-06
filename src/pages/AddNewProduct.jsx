@@ -60,9 +60,9 @@ function AddNewProduct() {
    };
 
    useEffect(() => {
-      if (typeof response?.ID !== 'undefined') {
+      if (typeof response?.id !== 'undefined') {
          console.log(response);
-         navigate(`/products/${response?.ID}`);
+         navigate(`/products/${response?.id}`);
       }
    }, [response]);
 
@@ -150,9 +150,9 @@ function AddNewProduct() {
                               <em>None</em>
                            </MenuItem>
                            {categories.map((categoryItem) => (
-                              <MenuItem key={categoryItem.ID} value={categoryItem.Name}>
-                                 <ListItemText primary={categoryItem.Name} />
-                                 <Chip sx={{ ml: 1 }} label={categoryItem.ItemsAmount} />
+                              <MenuItem key={categoryItem.id} value={categoryItem.name}>
+                                 <ListItemText primary={categoryItem.name} />
+                                 <Chip sx={{ ml: 1 }} label={categoryItem.itemsAmount} />
                               </MenuItem>
                            ))}
                         </Select>

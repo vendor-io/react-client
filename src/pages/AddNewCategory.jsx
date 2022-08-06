@@ -54,7 +54,7 @@ function AddNewCategory() {
                      autoFocus
                      autoComplete="category"
                      variant="standard"
-                     {...register('Name', { required: true })}
+                     {...register('name', { required: true })}
                   />
                </Grid>
                <Grid item xs={12}>
@@ -68,7 +68,7 @@ function AddNewCategory() {
                      maxRows={5}
                      autoComplete="description"
                      variant="outlined"
-                     {...register('Description', { required: true })}
+                     {...register('description', { required: true })}
                   />
                </Grid>
                <Grid item xs={12}>

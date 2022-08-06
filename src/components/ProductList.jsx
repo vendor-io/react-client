@@ -22,12 +22,12 @@ export const ProductList = (props) => {
             <Grid container spacing={5}>
                {products.map((product) => {
                   return (
-                     <Grid item xs={3} key={product.ID}>
+                     <Grid item xs={3} key={product.id}>
                         <ProductCard
-                           name={product.Name}
-                           price={product.Price}
-                           image={product.MainImage}
-                           id={product.ID}
+                           name={product.name}
+                           price={product.price}
+                           image={product.mainImage}
+                           id={product.id}
                         />
                      </Grid>
                   );

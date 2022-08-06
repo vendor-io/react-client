@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { formatPrice } from './../util/format-price';
 
-import { Paper, Box, Tooltip, Grid, Typography, Stack, IconButton } from '@mui/material';
+import { Paper, Tooltip, Grid, Typography, Stack, IconButton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export const CartProduct = (props) => {
@@ -25,6 +25,7 @@ export const CartProduct = (props) => {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
    `;
 
    const backgroundColorResolver = () => {
@@ -49,7 +50,7 @@ export const CartProduct = (props) => {
          }}>
          <Grid container columnSpacing={2}>
             <Grid item xs={3}>
-               <ProductThumbnail src={image} alt="" style />
+               <ProductThumbnail src={image} alt={name} style />
             </Grid>
             <GridElement item xs={4}>
                <Stack spacing={2}>
@@ -75,13 +76,11 @@ export const CartProduct = (props) => {
                {/* Changing product amount */}
             </GridElement>
             <GridElement item xs={1}>
-               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Tooltip title="Remove product from cart" arrow placement="left">
-                     <IconButton variant="contained" onClick={() => handleDelete(id)}>
-                        <DeleteForeverIcon />
-                     </IconButton>
-                  </Tooltip>
-               </Box>
+               <Tooltip title="Remove product from cart" arrow placement="left">
+                  <IconButton variant="contained" onClick={() => handleDelete(id)}>
+                     <DeleteForeverIcon />
+                  </IconButton>
+               </Tooltip>
             </GridElement>
          </Grid>
       </Paper>

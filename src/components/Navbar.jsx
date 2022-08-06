@@ -194,13 +194,13 @@ export const Navbar = () => {
                            {categories.length > 0 && <Divider />}
                            {categories.map((category) => (
                               <MenuItem
-                                 key={category.ID}
+                                 key={category.id}
                                  component={RouterLink}
-                                 to={`/categories/${category.Slug}`}
+                                 to={`/categories/${category.slug}`}
                                  onClick={handleCloseCategoriesMenu}
                                  sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                 <Typography color="inherit">{category.Name}</Typography>
-                                 <Chip sx={{ ml: 3 }} label={category.ItemsAmount} />
+                                 <Typography color="inherit">{category.name}</Typography>
+                                 <Chip sx={{ ml: 3 }} label={category.itemsAmount} />
                               </MenuItem>
                            ))}
                         </Menu>

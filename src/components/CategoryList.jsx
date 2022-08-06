@@ -36,14 +36,14 @@ export const CategoryList = (props) => {
                {categories.map((category) => {
                   return (
                      <ListItemButton
-                        key={category.ID}
+                        key={category.id}
                         component={RouterLink}
-                        to={`/categories/${category.Slug}`}>
+                        to={`/categories/${category.slug}`}>
                         <ListItemIcon>
                            <FolderIcon />
                         </ListItemIcon>
-                        <ListItemText primary={category.Name} secondary={category.Description} />
-                        <Chip sx={{ ml: 3 }} label={category.ItemsAmount} />
+                        <ListItemText primary={category.name} secondary={category.description} />
+                        <Chip sx={{ ml: 3 }} label={category.itemsAmount} />
                      </ListItemButton>
                   );
                })}

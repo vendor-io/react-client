@@ -22,7 +22,7 @@ function AllCategoryProducts() {
    useEffect(() => {
       if (token) {
          getProductsFromCategory(token, slug).then((data) => setProducts(data));
-         getCategoryBySlug(token, slug).then((data) => setCurrentBreadcrumb(data?.Name));
+         getCategoryBySlug(token, slug).then((data) => setCurrentBreadcrumb(data?.name));
 
          setIsLoading(false);
       }

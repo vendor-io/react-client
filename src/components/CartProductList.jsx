@@ -42,19 +42,21 @@ export const CartProductList = (props) => {
       );
    }
 
+   console.log(products);
+
    return (
       <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
-         <Grid>
+         <Grid container>
             {products.map((product, index) => {
                return (
-                  <Grid item xs={12}>
+                  <Grid item xs={12} key={product.id}>
                      <CartProduct
-                        key={product.ID}
-                        id={product.ID}
-                        name={product.Name}
-                        category={product.CategoryID}
-                        image={product.MainImage}
-                        price={product.Price}
+                        key={product.id}
+                        id={product.id}
+                        name={product.name}
+                        category={product.categoryId}
+                        image={product.mainImage}
+                        price={product.price}
                         odd={index % 2 === 0 ? false : true}
                         handleDelete={handleDelete}
                      />

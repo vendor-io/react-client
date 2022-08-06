@@ -38,10 +38,10 @@ function Cart() {
       );
    }
 
-   if (cart?.Products?.length >= 0) {
+   if (cart?.products?.length >= 0) {
       return (
          <Container maxWidth="xl">
-            <CartProductList products={cart.Products} handleDelete={handleDelete} />
+            <CartProductList products={cart.products} handleDelete={handleDelete} />
          </Container>
       );
    }

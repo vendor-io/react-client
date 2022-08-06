@@ -41,7 +41,7 @@ function ProductPage() {
 
    const handleAddToCart = () => {
       if (token) {
-         addProductToCart(token, { productId: product.ID, userId: user.uid }).then((data) => {
+         addProductToCart(token, { productId: product.id, userId: user.uid }).then((data) => {
             console.log(data);
             setIsClicked(true);
          });
@@ -56,8 +56,8 @@ function ProductPage() {
 
    useEffect(() => {
       if (product) {
-         setImages(product.Images.split(';'));
-         setCurrentBreadcrumb(product.Name);
+         setImages(product.images.split(';'));
+         setCurrentBreadcrumb(product.name);
          setIsLoading(false);
       }
       return () => setCurrentBreadcrumb(null);
@@ -107,7 +107,7 @@ function ProductPage() {
                <Grid item xs={6}>
                   <div style={{ marginBottom: '15px' }}>
                      <Typography variant="h2" sx={{ display: 'inline' }}>
-                        {product.Name}
+                        {product.name}
                      </Typography>
                      {isNewProduct() && (
                         <Chip
@@ -125,24 +125,24 @@ function ProductPage() {
                      <Grid item xs={12} md={10}>
                         <Link
                            component={RouterLink}
-                           to={`/categories/${product.Category.Slug}`}
+                           to={`/categories/${product.category.slug}`}
                            variant="h5"
                            color="inherit"
                            underline="hover">
-                           {product?.Category?.Name}
+                           {product?.category?.name}
                         </Link>
                      </Grid>
                      <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                         <Typography variant="overline">EAN</Typography>
                      </Grid>
                      <Grid item xs={12} md={10}>
-                        <Typography variant="h5">{product?.EAN}</Typography>
+                        <Typography variant="h5">{product?.ean}</Typography>
                      </Grid>
                      <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                         <Typography variant="overline">Price</Typography>
                      </Grid>
                      <Grid item xs={12} md={10}>
-                        <Typography variant="h5">${formatPrice(product?.Price)}</Typography>
+                        <Typography variant="h5">${formatPrice(product?.price)}</Typography>
                      </Grid>
                   </Grid>
                   <Divider sx={{ mt: 2, mb: 2 }} />
@@ -169,7 +169,7 @@ function ProductPage() {
                   <Typography variant="overline" sx={{ display: 'block' }}>
                      Description
                   </Typography>
-                  <Typography dangerouslySetInnerHTML={{ __html: product.Description }} />
+                  <Typography dangerouslySetInnerHTML={{ __html: product.description }} />
                </Grid>
             </Grid>
          </Paper>
