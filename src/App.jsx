@@ -15,6 +15,7 @@ import Register from './pages/Register';
 
 import { Navbar } from './components/Navbar';
 import { CartFab } from './components/CartFab';
+import { ScrollToTopFab } from './components/ScrollToTopFab';
 import { NavBreadcrumbs } from './components/NavBreadcrumbs';
 
 import { BreadcrumbsContext } from './context/breadcrumbs-context';
@@ -80,6 +81,7 @@ function App() {
                {isSignedIn && <Navbar />}
                {isSignedIn && <NavBreadcrumbs />}
                {isSignedIn && <CartFab />}
+               <ScrollToTopFab />
                {routesHandler}
             </ThemeProvider>
          </ThemeContext.Provider>
