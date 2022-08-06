@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useAuth } from '../hooks/useAuth';
+import { useCart } from '../hooks/useCart';
 import {
    Box,
    Grid,
@@ -10,11 +13,25 @@ import {
    Link
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DoneIcon from '@mui/icons-material/Done';
+
 import { Link as RouterLink } from 'react-router-dom';
 import { formatPrice } from '../util/format-price';
 
 export const ProductCard = (props) => {
    const { name, price, image, id } = props;
+   const [isClicked, setIsClicked] = useState(false);
+   const { token, user } = useAuth();
+   const { addProductToCart } = useCart();
+
+   const handleAddToCart = () => {
+      if (token) {
+         addProductToCart(token, { productId: id, userId: user.uid }).then((data) => {
+            console.log(data);
+            setIsClicked(true);
+         });
+      }
+   };
 
    return (
       <Card
@@ -46,9 +63,18 @@ export const ProductCard = (props) => {
                   </Typography>
                </Grid>
                <Grid item>
-                  <Button startIcon={<ShoppingCartIcon />} variant="contained">
-                     Add to cart
-                  </Button>
+                  {isClicked ? (
+                     <Button disabled color="success" startIcon={<DoneIcon />} variant="contained">
+                        Added!
+                     </Button>
+                  ) : (
+                     <Button
+                        onClick={handleAddToCart}
+                        startIcon={<ShoppingCartIcon />}
+                        variant="contained">
+                        Add to cart
+                     </Button>
+                  )}
                </Grid>
             </Grid>
          </CardActions>

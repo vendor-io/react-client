@@ -8,6 +8,7 @@ import Register from './../pages/Register';
 import AllCategories from '../pages/AllCategories';
 import AddNewNewCategory from '../pages/AddNewCategory';
 import AllCategoryProducts from '../pages/AllCategoryProducts';
+import Cart from '../pages/Cart';
 
 export const routes = [
    {
@@ -80,5 +81,11 @@ export const routes = [
             component: <AddNewNewCategory />
          }
       ]
+   },
+   {
+      path: '/cart',
+      name: 'Cart',
+      breadcrumb: 'Cart',
+      component: <Cart />
    }
 ];
