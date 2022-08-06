@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProduct } from './../hooks/useProduct';
+import { useCategory } from './../hooks/useCategory';
 import { useAuth } from './../hooks/useAuth';
 import { BreadcrumbsContext } from './../context/breadcrumbs-context';
 
@@ -16,15 +17,12 @@ function AllCategoryProducts() {
    const { slug } = useParams();
    const { token } = useAuth();
    const { getProductsFromCategory } = useProduct();
+   const { getCategoryBySlug } = useCategory();
 
    useEffect(() => {
       if (token) {
          getProductsFromCategory(token, slug).then((data) => setProducts(data));
-
-         let formattedSlug = slug;
-         formattedSlug = formattedSlug.charAt(0).toUpperCase() + formattedSlug.slice(1);
-         formattedSlug = formattedSlug.replace('-', ' ');
-         setCurrentBreadcrumb(formattedSlug);
+         getCategoryBySlug(token, slug).then((data) => setCurrentBreadcrumb(data.Name));
 
          setIsLoading(false);
       }
