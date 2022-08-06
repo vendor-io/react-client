@@ -58,9 +58,7 @@ export function useCart() {
             'content-type': 'application/json;charset=UTF-8'
          },
          body: JSON.stringify(requestBody)
-      })
-         .then((res) => res.json())
-         .then((data) => console.log(data));
+      }).then((res) => console.log(res));
    };
 
    return { getCartForUser, addProductToCart, removeProductFromCart };
