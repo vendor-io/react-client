@@ -50,7 +50,9 @@ export const CartProduct = (props) => {
          }}>
          <Grid container columnSpacing={2}>
             <Grid item xs={3}>
-               <ProductThumbnail src={image} alt={name} style />
+               <RouterLink to={`/products/${id}`}>
+                  <ProductThumbnail src={image} alt={name} style />
+               </RouterLink>
             </Grid>
             <GridElement item xs={4}>
                <Stack spacing={2} sx={{ width: '100%' }}>
