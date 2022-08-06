@@ -53,7 +53,7 @@ export const CartProduct = (props) => {
                <ProductThumbnail src={image} alt={name} style />
             </Grid>
             <GridElement item xs={4}>
-               <Stack spacing={2}>
+               <Stack spacing={2} sx={{ width: '100%' }}>
                   <Typography
                      component={RouterLink}
                      to={`/products/${id}`}
@@ -67,8 +67,12 @@ export const CartProduct = (props) => {
                   </Typography>
                </Stack>
             </GridElement>
-            <GridElement item xs={2}>
-               <Typography variant="button" sx={{ fontSize: '2rem' }} textAlign="center">
+            <GridElement item xs={1} />
+            <GridElement item xs={1}>
+               <Typography
+                  variant="button"
+                  sx={{ fontSize: '2rem', width: '100%' }}
+                  textAlign="left">
                   ${formatPrice(price)}
                </Typography>
             </GridElement>
