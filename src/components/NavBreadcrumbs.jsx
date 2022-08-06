@@ -31,6 +31,16 @@ export const NavBreadcrumbs = () => {
       return allRoutes;
    };
 
+   const routeNameResolver = (route) => {
+      if (route?.name) {
+         return route.name;
+      }
+      if (currentBreadcrumb) {
+         return currentBreadcrumb;
+      }
+      return <Skeleton variant="text" width={150} />;
+   };
+
    const getBreadcrumbsComponents = () => {
       const allRoutes = getAllRoutes();
 
@@ -46,13 +56,7 @@ export const NavBreadcrumbs = () => {
                key={breadcrumb.key}
                color="inherit"
                to={breadcrumb.key}>
-               {route?.name ? (
-                  route.name
-               ) : currentBreadcrumb === null ? (
-                  <Skeleton variant="text" width={150} />
-               ) : (
-                  currentBreadcrumb
-               )}
+               {routeNameResolver(route)}
             </Link>
          );
       });
