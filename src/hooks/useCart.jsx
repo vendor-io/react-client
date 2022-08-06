@@ -50,7 +50,6 @@ export function useCart() {
    };
 
    const removeProductFromCart = async (token, data) => {
-      let cart;
       await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/cart/remove`, {
          method: 'POST',
          mode: 'cors',
@@ -61,9 +60,7 @@ export function useCart() {
          body: JSON.stringify(data)
       })
          .then((res) => res.json())
-         .then((data) => (cart = data));
-
-      return cart;
+         .then((data) => console.log(data));
    };
 
    return { getCartForUser, addProductToCart, removeProductFromCart };

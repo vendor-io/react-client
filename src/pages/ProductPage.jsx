@@ -1,12 +1,16 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { useProduct } from '../hooks/useProduct';
+import { useCart } from './../hooks/useCart';
 import { BreadcrumbsContext } from '../context/breadcrumbs-context';
 import { differenceInDays } from 'date-fns';
 
 import Slider from 'react-slick';
 import { Container, Grid, Paper, Typography, Link, Divider, Button, Chip } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DoneIcon from '@mui/icons-material/Done';
+
 import { ProductPageSkeleton } from '../components/ProductPageSkeleton';
 import { formatPrice } from '../util/format-price';
 
@@ -14,6 +18,7 @@ import { mainSliderOptions, subSliderOptions } from '../constant/sliderOptions';
 
 function ProductPage() {
    const [isLoading, setIsLoading] = useState(true);
+   const [isClicked, setIsClicked] = useState(false);
 
    const [product, setProduct] = useState(null);
    const [images, setImages] = useState([]);
@@ -25,28 +30,27 @@ function ProductPage() {
 
    const { pid } = useParams();
 
-   const { token } = useAuth();
+   const { token, user } = useAuth();
 
-   const getProduct = async (id) => {
-      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products/${id}`, {
-         method: 'GET',
-         mode: 'cors',
-         cache: 'no-cache',
-         headers: {
-            Authorization: `Bearer ${token}`
-         }
-      })
-         .then((response) => response.json())
-         .then((data) => setProduct(data));
-   };
+   const { getProductById } = useProduct();
+   const { addProductToCart } = useCart();
 
    const isNewProduct = () => {
       return differenceInDays(new Date(product.CreatedAt), new Date()) === 0;
    };
 
+   const handleAddToCart = () => {
+      if (token) {
+         addProductToCart(token, { productId: product.ID, userId: user.uid }).then((data) => {
+            console.log(data);
+            setIsClicked(true);
+         });
+      }
+   };
+
    useEffect(() => {
       if (token) {
-         getProduct(pid);
+         getProductById(token, pid).then((data) => setProduct(data));
       }
    }, [token]);
 
@@ -142,13 +146,26 @@ function ProductPage() {
                      </Grid>
                   </Grid>
                   <Divider sx={{ mt: 2, mb: 2 }} />
-                  <Button
-                     startIcon={<ShoppingCartIcon />}
-                     fullWidth
-                     variant="contained"
-                     sx={{ mb: 2, py: 2 }}>
-                     Add to cart
-                  </Button>
+                  {isClicked ? (
+                     <Button
+                        disabled
+                        color="success"
+                        startIcon={<DoneIcon />}
+                        fullWidth
+                        sx={{ mb: 2, py: 2 }}
+                        variant="contained">
+                        Added!
+                     </Button>
+                  ) : (
+                     <Button
+                        startIcon={<ShoppingCartIcon />}
+                        onClick={handleAddToCart}
+                        fullWidth
+                        variant="contained"
+                        sx={{ mb: 2, py: 2 }}>
+                        Add to cart
+                     </Button>
+                  )}
                   <Typography variant="overline" sx={{ display: 'block' }}>
                      Description
                   </Typography>
