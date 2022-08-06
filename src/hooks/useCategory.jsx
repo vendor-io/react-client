@@ -15,6 +15,22 @@ export function useCategory() {
       return categories;
    };
 
+   const getCategoryBySlug = async (token, slug) => {
+      let category;
+      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/categories/${slug}`, {
+         method: 'GET',
+         mode: 'cors',
+         cache: 'no-cache',
+         headers: {
+            Authorization: `Bearer ${token}`
+         }
+      })
+         .then((res) => res.json())
+         .then((data) => (category = data));
+
+      return category;
+   };
+
    const addNewCategory = async (token, uid, data) => {
       let response;
 
@@ -35,5 +51,5 @@ export function useCategory() {
       return response;
    };
 
-   return { getCategories, addNewCategory };
+   return { getCategories, getCategoryBySlug, addNewCategory };
 }
