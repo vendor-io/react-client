@@ -15,7 +15,7 @@ export const ProductListSkeleton = () => {
       <Container component="main" maxWidth="xl" sx={{ mb: 4 }}>
          <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
             <Grid container spacing={5}>
-               {Array.from({ length: 8 }).map((index) => {
+               {Array.from({ length: 8 }).map((_item, index) => {
                   return (
                      <Grid item xs={3} key={index}>
                         <Card>
