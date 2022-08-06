@@ -31,7 +31,7 @@ export function useCategory() {
       return category;
    };
 
-   const addNewCategory = async (token, uid, data) => {
+   const addNewCategory = async (token, uid, requestBody) => {
       let response;
 
       await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/su/categories`, {
@@ -43,7 +43,7 @@ export function useCategory() {
             Authorization: `Bearer ${token}`,
             UID: uid
          },
-         body: JSON.stringify(data)
+         body: JSON.stringify(requestBody)
       })
          .then((res) => res.json())
          .then((data) => (response = data));

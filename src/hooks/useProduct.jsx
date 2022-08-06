@@ -13,7 +13,7 @@ export const useProduct = () => {
             Authorization: `Bearer ${token}`
          }
       })
-         .then((response) => response.json())
+         .then((res) => res.json())
          .then((data) => (product = data));
 
       return product;
@@ -29,7 +29,7 @@ export const useProduct = () => {
             Authorization: `Bearer ${token}`
          }
       })
-         .then((response) => response.json())
+         .then((res) => res.json())
          .then((data) => (products = data));
 
       return products;
@@ -73,7 +73,7 @@ export const useProduct = () => {
             Authorization: `Bearer ${token}`
          }
       })
-         .then((response) => response.json())
+         .then((res) => res.json())
          .then((data) => (products = data));
 
       return products;

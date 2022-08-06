@@ -22,7 +22,7 @@ export function useCart() {
       return cart;
    };
 
-   const addProductToCart = async (token, data) => {
+   const addProductToCart = async (token, requestBody) => {
       let cart;
       await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/cart/add`, {
          method: 'POST',
@@ -31,7 +31,7 @@ export function useCart() {
             Authorization: `Bearer ${token}`,
             'content-type': 'application/json;charset=UTF-8'
          },
-         body: JSON.stringify(data)
+         body: JSON.stringify(requestBody)
       })
          .then((res) => res.json())
          .then((data) => (cart = data));
@@ -49,7 +49,7 @@ export function useCart() {
       return cart;
    };
 
-   const removeProductFromCart = async (token, data) => {
+   const removeProductFromCart = async (token, requestBody) => {
       await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/cart/remove`, {
          method: 'POST',
          mode: 'cors',
@@ -57,7 +57,7 @@ export function useCart() {
             Authorization: `Bearer ${token}`,
             'content-type': 'application/json;charset=UTF-8'
          },
-         body: JSON.stringify(data)
+         body: JSON.stringify(requestBody)
       })
          .then((res) => res.json())
          .then((data) => console.log(data));
