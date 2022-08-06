@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useCart } from './../hooks/useCart';
 import { CartProductList } from './../components/CartProductList';
-import { Container } from '@mui/material';
+import { formatPrice } from './../util/format-price';
+
+import { Container, Paper, Grid, Typography, Button } from '@mui/material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function Cart() {
    const [cart, setCart] = useState([]);
@@ -42,6 +45,37 @@ function Cart() {
       return (
          <Container maxWidth="xl">
             <CartProductList products={cart.products} handleDelete={handleDelete} />
+            <Grid container spacing={1} sx={{ justifyContent: 'space-between' }}>
+               <Grid item xs={3}>
+                  <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
+                     <Grid container sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Grid item>
+                           <Typography variant="caption" sx={{ fontSize: '1.5rem' }}>
+                              Total
+                           </Typography>
+                        </Grid>
+                        <Grid>
+                           <Typography variant="subtitle2" sx={{ fontSize: '1.25rem' }}>
+                              ${formatPrice(cart.totalPrice)}
+                           </Typography>
+                        </Grid>
+                     </Grid>
+                  </Paper>
+               </Grid>
+               <Grid item xs={3}>
+                  <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
+                     <Button
+                        variant="contained"
+                        color="success"
+                        sx={{ p: 2 }}
+                        size="large"
+                        endIcon={<ArrowForwardIosIcon />}
+                        fullWidth>
+                        Complete order
+                     </Button>
+                  </Paper>
+               </Grid>
+            </Grid>
          </Container>
       );
    }
