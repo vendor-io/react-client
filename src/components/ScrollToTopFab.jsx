@@ -14,6 +14,10 @@ export const ScrollToTopFab = () => {
       }
    };
 
+   const scrollToTop = () => {
+      window.scrollTo(0, 0);
+   };
+
    useEffect(() => {
       window.addEventListener('scroll', handleScroll, { passive: true });
 
@@ -34,7 +38,7 @@ export const ScrollToTopFab = () => {
                <Fab
                   color="secondary"
                   aria-label="add"
-                  to="/cart"
+                  onClick={scrollToTop}
                   size="small"
                   sx={{
                      '&:hover': {
