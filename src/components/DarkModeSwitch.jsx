@@ -10,6 +10,7 @@ export const DarkModeSwitch = () => {
 
    const handleModeSwitch = () => {
       setDarkMode((prevState) => !prevState);
+      localStorage.setItem('darkMode', localStorage.getItem('darkMode') === 'true' ? false : true);
    };
    return (
       <Box sx={{ ml: 3 }}>

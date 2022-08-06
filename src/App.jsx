@@ -27,7 +27,9 @@ initializeApp(firebaseConfig);
 
 function App() {
    const [currentBreadcrumb, setCurrentBreadcrumb] = useState(null);
-   const [darkMode, setDarkMode] = useState(false);
+   const [darkMode, setDarkMode] = useState(
+      localStorage.getItem('darkMode') === 'true' ? true : false
+   );
    const { isSignedIn, token } = useAuth();
 
    let routesHandler;
