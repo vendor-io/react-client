@@ -19,6 +19,7 @@ export function useCart() {
          .then((data) => (cart = data));
 
       localStorage.setItem('cartItemsAmount', cart?.products?.length);
+
       return cart;
    };
 
@@ -46,10 +47,12 @@ export function useCart() {
          progress: undefined,
          theme: darkMode ? 'dark' : 'light'
       });
+
       return cart;
    };
 
    const removeProductFromCart = async (token, requestBody) => {
+      let cart;
       await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/cart/remove`, {
          method: 'POST',
          mode: 'cors',
@@ -58,7 +61,11 @@ export function useCart() {
             'content-type': 'application/json;charset=UTF-8'
          },
          body: JSON.stringify(requestBody)
-      }).then((res) => console.log(res));
+      })
+         .then((res) => res.json())
+         .then((data) => (cart = data));
+
+      return cart;
    };
 
    return { getCartForUser, addProductToCart, removeProductFromCart };
