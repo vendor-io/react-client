@@ -20,7 +20,7 @@ function AllProducts() {
    }, [token]);
 
    if (isLoading) {
-      return ProductListSkeleton;
+      return <ProductListSkeleton />;
    }
 
    return <ProductList products={products} />;
