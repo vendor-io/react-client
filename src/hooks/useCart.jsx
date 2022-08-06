@@ -1,10 +1,12 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../context/theme-context';
+import { CartContext } from '../context/cart-context';
 
 import { toast } from 'react-toastify';
 
 export function useCart() {
    const { darkMode } = useContext(ThemeContext);
+   const { setCartItemsAmount } = useContext(CartContext);
 
    const getCartForUser = async (token, userId) => {
       let cart;
@@ -18,7 +20,8 @@ export function useCart() {
          .then((res) => res.json())
          .then((data) => (cart = data));
 
-      localStorage.setItem('cartItemsAmount', cart?.products?.length);
+      localStorage.setItem('cartItemsAmount', cart?.products?.length ? cart.products.length : 0);
+      console.log('cart?.products?.length', cart?.products?.length);
 
       return cart;
    };
@@ -48,6 +51,9 @@ export function useCart() {
          theme: darkMode ? 'dark' : 'light'
       });
 
+      localStorage.setItem('cartItemsAmount', cart?.length ? cart.length : 0);
+      setCartItemsAmount((prevAmount) => prevAmount + 1);
+
       return cart;
    };
 
@@ -64,6 +70,9 @@ export function useCart() {
       })
          .then((res) => res.json())
          .then((data) => (cart = data));
+
+      localStorage.setItem('cartItemsAmount', cart?.products?.length ? cart.products.length : 0);
+      setCartItemsAmount((prevAmount) => prevAmount - 1);
 
       return cart;
    };
