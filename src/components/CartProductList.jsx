@@ -10,7 +10,7 @@ export const CartProductList = (props) => {
       return (
          <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
             <Grid>
-               {Array.from({ length: 4 }).map((item, index) => {
+               {Array.from({ length: 4 }).map((_item, index) => {
                   return (
                      <Grid item key={index} xs={12}>
                         <CartProductSkeleton odd={index % 2 === 0 ? false : true} />
