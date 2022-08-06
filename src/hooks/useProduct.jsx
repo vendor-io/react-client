@@ -1,6 +1,39 @@
 import { useState } from 'react';
+
 export const useProduct = () => {
    const [response, setResponse] = useState(null);
+
+   const getProductById = async (token, id) => {
+      let product;
+      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products/${id}`, {
+         method: 'GET',
+         mode: 'cors',
+         cache: 'no-cache',
+         headers: {
+            Authorization: `Bearer ${token}`
+         }
+      })
+         .then((response) => response.json())
+         .then((data) => (product = data));
+
+      return product;
+   };
+
+   const getAllProducts = async (token) => {
+      let products;
+      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products`, {
+         method: 'GET',
+         mode: 'cors',
+         cache: 'no-cache',
+         headers: {
+            Authorization: `Bearer ${token}`
+         }
+      })
+         .then((response) => response.json())
+         .then((data) => (products = data));
+
+      return products;
+   };
 
    const addNewProduct = async (data, token, uid) => {
       if (Object.values(data).every((item) => typeof item !== 'undefined')) {
@@ -30,22 +63,6 @@ export const useProduct = () => {
       }
    };
 
-   const getAllProducts = async (token) => {
-      let products;
-      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products`, {
-         method: 'GET',
-         mode: 'cors',
-         cache: 'no-cache',
-         headers: {
-            Authorization: `Bearer ${token}`
-         }
-      })
-         .then((response) => response.json())
-         .then((data) => (products = data));
-
-      return products;
-   };
-
    const getProductsFromCategory = async (token, slug) => {
       let products;
       await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/products/category/${slug}`, {
@@ -62,5 +79,5 @@ export const useProduct = () => {
       return products;
    };
 
-   return { addNewProduct, getAllProducts, getProductsFromCategory, response };
+   return { getProductById, getAllProducts, addNewProduct, getProductsFromCategory, response };
 };
