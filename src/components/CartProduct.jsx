@@ -27,6 +27,16 @@ export const CartProduct = (props) => {
       justify-content: center;
    `;
 
+   const backgroundColorResolver = () => {
+      if (odd) {
+         if (darkMode) {
+            return '#1b1b1b';
+         }
+         return '#f7f5f5';
+      }
+      return null;
+   };
+
    // TODO: Implement changing product amount
 
    return (
@@ -35,7 +45,7 @@ export const CartProduct = (props) => {
          sx={{
             my: 1,
             p: { xs: 2, md: 3 },
-            backgroundColor: odd ? (darkMode ? '#1b1b1b' : '#f7f5f5') : null
+            backgroundColor: backgroundColorResolver()
          }}>
          <Grid container columnSpacing={2}>
             <Grid item xs={3}>
