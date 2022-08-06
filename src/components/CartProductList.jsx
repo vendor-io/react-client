@@ -8,7 +8,7 @@ export const CartProductList = (props) => {
 
    if (isLoading && !products) {
       return (
-         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
+         <Paper variant="outlined" sx={{ mt: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
             <Grid>
                {Array.from({ length: 4 }).map((_item, index) => {
                   return (
@@ -24,7 +24,7 @@ export const CartProductList = (props) => {
 
    if (products && products?.length === 0) {
       return (
-         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
+         <Paper variant="outlined" sx={{ mt: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
             <Grid>
                <Typography textAlign="center" variant="h5" gutterBottom>
                   Currently there are no products in your cart. 😔
@@ -42,10 +42,8 @@ export const CartProductList = (props) => {
       );
    }
 
-   console.log(products);
-
    return (
-      <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
+      <Paper variant="outlined" sx={{ mt: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
          <Grid container>
             {products.map((product, index) => {
                return (
@@ -54,7 +52,7 @@ export const CartProductList = (props) => {
                         key={product.id}
                         id={product.id}
                         name={product.name}
-                        category={product.categoryId}
+                        category={{ name: product.categoryName, slug: product.categorySlug }}
                         image={product.mainImage}
                         price={product.price}
                         odd={index % 2 === 0 ? false : true}

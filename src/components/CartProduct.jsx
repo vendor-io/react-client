@@ -58,12 +58,16 @@ export const CartProduct = (props) => {
                      component={RouterLink}
                      to={`/products/${id}`}
                      color="inherit"
-                     underline="none"
+                     sx={{ textDecoration: 'none' }}
                      variant="h6">
                      {name}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                     {category}
+                  <Typography
+                     component={RouterLink}
+                     to={`/categories/${category.slug}`}
+                     variant="body2"
+                     color="text.secondary">
+                     {category.name}
                   </Typography>
                </Stack>
             </GridElement>
