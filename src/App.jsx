@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { theme, darkTheme } from './styles/theme';
 import { ThemeProvider } from '@mui/system';
 import { CssBaseline } from '@mui/material';
@@ -20,6 +20,7 @@ import { NavBreadcrumbs } from './components/NavBreadcrumbs';
 
 import { BreadcrumbsContext } from './context/breadcrumbs-context';
 import { ThemeContext } from './context/theme-context';
+import { CartContext } from './context/cart-context';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -33,6 +34,7 @@ function App() {
    const [darkMode, setDarkMode] = useState(
       localStorage.getItem('darkMode') === 'true' ? true : false
    );
+   const [cartItemsAmount, setCartItemsAmount] = useState(0);
    const { isSignedIn, token } = useAuth();
 
    let routesHandler;
@@ -77,27 +79,29 @@ function App() {
 
    return (
       <BreadcrumbsContext.Provider value={{ currentBreadcrumb, setCurrentBreadcrumb }}>
-         <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
-            <ThemeProvider theme={darkMode ? darkTheme : theme}>
-               <CssBaseline />
-               {isSignedIn && <Navbar />}
-               {isSignedIn && <NavBreadcrumbs />}
-               {isSignedIn && <CartFab />}
-               <ScrollToTopFab />
-               {routesHandler}
-               <ToastContainer
-                  position="bottom-left"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-               />
-            </ThemeProvider>
-         </ThemeContext.Provider>
+         <CartContext.Provider value={{ cartItemsAmount, setCartItemsAmount }}>
+            <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+               <ThemeProvider theme={darkMode ? darkTheme : theme}>
+                  <CssBaseline />
+                  {isSignedIn && <Navbar />}
+                  {isSignedIn && <NavBreadcrumbs />}
+                  {isSignedIn && <CartFab />}
+                  <ScrollToTopFab />
+                  {routesHandler}
+                  <ToastContainer
+                     position="bottom-left"
+                     autoClose={5000}
+                     hideProgressBar={false}
+                     newestOnTop
+                     closeOnClick
+                     rtl={false}
+                     pauseOnFocusLoss
+                     draggable
+                     pauseOnHover
+                  />
+               </ThemeProvider>
+            </ThemeContext.Provider>
+         </CartContext.Provider>
       </BreadcrumbsContext.Provider>
    );
 }
