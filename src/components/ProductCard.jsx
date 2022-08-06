@@ -36,13 +36,15 @@ export const ProductCard = (props) => {
                   variant="h5">
                   {name}
                </Link>
-               <Typography variant="button" color="text.secondary" textAlign="right">
-                  {formatPrice(price)} $
-               </Typography>
             </CardContent>
          </Box>
-         <CardActions sx={{ pb: 2, pr: 1 }}>
-            <Grid container sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+         <CardActions sx={{ pb: 2, px: 2 }}>
+            <Grid container sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+               <Grid item>
+                  <Typography variant="button" color="text.secondary" sx={{ fontSize: '1.1rem' }}>
+                     ${formatPrice(price)}
+                  </Typography>
+               </Grid>
                <Grid item>
                   <Button startIcon={<ShoppingCartIcon />} variant="contained">
                      Add to cart
