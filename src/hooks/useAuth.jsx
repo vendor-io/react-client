@@ -71,5 +71,5 @@ export function useAuth() {
       return () => logoutUser();
    };
 
-   return { auth, token, ...authState, logout, createUser };
+   return { auth, token, ...authState, logout, createUser, response };
 }
