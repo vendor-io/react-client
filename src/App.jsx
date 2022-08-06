@@ -23,6 +23,8 @@ import { ThemeContext } from './context/theme-context';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 initializeApp(firebaseConfig);
 
@@ -83,6 +85,17 @@ function App() {
                {isSignedIn && <CartFab />}
                <ScrollToTopFab />
                {routesHandler}
+               <ToastContainer
+                  position="bottom-left"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+               />
             </ThemeProvider>
          </ThemeContext.Provider>
       </BreadcrumbsContext.Provider>
