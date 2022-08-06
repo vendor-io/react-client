@@ -138,7 +138,7 @@ function ProductPage() {
                         <Typography variant="overline">Price</Typography>
                      </Grid>
                      <Grid item xs={12} md={10}>
-                        <Typography variant="h5">{formatPrice(product?.Price)} $</Typography>
+                        <Typography variant="h5">${formatPrice(product?.Price)}</Typography>
                      </Grid>
                   </Grid>
                   <Divider sx={{ mt: 2, mb: 2 }} />
