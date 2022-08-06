@@ -16,8 +16,9 @@ function Cart() {
    const handleDelete = (productId) => {
       if (token) {
          setIsLoading(true);
-         removeProductFromCart(token, { userId: user.uid, productId });
-         getCartForUser(token, user.uid).then((data) => setCart(data));
+         removeProductFromCart(token, { userId: user.uid, productId }).then((data) =>
+            setCart(data)
+         );
          setIsLoading(false);
       }
    };
@@ -45,37 +46,41 @@ function Cart() {
       return (
          <Container maxWidth="xl">
             <CartProductList products={cart.products} handleDelete={handleDelete} />
-            <Grid container spacing={1} sx={{ justifyContent: 'space-between' }}>
-               <Grid item xs={3}>
-                  <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
-                     <Grid container sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Grid item>
-                           <Typography variant="caption" sx={{ fontSize: '1.5rem' }}>
-                              Total
-                           </Typography>
+            {cart?.products?.length > 0 && (
+               <Grid container spacing={1} sx={{ justifyContent: 'space-between' }}>
+                  <Grid item xs={3}>
+                     <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
+                        <Grid
+                           container
+                           sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                           <Grid item>
+                              <Typography variant="caption" sx={{ fontSize: '1.5rem' }}>
+                                 Total
+                              </Typography>
+                           </Grid>
+                           <Grid>
+                              <Typography variant="subtitle2" sx={{ fontSize: '1.25rem' }}>
+                                 ${formatPrice(cart.totalPrice)}
+                              </Typography>
+                           </Grid>
                         </Grid>
-                        <Grid>
-                           <Typography variant="subtitle2" sx={{ fontSize: '1.25rem' }}>
-                              ${formatPrice(cart.totalPrice)}
-                           </Typography>
-                        </Grid>
-                     </Grid>
-                  </Paper>
+                     </Paper>
+                  </Grid>
+                  <Grid item xs={3}>
+                     <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
+                        <Button
+                           variant="contained"
+                           color="success"
+                           sx={{ p: 2 }}
+                           size="large"
+                           endIcon={<ArrowForwardIosIcon />}
+                           fullWidth>
+                           Complete order
+                        </Button>
+                     </Paper>
+                  </Grid>
                </Grid>
-               <Grid item xs={3}>
-                  <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
-                     <Button
-                        variant="contained"
-                        color="success"
-                        sx={{ p: 2 }}
-                        size="large"
-                        endIcon={<ArrowForwardIosIcon />}
-                        fullWidth>
-                        Complete order
-                     </Button>
-                  </Paper>
-               </Grid>
-            </Grid>
+            )}
          </Container>
       );
    }
