@@ -11,6 +11,8 @@ import AllCategoryProducts from '../pages/AllCategoryProducts';
 import Cart from '../pages/Cart';
 import Addresses from '../pages/Addresses';
 import AddNewAddress from '../pages/AddNewAddress';
+import Checkout from './../pages/Checkout';
+import CheckoutSuccess from '../pages/CheckoutSuccess';
 
 export const routes = [
    {
@@ -107,5 +109,23 @@ export const routes = [
       name: 'Cart',
       breadcrumb: 'Cart',
       component: <Cart />
+   },
+   {
+      path: '/checkout',
+      breadcrumb: 'Checkout',
+      subroutes: [
+         {
+            path: '/',
+            name: 'Checkout',
+            breadcrumb: 'Checkout',
+            component: <Checkout />
+         },
+         {
+            path: 'success',
+            name: 'Successful checkout',
+            breadcrumb: 'Successful checkout',
+            component: <CheckoutSuccess />
+         }
+      ]
    }
 ];
