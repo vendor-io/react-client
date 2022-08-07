@@ -21,7 +21,6 @@ export function useCart() {
          .then((data) => (cart = data));
 
       localStorage.setItem('cartItemsAmount', cart?.products?.length ? cart.products.length : 0);
-      console.log('cart?.products?.length', cart?.products?.length);
 
       return cart;
    };
@@ -51,8 +50,8 @@ export function useCart() {
          theme: darkMode ? 'dark' : 'light'
       });
 
-      localStorage.setItem('cartItemsAmount', cart?.length ? cart.length : 0);
-      setCartItemsAmount((prevAmount) => prevAmount + 1);
+      localStorage.setItem('cartItemsAmount', cart?.products?.length ? cart.products.length : 0);
+      setCartItemsAmount(cart?.products?.length ? cart.products.length : 0);
 
       return cart;
    };
@@ -72,10 +71,30 @@ export function useCart() {
          .then((data) => (cart = data));
 
       localStorage.setItem('cartItemsAmount', cart?.products?.length ? cart.products.length : 0);
-      setCartItemsAmount((prevAmount) => prevAmount - 1);
+      setCartItemsAmount(cart?.products?.length ? cart.products.length : 0);
 
       return cart;
    };
 
-   return { getCartForUser, addProductToCart, removeProductFromCart };
+   const changeAmountOfProductInCart = async (token, requestBody) => {
+      let cart;
+      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/cart/change`, {
+         method: 'POST',
+         mode: 'cors',
+         headers: {
+            Authorization: `Bearer ${token}`,
+            'content-type': 'application/json;charset=UTF-8'
+         },
+         body: JSON.stringify(requestBody)
+      })
+         .then((res) => res.json())
+         .then((data) => (cart = data));
+
+      localStorage.setItem('cartItemsAmount', cart?.products?.length ? cart.products.length : 0);
+      setCartItemsAmount(cart?.products?.length ? cart.products.length : 0);
+
+      return cart;
+   };
+
+   return { getCartForUser, addProductToCart, removeProductFromCart, changeAmountOfProductInCart };
 }
