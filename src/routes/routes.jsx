@@ -9,6 +9,8 @@ import AllCategories from '../pages/AllCategories';
 import AddNewNewCategory from '../pages/AddNewCategory';
 import AllCategoryProducts from '../pages/AllCategoryProducts';
 import Cart from '../pages/Cart';
+import Addresses from '../pages/Addresses';
+import AddNewAddress from '../pages/AddNewAddress';
 
 export const routes = [
    {
@@ -79,6 +81,24 @@ export const routes = [
             name: 'Add new Category',
             breadcrumb: 'Add new category',
             component: <AddNewNewCategory />
+         }
+      ]
+   },
+   {
+      path: '/addresses',
+      breadcrumb: 'Addresses',
+      subroutes: [
+         {
+            path: '/',
+            name: 'Your addresses',
+            breadcrumb: 'Your addresses',
+            component: <Addresses />
+         },
+         {
+            path: 'new',
+            name: 'Add new address',
+            breadcrumb: 'Add new address',
+            component: <AddNewAddress />
          }
       ]
    },
