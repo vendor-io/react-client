@@ -23,6 +23,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import KeyboardIcon from '@mui/icons-material/Keyboard';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import { DarkModeSwitch } from './DarkModeSwitch';
 
@@ -32,13 +33,18 @@ const userLinks = [
    { name: 'Orders', path: '/orders' },
    { name: 'Logout', path: '/logout' }
 ];
+const superUserLinks = [
+   { name: 'Add new product', path: '/products/new' },
+   { name: 'Add new category', path: '/categories/new' }
+];
 
 export const Navbar = () => {
    const [categories, setCategories] = useState([]);
 
    const [anchorElNav, setAnchorElNav] = useState(null);
-   const [anchorElUser, setAnchorElUser] = useState(null);
    const [anchorElCategories, setAnchorElCategories] = useState(null);
+   const [anchorElSuperUser, setAnchorElSuperUser] = useState(null);
+   const [anchorElUser, setAnchorElUser] = useState(null);
 
    const { token, user, isSuperUser } = useAuth();
 
@@ -47,22 +53,27 @@ export const Navbar = () => {
    const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
    };
-   const handleOpenUserMenu = (event) => {
-      setAnchorElUser(event.currentTarget);
-   };
    const handleOpenCategoriesMenu = (event) => {
       setAnchorElCategories(event.currentTarget);
+   };
+   const handleOpenSuperUserMenu = (event) => {
+      setAnchorElSuperUser(event.currentTarget);
+   };
+   const handleOpenUserMenu = (event) => {
+      setAnchorElUser(event.currentTarget);
    };
 
    const handleCloseNavMenu = () => {
       setAnchorElNav(null);
    };
-
-   const handleCloseUserMenu = () => {
-      setAnchorElUser(null);
-   };
    const handleCloseCategoriesMenu = () => {
       setAnchorElCategories(null);
+   };
+   const handleCloseSuperUserMenu = () => {
+      setAnchorElSuperUser(null);
+   };
+   const handleCloseUserMenu = () => {
+      setAnchorElUser(null);
    };
 
    useEffect(() => {
@@ -205,32 +216,46 @@ export const Navbar = () => {
                               </MenuItem>
                            ))}
                         </Menu>
-                        {isSuperUser && (
-                           <>
-                              <Button
-                                 component={NavLink}
-                                 to="/products/new"
-                                 sx={{ ml: 3, my: 2, color: 'white', display: 'block' }}>
-                                 Add new Product
-                              </Button>
-                              <Button
-                                 component={NavLink}
-                                 to="/categories/new"
-                                 sx={{ my: 2, color: 'white', display: 'block' }}>
-                                 Add new Category
-                              </Button>
-                           </>
-                        )}
                      </Box>
                      <Box sx={{ flexGrow: 0 }}>
                         {isSuperUser && (
-                           <Chip
+                           <Button
                               sx={{ mr: 2 }}
                               label="Superuser"
                               color="secondary"
                               variant="contained"
-                           />
+                              onClick={handleOpenSuperUserMenu}
+                              endIcon={<ExpandMore />}>
+                              SuperUser
+                           </Button>
                         )}
+                        <Menu
+                           sx={{ mt: '45px' }}
+                           id="menu-appbar-superuser"
+                           anchorEl={anchorElSuperUser}
+                           anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right'
+                           }}
+                           keepMounted
+                           transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right'
+                           }}
+                           open={Boolean(anchorElSuperUser)}
+                           onClose={handleCloseSuperUserMenu}>
+                           {superUserLinks.map((link, index) => (
+                              <MenuItem
+                                 key={index}
+                                 color="inherit"
+                                 underline="none"
+                                 component={RouterLink}
+                                 to={link.path}
+                                 onClick={handleCloseSuperUserMenu}>
+                                 {link.name}
+                              </MenuItem>
+                           ))}
+                        </Menu>
                         <Tooltip title="Open settings">
                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                               <Avatar alt={user?.email} src={user?.photoURL} />
@@ -252,18 +277,17 @@ export const Navbar = () => {
                            open={Boolean(anchorElUser)}
                            onClose={handleCloseUserMenu}>
                            {userLinks.map((link, index) => (
-                              <div key={index}>
+                              <Box key={index}>
                                  {index === userLinks.length - 1 && <Divider sx={{ mb: 1 }} />}
-                                 <MenuItem onClick={handleCloseUserMenu}>
-                                    <Link
-                                       color="inherit"
-                                       underline="none"
-                                       component={RouterLink}
-                                       to={link.path}>
-                                       {link.name}
-                                    </Link>
+                                 <MenuItem
+                                    color="inherit"
+                                    underline="none"
+                                    component={RouterLink}
+                                    to={link.path}
+                                    onClick={handleCloseUserMenu}>
+                                    {link.name}
                                  </MenuItem>
-                              </div>
+                              </Box>
                            ))}
                         </Menu>
                      </Box>
