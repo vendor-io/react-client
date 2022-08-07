@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { theme, darkTheme } from './styles/theme';
 import { ThemeProvider } from '@mui/system';
 import { CssBaseline } from '@mui/material';
