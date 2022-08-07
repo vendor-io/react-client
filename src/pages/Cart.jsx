@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useCart } from './../hooks/useCart';
 import { CartProductList } from './../components/CartProductList';
@@ -47,7 +48,9 @@ function Cart() {
    if (isLoading) {
       return (
          <Container maxWidth="xl">
-            <CartProductList isLoading handleDelete={handleDelete} />
+            <Paper variant="outlined" sx={{ mt: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
+               <CartProductList isLoading handleDelete={handleDelete} />
+            </Paper>
          </Container>
       );
    }
@@ -55,46 +58,50 @@ function Cart() {
    if (cart?.products?.length >= 0) {
       return (
          <Container maxWidth="xl">
-            <CartProductList
-               products={cart.products}
-               handleDelete={handleDelete}
-               handleAmountChange={handleAmountChange}
-            />
-            {cart?.products?.length > 0 && (
-               <Grid container spacing={1} sx={{ justifyContent: 'space-between' }}>
-                  <Grid item xs={3}>
-                     <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
-                        <Grid
-                           container
-                           sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                           <Grid item>
-                              <Typography variant="caption" sx={{ fontSize: '1.5rem' }}>
-                                 Total
-                              </Typography>
+            <Paper variant="outlined" sx={{ mt: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
+               <CartProductList
+                  products={cart.products}
+                  handleDelete={handleDelete}
+                  handleAmountChange={handleAmountChange}
+               />
+               {cart?.products?.length > 0 && (
+                  <Grid container spacing={1} sx={{ justifyContent: 'space-between' }}>
+                     <Grid item xs={3}>
+                        <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
+                           <Grid
+                              container
+                              sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                              <Grid item>
+                                 <Typography variant="caption" sx={{ fontSize: '1.5rem' }}>
+                                    Total
+                                 </Typography>
+                              </Grid>
+                              <Grid>
+                                 <Typography variant="subtitle2" sx={{ fontSize: '1.25rem' }}>
+                                    ${formatPrice(cart.totalPrice)}
+                                 </Typography>
+                              </Grid>
                            </Grid>
-                           <Grid>
-                              <Typography variant="subtitle2" sx={{ fontSize: '1.25rem' }}>
-                                 ${formatPrice(cart.totalPrice)}
-                              </Typography>
-                           </Grid>
-                        </Grid>
-                     </Paper>
+                        </Paper>
+                     </Grid>
+                     <Grid item xs={3}>
+                        <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
+                           <Button
+                              variant="contained"
+                              color="success"
+                              sx={{ p: 2 }}
+                              size="large"
+                              component={RouterLink}
+                              to="/checkout"
+                              endIcon={<ArrowForwardIosIcon />}
+                              fullWidth>
+                              Complete order
+                           </Button>
+                        </Paper>
+                     </Grid>
                   </Grid>
-                  <Grid item xs={3}>
-                     <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
-                        <Button
-                           variant="contained"
-                           color="success"
-                           sx={{ p: 2 }}
-                           size="large"
-                           endIcon={<ArrowForwardIosIcon />}
-                           fullWidth>
-                           Complete order
-                        </Button>
-                     </Paper>
-                  </Grid>
-               </Grid>
-            )}
+               )}
+            </Paper>
          </Container>
       );
    }

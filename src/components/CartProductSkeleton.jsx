@@ -7,7 +7,7 @@ import { Paper, Box, Tooltip, Grid, Stack, IconButton, Skeleton } from '@mui/mat
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export const CartProductSkeleton = (props) => {
-   const { odd } = props;
+   const { odd, dense } = props;
 
    const { darkMode } = useContext(ThemeContext);
 
@@ -39,7 +39,7 @@ export const CartProductSkeleton = (props) => {
          }}>
          <Grid container columnSpacing={2}>
             <Grid item xs={3}>
-               <Skeleton variant="rectangular" height={140} width="100%" />
+               <Skeleton variant="rectangular" height={dense ? 140 : 60} width="100%" />
             </Grid>
             <GridElement item xs={4}>
                <Stack spacing={2}>
