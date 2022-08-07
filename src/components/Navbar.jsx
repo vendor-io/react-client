@@ -28,6 +28,7 @@ import { DarkModeSwitch } from './DarkModeSwitch';
 
 const userLinks = [
    { name: 'Cart', path: '/cart' },
+   { name: 'Addresses', path: '/addresses' },
    { name: 'Orders', path: '/orders' },
    { name: 'Logout', path: '/logout' }
 ];
