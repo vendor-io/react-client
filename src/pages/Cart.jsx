@@ -11,12 +11,22 @@ function Cart() {
    const [cart, setCart] = useState([]);
    const [isLoading, setIsLoading] = useState(true);
    const { token, user } = useAuth();
-   const { getCartForUser, removeProductFromCart } = useCart();
+   const { getCartForUser, removeProductFromCart, changeAmountOfProductInCart } = useCart();
 
    const handleDelete = (productId) => {
       if (token) {
          setIsLoading(true);
          removeProductFromCart(token, { userId: user.uid, productId }).then((data) =>
+            setCart(data)
+         );
+         setIsLoading(false);
+      }
+   };
+
+   const handleAmountChange = (productId, amount) => {
+      if (token) {
+         setIsLoading(true);
+         changeAmountOfProductInCart(token, { userId: user.uid, productId, amount }).then((data) =>
             setCart(data)
          );
          setIsLoading(false);
@@ -45,7 +55,11 @@ function Cart() {
    if (cart?.products?.length >= 0) {
       return (
          <Container maxWidth="xl">
-            <CartProductList products={cart.products} handleDelete={handleDelete} />
+            <CartProductList
+               products={cart.products}
+               handleDelete={handleDelete}
+               handleAmountChange={handleAmountChange}
+            />
             {cart?.products?.length > 0 && (
                <Grid container spacing={1} sx={{ justifyContent: 'space-between' }}>
                   <Grid item xs={3}>

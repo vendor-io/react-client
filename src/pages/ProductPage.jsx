@@ -12,6 +12,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DoneIcon from '@mui/icons-material/Done';
 
 import { ProductPageSkeleton } from '../components/ProductPageSkeleton';
+import { AmountSelect } from './../components/AmountSelect';
 import { formatPrice } from '../util/format-price';
 
 import { mainSliderOptions, subSliderOptions } from '../constant/sliderOptions';
@@ -22,6 +23,7 @@ function ProductPage() {
 
    const [product, setProduct] = useState(null);
    const [images, setImages] = useState([]);
+   const [productAmount, setProductAmount] = useState(1);
 
    const [mainNav, setMainNav] = useState();
    const [subNav, setSubNav] = useState();
@@ -39,18 +41,36 @@ function ProductPage() {
       return differenceInDays(new Date(product.CreatedAt), new Date()) === 0;
    };
 
+   const addProductCooldown = () => {
+      setIsClicked(true);
+      setTimeout(() => {
+         setIsClicked(false);
+      }, 3000);
+      return () => clearTimeout();
+   };
+
    const handleAddToCart = () => {
       if (token) {
-         addProductToCart(token, { productId: product.id, userId: user.uid }).then((data) => {
+         addProductToCart(token, {
+            productId: product.id,
+            userId: user.uid,
+            amount: productAmount
+         }).then((data) => {
             console.log(data);
-            setIsClicked(true);
+            addProductCooldown();
          });
       }
    };
 
+   const handleProductAmountChange = (e) => {
+      setProductAmount(e.target.value);
+   };
+
    useEffect(() => {
       if (token) {
-         getProductById(token, pid).then((data) => setProduct(data));
+         getProductById(token, pid).then((data) => {
+            setProduct(data);
+         });
       }
    }, [token]);
 
@@ -146,26 +166,36 @@ function ProductPage() {
                      </Grid>
                   </Grid>
                   <Divider sx={{ mt: 2, mb: 2 }} />
-                  {isClicked ? (
-                     <Button
-                        disabled
-                        color="success"
-                        startIcon={<DoneIcon />}
-                        fullWidth
-                        sx={{ mb: 2, py: 2 }}
-                        variant="contained">
-                        Added!
-                     </Button>
-                  ) : (
-                     <Button
-                        startIcon={<ShoppingCartIcon />}
-                        onClick={handleAddToCart}
-                        fullWidth
-                        variant="contained"
-                        sx={{ mb: 2, py: 2 }}>
-                        Add to cart
-                     </Button>
-                  )}
+                  <Grid container spacing={2}>
+                     <Grid item xs={2}>
+                        <AmountSelect
+                           amount={productAmount}
+                           handleAmountChange={handleProductAmountChange}
+                        />
+                     </Grid>
+                     <Grid item xs={10}>
+                        {isClicked ? (
+                           <Button
+                              disabled
+                              color="success"
+                              startIcon={<DoneIcon />}
+                              fullWidth
+                              sx={{ mb: 2, py: 2 }}
+                              variant="contained">
+                              Added!
+                           </Button>
+                        ) : (
+                           <Button
+                              startIcon={<ShoppingCartIcon />}
+                              onClick={handleAddToCart}
+                              fullWidth
+                              variant="contained"
+                              sx={{ mb: 2, py: 2 }}>
+                              Add to cart
+                           </Button>
+                        )}
+                     </Grid>
+                  </Grid>
                   <Typography variant="overline" sx={{ display: 'block' }}>
                      Description
                   </Typography>

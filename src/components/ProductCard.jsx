@@ -24,11 +24,19 @@ export const ProductCard = (props) => {
    const { token, user } = useAuth();
    const { addProductToCart } = useCart();
 
+   const addProductCooldown = () => {
+      setIsClicked(true);
+      setTimeout(() => {
+         setIsClicked(false);
+      }, 3000);
+      return () => clearTimeout();
+   };
+
    const handleAddToCart = () => {
       if (token) {
-         addProductToCart(token, { productId: id, userId: user.uid }).then((data) => {
+         addProductToCart(token, { productId: id, userId: user.uid, amount: 1 }).then((data) => {
             console.log(data);
-            setIsClicked(true);
+            addProductCooldown();
          });
       }
    };

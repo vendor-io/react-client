@@ -4,7 +4,7 @@ import { CartProduct } from './CartProduct';
 import { CartProductSkeleton } from './CartProductSkeleton';
 
 export const CartProductList = (props) => {
-   const { products, isLoading, handleDelete } = props;
+   const { products, isLoading, handleDelete, handleAmountChange } = props;
 
    if (isLoading && !products) {
       return (
@@ -55,8 +55,11 @@ export const CartProductList = (props) => {
                         category={{ name: product.categoryName, slug: product.categorySlug }}
                         image={product.mainImage}
                         price={product.price}
+                        totalPrice={product.totalPrice}
+                        amount={product.amount}
                         odd={index % 2 === 0 ? false : true}
                         handleDelete={handleDelete}
+                        handleAmountChange={handleAmountChange}
                      />
                   </Grid>
                );

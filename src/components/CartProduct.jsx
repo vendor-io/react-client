@@ -5,12 +5,24 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import styled from 'styled-components';
 import { formatPrice } from './../util/format-price';
+import { AmountSelect } from './AmountSelect';
 
-import { Paper, Tooltip, Grid, Typography, Stack, IconButton } from '@mui/material';
+import { Paper, Tooltip, Grid, Typography, Stack, IconButton, Box } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export const CartProduct = (props) => {
-   const { id, name, image, category, price, odd, handleDelete } = props;
+   const {
+      id,
+      name,
+      image,
+      category,
+      amount,
+      price,
+      totalPrice,
+      odd,
+      handleDelete,
+      handleAmountChange
+   } = props;
 
    const { darkMode } = useContext(ThemeContext);
 
@@ -28,6 +40,12 @@ export const CartProduct = (props) => {
       align-items: center;
    `;
 
+   const handleProductAmountChange = (e) => {
+      if (amount !== e.target.value) {
+         handleAmountChange(id, e.target.value);
+      }
+   };
+
    const backgroundColorResolver = () => {
       if (odd) {
          if (darkMode) {
@@ -37,8 +55,6 @@ export const CartProduct = (props) => {
       }
       return null;
    };
-
-   // TODO: Implement changing product amount
 
    return (
       <Paper
@@ -64,14 +80,25 @@ export const CartProduct = (props) => {
                      variant="h6">
                      {name}
                   </Typography>
-                  <Typography
-                     component={RouterLink}
-                     to={`/categories/${category.slug}`}
-                     variant="body2"
-                     color="text.secondary">
-                     {category.name}
-                  </Typography>
+                  <Box sx={{ display: 'flex', columnGap: '6px' }}>
+                     <Typography
+                        component={RouterLink}
+                        to={`/categories/${category.slug}`}
+                        variant="body2"
+                        color="text.secondary">
+                        {category.name}
+                     </Typography>
+                     <Typography variant="body2" color="text.secondary">
+                        ●
+                     </Typography>
+                     <Typography variant="body2" color="text.secondary">
+                        ${formatPrice(price)}
+                     </Typography>
+                  </Box>
                </Stack>
+            </GridElement>
+            <GridElement item xs={1}>
+               <AmountSelect amount={amount} handleAmountChange={handleProductAmountChange} />
             </GridElement>
             <GridElement item xs={1} />
             <GridElement item xs={1}>
@@ -79,12 +106,10 @@ export const CartProduct = (props) => {
                   variant="button"
                   sx={{ fontSize: '2rem', width: '100%' }}
                   textAlign="left">
-                  ${formatPrice(price)}
+                  ${formatPrice(totalPrice)}
                </Typography>
             </GridElement>
-            <GridElement item xs={2}>
-               {/* Changing product amount */}
-            </GridElement>
+            <GridElement item xs={1} />
             <GridElement item xs={1}>
                <Tooltip title="Remove product from cart" arrow placement="left">
                   <IconButton variant="contained" onClick={() => handleDelete(id)}>
