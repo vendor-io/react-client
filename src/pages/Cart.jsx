@@ -68,24 +68,6 @@ function Cart() {
                   <Grid container spacing={1} sx={{ justifyContent: 'space-between' }}>
                      <Grid item xs={3}>
                         <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
-                           <Grid
-                              container
-                              sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                              <Grid item>
-                                 <Typography variant="caption" sx={{ fontSize: '1.5rem' }}>
-                                    Total
-                                 </Typography>
-                              </Grid>
-                              <Grid>
-                                 <Typography variant="subtitle2" sx={{ fontSize: '1.25rem' }}>
-                                    ${formatPrice(cart.totalPrice)}
-                                 </Typography>
-                              </Grid>
-                           </Grid>
-                        </Paper>
-                     </Grid>
-                     <Grid item xs={3}>
-                        <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
                            <Button
                               variant="contained"
                               color="success"
@@ -97,6 +79,27 @@ function Cart() {
                               fullWidth>
                               Complete order
                            </Button>
+                        </Paper>
+                     </Grid>
+                     <Grid item xs={3}>
+                        <Paper variant="outlined" sx={{ mt: 1, p: { xs: 1, md: 2 } }}>
+                           <Grid
+                              container
+                              sx={{
+                                 justifyContent: 'space-between',
+                                 alignItems: 'center'
+                              }}>
+                              <Grid item>
+                                 <Typography variant="caption" sx={{ fontSize: '1.5rem' }}>
+                                    Total
+                                 </Typography>
+                              </Grid>
+                              <Grid>
+                                 <Typography variant="subtitle2" sx={{ fontSize: '1.25rem' }}>
+                                    ${formatPrice(cart.totalPrice)}
+                                 </Typography>
+                              </Grid>
+                           </Grid>
                         </Paper>
                      </Grid>
                   </Grid>
