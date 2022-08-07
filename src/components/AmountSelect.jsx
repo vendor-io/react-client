@@ -10,6 +10,7 @@ export const AmountSelect = (props) => {
             id="product-amount"
             value={amount}
             label="Amount"
+            size={readOnly ? 'small' : 'large'}
             disabled={readOnly}
             IconComponent={readOnly ? null : ArrowDropDownIcon}
             onChange={handleAmountChange}>
