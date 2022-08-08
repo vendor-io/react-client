@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
-import { getAuth } from 'firebase/auth';
+import {
+   getAuth,
+   GoogleAuthProvider,
+   signInWithPopup,
+   FacebookAuthProvider,
+   GithubAuthProvider,
+   TwitterAuthProvider
+} from 'firebase/auth';
 
 export function useAuth() {
    const [authState, setAuthState] = useState({
@@ -71,5 +78,52 @@ export function useAuth() {
       return () => logoutUser();
    };
 
-   return { auth, token, ...authState, logout, createUser, response };
+   const signInWithGoogle = async () => {
+      let googleRes;
+      const googleProvider = new GoogleAuthProvider();
+
+      await signInWithPopup(auth, googleProvider).then((res) => (googleRes = res));
+
+      createUser({ email: googleRes.user.email, uid: googleRes.user.uid });
+   };
+
+   const signInWithFacebook = async () => {
+      let facebookRes;
+      const facebookProvider = new FacebookAuthProvider();
+
+      await signInWithPopup(auth, facebookProvider).then((res) => (facebookRes = res));
+
+      createUser({ email: facebookRes.user.email, uid: facebookRes.user.uid });
+   };
+
+   const signInWithGithub = async () => {
+      let githubRes;
+      const githubProvider = new GithubAuthProvider();
+
+      await signInWithPopup(auth, githubProvider).then((res) => (githubRes = res));
+
+      createUser({ email: githubRes.user.email, uid: githubRes.user.uid });
+   };
+
+   const signInWithTwitter = async () => {
+      let twitterRes;
+      const twitterProvider = new TwitterAuthProvider();
+
+      await signInWithPopup(auth, twitterProvider).then((res) => (twitterRes = res));
+
+      createUser({ email: twitterRes.user.email, uid: twitterRes.user.uid });
+   };
+
+   return {
+      auth,
+      token,
+      ...authState,
+      logout,
+      createUser,
+      signInWithGoogle,
+      signInWithFacebook,
+      signInWithGithub,
+      signInWithTwitter,
+      response
+   };
 }
