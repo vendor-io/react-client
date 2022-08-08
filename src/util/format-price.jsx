@@ -1,4 +1,7 @@
 export const formatPrice = (value) => {
+   if (typeof value === 'undefined') {
+      return '0.00';
+   }
    const stringPrice = value.toString();
    if (stringPrice.length === 1) {
       return `0.0${stringPrice}`;
