@@ -23,9 +23,11 @@ export function useAuth() {
    useEffect(() => {
       const unregisterAuthObserver = auth.onAuthStateChanged((user) => {
          setAuthState({ ...authState, user, pending: false, isSignedIn: !!user });
-         user.getIdToken().then((data) => {
-            setToken(data);
-         });
+         if (user) {
+            user.getIdToken().then((data) => {
+               setToken(data);
+            });
+         }
       });
       if (authState.user) {
          authState.user.getIdToken().then((data) => {
