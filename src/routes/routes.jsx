@@ -13,6 +13,8 @@ import Addresses from '../pages/Addresses';
 import AddNewAddress from '../pages/AddNewAddress';
 import Checkout from './../pages/Checkout';
 import CheckoutSuccess from '../pages/CheckoutSuccess';
+import Order from './../pages/Order';
+import Orders from '../pages/Orders';
 
 export const routes = [
    {
@@ -125,6 +127,24 @@ export const routes = [
             name: 'Successful checkout',
             breadcrumb: 'Successful checkout',
             component: <CheckoutSuccess />
+         }
+      ]
+   },
+   {
+      path: '/orders',
+      breadcrumb: 'Orders',
+      subroutes: [
+         {
+            path: '/',
+            name: 'All orders',
+            breadcrumb: 'All orders',
+            component: <Orders />
+         },
+         {
+            path: ':oid',
+            name: 'Order',
+            breadcrumb: 'Order',
+            component: <Order />
          }
       ]
    }
