@@ -95,7 +95,7 @@ function App() {
                   <ThemeProvider theme={darkMode ? darkTheme : theme}>
                      <Elements stripe={stripePromise} options={paymentPayload}>
                         <CssBaseline />
-                        {isSignedIn && <Navbar />}
+                        <Navbar isSignedIn={isSignedIn} />
                         {isSignedIn && <NavBreadcrumbs />}
                         {isSignedIn && <CartFab />}
                         <ScrollToTopFab />

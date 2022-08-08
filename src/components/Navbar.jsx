@@ -38,7 +38,8 @@ const superUserLinks = [
    { name: 'Add new category', path: '/categories/new' }
 ];
 
-export const Navbar = () => {
+export const Navbar = (props) => {
+   const { isSignedIn } = props;
    const [categories, setCategories] = useState([]);
 
    const [anchorElNav, setAnchorElNav] = useState(null);
@@ -82,13 +83,13 @@ export const Navbar = () => {
       }
    }, [token]);
 
-   if (user) {
-      return (
-         <>
-            <div style={{ height: '70px' }} />
-            <AppBar position="fixed">
-               <Container maxWidth="xl">
-                  <Toolbar disableGutters>
+   return (
+      <>
+         <div style={{ height: '70px' }} />
+         <AppBar position="fixed">
+            <Container maxWidth="xl">
+               <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
                      <KeyboardIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                      <Typography
                         variant="h6"
@@ -106,62 +107,64 @@ export const Navbar = () => {
                         }}>
                         Keyboardify
                      </Typography>
-                     <Box
+                  </Box>
+                  <Box
+                     sx={{
+                        flexGrow: 1,
+                        display: { xs: 'flex', md: 'none' }
+                     }}>
+                     <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleOpenNavMenu}
+                        color="inherit">
+                        <MenuIcon />
+                     </IconButton>
+                     <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorElNav}
+                        anchorOrigin={{
+                           vertical: 'bottom',
+                           horizontal: 'left'
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                           vertical: 'top',
+                           horizontal: 'left'
+                        }}
+                        open={Boolean(anchorElNav)}
+                        onClose={handleCloseNavMenu}
                         sx={{
-                           flexGrow: 1,
-                           display: { xs: 'flex', md: 'none' }
+                           display: { xs: 'block', md: 'none', width: 'fit-content' }
                         }}>
-                        <IconButton
-                           size="large"
-                           aria-label="account of current user"
-                           aria-controls="menu-appbar"
-                           aria-haspopup="true"
-                           onClick={handleOpenNavMenu}
-                           color="inherit">
-                           <MenuIcon />
-                        </IconButton>
-                        <Menu
-                           id="menu-appbar"
-                           anchorEl={anchorElNav}
-                           anchorOrigin={{
-                              vertical: 'bottom',
-                              horizontal: 'left'
-                           }}
-                           keepMounted
-                           transformOrigin={{
-                              vertical: 'top',
-                              horizontal: 'left'
-                           }}
-                           open={Boolean(anchorElNav)}
-                           onClose={handleCloseNavMenu}
-                           sx={{
-                              display: { xs: 'block', md: 'none', width: 'fit-content' }
-                           }}>
-                           <MenuItem onClick={handleCloseNavMenu}>
-                              <Link component={NavLink} to="/products" textAlign="center">
-                                 Products
-                              </Link>
-                           </MenuItem>
-                        </Menu>
-                     </Box>
-                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                     <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href=""
-                        sx={{
-                           mr: 2,
-                           display: { xs: 'flex', md: 'none' },
-                           flexGrow: 1,
-                           fontFamily: 'monospace',
-                           fontWeight: 700,
-                           letterSpacing: '.3rem',
-                           color: 'inherit',
-                           textDecoration: 'none'
-                        }}>
-                        Keyboardify
-                     </Typography>
+                        <MenuItem onClick={handleCloseNavMenu}>
+                           <Link component={NavLink} to="/products" textAlign="center">
+                              Products
+                           </Link>
+                        </MenuItem>
+                     </Menu>
+                  </Box>
+                  <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                  <Typography
+                     variant="h5"
+                     noWrap
+                     component="a"
+                     href=""
+                     sx={{
+                        mr: 2,
+                        display: { xs: 'flex', md: 'none' },
+                        flexGrow: 1,
+                        fontFamily: 'monospace',
+                        fontWeight: 700,
+                        letterSpacing: '.3rem',
+                        color: 'inherit',
+                        textDecoration: 'none'
+                     }}>
+                     Keyboardify
+                  </Typography>
+                  {isSignedIn && (
                      <Box
                         sx={{
                            flexGrow: 1,
@@ -217,6 +220,8 @@ export const Navbar = () => {
                            ))}
                         </Menu>
                      </Box>
+                  )}
+                  {isSignedIn && (
                      <Box sx={{ flexGrow: 0 }}>
                         {isSuperUser && (
                            <Button
@@ -291,11 +296,22 @@ export const Navbar = () => {
                            ))}
                         </Menu>
                      </Box>
+                  )}
+                  <Box sx={{ display: 'flex' }}>
+                     {!isSignedIn && (
+                        <Button
+                           component={RouterLink}
+                           variant="contained"
+                           color="secondary"
+                           to="/login">
+                           Sign in
+                        </Button>
+                     )}
                      <DarkModeSwitch />
-                  </Toolbar>
-               </Container>
-            </AppBar>
-         </>
-      );
-   }
+                  </Box>
+               </Toolbar>
+            </Container>
+         </AppBar>
+      </>
+   );
 };
