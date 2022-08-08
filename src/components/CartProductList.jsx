@@ -20,7 +20,7 @@ export const CartProductList = (props) => {
       );
    }
 
-   if (products && products?.length === 0) {
+   if (!products || products?.length === 0) {
       return (
          <Grid>
             <Typography textAlign="center" variant="h5" gutterBottom>
