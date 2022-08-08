@@ -23,6 +23,8 @@ RUN --mount=type=secret,id=VITE_BACKEND_SERVER \
    "VITE_STRIPE_KEY=$(cat /run/secrets/VITE_STRIPE_KEY)" \
    "VITE_STRIPE_SECRET=$(cat /run/secrets/VITE_STRIPE_SECRET)" > .env
 
+RUN cat .env
+
 RUN yarn install && yarn build
 
 FROM nginx:alpine AS host
