@@ -82,10 +82,13 @@ function Order() {
                               Total
                            </Typography>
                         </Grid>
-                        <Grid>
-                           <Typography variant="subtitle2" sx={{ fontSize: '1.25rem' }}>
-                              ${formatPrice(order?.totalPrice)}
-                           </Typography>
+                        <Grid item>
+                           {!order?.totalPrice && <Skeleton height={70} width={90} />}
+                           {order?.totalPrice && (
+                              <Typography variant="subtitle2" sx={{ fontSize: '1.25rem' }}>
+                                 ${formatPrice(order?.totalPrice)}
+                              </Typography>
+                           )}
                         </Grid>
                      </Grid>
                   </Paper>
