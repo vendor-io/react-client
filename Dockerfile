@@ -21,19 +21,18 @@ RUN --mount=type=secret,id=VITE_BACKEND_SERVER \
    export VITE_FIREBASE_MESSAGING_SENDER_ID=$(cat /run/secrets/VITE_FIREBASE_MESSAGING_SENDER_ID) && \
    export VITE_FIREBASE_APP_ID=$(cat /run/secrets/VITE_FIREBASE_APP_ID) && \
    export VITE_STRIPE_KEY=$(cat /run/secrets/VITE_STRIPE_KEY) && \
-   export VITE_STRIPE_SECRET=$(cat /run/secrets/VITE_STRIPE_SECRET) && \
-   touch .env && \
-   echo $(cat /run/secrets/VITE_BACKEND_SERVERT) >> .env && \
-   echo $(cat /run/secrets/VITE_DOMAIN) >> .env && \
-   echo $(cat /run/secrets/VITE_FIREBASE_API_KEY) >> .env && \
-   echo $(cat /run/secrets/VITE_FIREBASE_AUTH_DOMAIN) >> .env && \
-   echo $(cat /run/secrets/VITE_FIREBASE_PROJECT_ID) >> .env && \
-   echo $(cat /run/secrets/VITE_FIREBASE_STORAGE_BUCKET) >> .env && \
-   echo $(cat /run/secrets/VITE_FIREBASE_MESSAGING_SENDER_ID) >> .env && \
-   echo $(cat /run/secrets/VITE_FIREBASE_APP_ID) >> .env && \
-   echo $(cat /run/secrets/VITE_STRIPE_KEY) >> .env && \
-   echo $(cat /run/secrets/VITE_STRIPE_SECRET) >> .env && \
-   cat .env
+   export VITE_STRIPE_SECRET=$(cat /run/secrets/VITE_STRIPE_SECRET)
+
+RUN echo "VITE_BACKEND_SERVER=$(cat /run/secrets/VITE_BACKEND_SERVERT)" \
+   "VITE_DOMAIN=$(cat /run/secrets/VITE_DOMAIN)" \
+   "VITE_FIREBASE_API_KEY=$(cat /run/secrets/VITE_FIREBASE_API_KEY)" \
+   "VITE_FIREBASE_AUTH_DOMAIN=$(cat /run/secrets/VITE_FIREBASE_AUTH_DOMAIN)" \
+   "VITE_FIREBASE_PROJECT_ID=$(cat /run/secrets/VITE_FIREBASE_PROJECT_ID)" \
+   "VITE_FIREBASE_STORAGE_BUCKET=$(cat /run/secrets/VITE_FIREBASE_STORAGE_BUCKET)" \
+   "VITE_FIREBASE_MESSAGING_SENDER_ID=$(cat /run/secrets/VITE_FIREBASE_MESSAGING_SENDER_ID)" \
+   "VITE_FIREBASE_APP_ID=$(cat /run/secrets/VITE_FIREBASE_APP_ID)" \
+   "VITE_STRIPE_KEY=$(cat /run/secrets/VITE_STRIPE_KEY)" \
+   "VITE_STRIPE_SECRET=$(cat /run/secrets/VITE_STRIPE_SECRET)" > .env
 
 RUN yarn install && yarn build
 
