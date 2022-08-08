@@ -177,6 +177,7 @@ function Checkout() {
                   <Grid item xs={5}>
                      {paymentPayload.clientSecret === null && (
                         <Button
+                           disabled={!userTransactionDetails?.address}
                            type="button"
                            color="warning"
                            variant="contained"
