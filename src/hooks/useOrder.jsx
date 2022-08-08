@@ -1,7 +1,22 @@
 export function useOrder() {
+   const getOrderForUserById = async (token, orderId) => {
+      let order;
+      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/orders/${orderId}`, {
+         method: 'GET',
+         mode: 'cors',
+         headers: {
+            Authorization: `Bearer ${token}`
+         }
+      })
+         .then((res) => res.json())
+         .then((data) => (order = data));
+
+      return order;
+   };
+
    const getOrdersForUser = async (token, userId) => {
       let orders;
-      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/orders/${userId}`, {
+      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/api/orders/user/${userId}`, {
          method: 'GET',
          mode: 'cors',
          headers: {
@@ -31,5 +46,5 @@ export function useOrder() {
       return order;
    };
 
-   return { getOrdersForUser, createOrder };
+   return { getOrderForUserById, getOrdersForUser, createOrder };
 }
