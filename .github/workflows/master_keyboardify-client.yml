@@ -49,13 +49,13 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          push: true
+          push: false
           tags: user/app:latest
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: keyboardify-client-app
+          name: user/app
           path: .
 
   deploy:
@@ -69,7 +69,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: keyboardify-client-app
+          name: user/app
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
