@@ -12,7 +12,7 @@ RUN --mount=type=secret,id=VITE_BACKEND_SERVER \
    --mount=type=secret,id=VITE_FIREBASE_APP_ID \
    --mount=type=secret,id=VITE_STRIPE_KEY \
    --mount=type=secret,id=VITE_STRIPE_SECRET \
-   export VITE_BACKEND_SERVER=$(cat /run/secrets/VITE_BACKEND_SERVERT) && \
+   export VITE_BACKEND_SERVER=$(cat /run/secrets/VITE_BACKEND_SERVER) && \
    export VITE_DOMAIN=$(cat /run/secrets/VITE_DOMAIN) && \
    export VITE_FIREBASE_API_KEY=$(cat /run/secrets/VITE_FIREBASE_API_KEY) && \
    export VITE_FIREBASE_AUTH_DOMAIN=$(cat /run/secrets/VITE_FIREBASE_AUTH_DOMAIN) && \
