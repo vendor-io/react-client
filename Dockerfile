@@ -1,6 +1,5 @@
 FROM node:16 AS builder
 WORKDIR /app
-COPY . .
 
 RUN --mount=type=secret,id=VITE_BACKEND_SERVER \
    --mount=type=secret,id=VITE_DOMAIN \
@@ -23,7 +22,7 @@ RUN --mount=type=secret,id=VITE_BACKEND_SERVER \
    "VITE_STRIPE_KEY=$(cat /run/secrets/VITE_STRIPE_KEY)\n" \
    "VITE_STRIPE_SECRET=$(cat /run/secrets/VITE_STRIPE_SECRET)" > .env
 
-RUN cat .env
+COPY . .
 
 RUN yarn install && yarn build
 
