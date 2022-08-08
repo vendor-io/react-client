@@ -23,9 +23,6 @@ import { ThemeContext } from './context/theme-context';
 import { CartContext } from './context/cart-context';
 import { PaymentContext } from './context/payment-context';
 
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ToastContainer } from 'react-toastify';
@@ -85,33 +82,30 @@ function App() {
       );
    }
 
-   const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
-
    return (
       <BreadcrumbsContext.Provider value={{ currentBreadcrumb, setCurrentBreadcrumb }}>
          <CartContext.Provider value={{ cartItemsAmount, setCartItemsAmount }}>
             <PaymentContext.Provider value={{ paymentPayload, setPaymentPayload }}>
                <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
                   <ThemeProvider theme={darkMode ? darkTheme : theme}>
-                     <Elements stripe={stripePromise} options={paymentPayload}>
-                        <CssBaseline />
-                        <Navbar isSignedIn={isSignedIn} />
-                        {isSignedIn && <NavBreadcrumbs />}
-                        {isSignedIn && <CartFab />}
-                        <ScrollToTopFab />
-                        {routesHandler}
-                        <ToastContainer
-                           position="bottom-left"
-                           autoClose={5000}
-                           hideProgressBar={false}
-                           newestOnTop
-                           closeOnClick
-                           rtl={false}
-                           pauseOnFocusLoss
-                           draggable
-                           pauseOnHover
-                        />
-                     </Elements>
+                     <CssBaseline />
+                     <Navbar isSignedIn={isSignedIn} />
+                     {isSignedIn && <NavBreadcrumbs />}
+                     {isSignedIn && <CartFab />}
+                     <ScrollToTopFab />
+                     {routesHandler}
+                     <ToastContainer
+                        position="bottom-left"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                     />
+                     {/* </Elements> */}
                   </ThemeProvider>
                </ThemeContext.Provider>
             </PaymentContext.Provider>

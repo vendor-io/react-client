@@ -9,6 +9,9 @@ import { useOrder } from '../hooks/useOrder';
 import { ThemeContext } from '../context/theme-context';
 import { PaymentContext } from '../context/payment-context';
 
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
 import { CartProductList } from './../components/CartProductList';
 import {
    Box,
@@ -45,7 +48,6 @@ function Checkout() {
    const { token, user } = useAuth();
    const { getCartForUser } = useCart();
    const { postPaymentIntent } = usePayment();
-   const { createOrder } = useOrder();
 
    const stripe = useStripe();
    const elements = useElements();
@@ -97,7 +99,7 @@ function Checkout() {
       if (token) {
          getAddressesForUser(token, user.uid).then((data) => {
             setAddresses(data);
-            setUserTransactionDetails({ ...userTransactionDetails, address: data[0].id });
+            setUserTransactionDetails({ ...userTransactionDetails, address: data[0]?.id });
          });
          getCartForUser(token, user.uid).then((data) =>
             setUserTransactionDetails({ ...userTransactionDetails, cart: data })
@@ -112,7 +114,7 @@ function Checkout() {
    }, [addresses]);
 
    useEffect(() => {
-      if (paymentPayload.clientSecret !== null) {
+      if (paymentPayload?.clientSecret !== null) {
          setTransactionLoading(false);
       }
 
@@ -249,4 +251,17 @@ function Checkout() {
    );
 }
 
-export default Checkout;
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
+
+const withElements =
+   (Component) =>
+   ({ ...props }) => {
+      const { paymentPayload } = useContext(PaymentContext);
+      return (
+         <Elements stripe={stripePromise} options={paymentPayload}>
+            <Component {...props} />
+         </Elements>
+      );
+   };
+
+export default Checkout = withElements(Checkout);
