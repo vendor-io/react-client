@@ -1,6 +1,7 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { useAuth } from '../hooks/useAuth';
 
 import {
    Avatar,
@@ -16,6 +17,11 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
+import GoogleIcon from '@mui/icons-material/Google';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import TwitterIcon from '@mui/icons-material/Twitter';
+
 export const LoginForm = () => {
    const {
       register,
@@ -24,6 +30,8 @@ export const LoginForm = () => {
    } = useForm();
 
    const navigate = useNavigate();
+
+   const { signInWithGoogle, signInWithFacebook, signInWithGithub, signInWithTwitter } = useAuth();
 
    const onSubmit = async (data) => {
       console.log(data);
@@ -94,6 +102,52 @@ export const LoginForm = () => {
                control={<Checkbox value="remember" color="primary" />}
                label="Remember me"
             />
+            <Grid container columnSpacing={2} sx={{ my: 3 }}>
+               <Grid item xs={3}>
+                  <Button
+                     variant="contained"
+                     color="google"
+                     fullWidth
+                     size="large"
+                     onClick={signInWithGoogle}
+                     sx={{ py: 2 }}>
+                     <GoogleIcon sx={{ fontSize: '2rem' }} />
+                  </Button>
+               </Grid>
+               <Grid item xs={3}>
+                  <Button
+                     variant="contained"
+                     color="facebook"
+                     fullWidth
+                     size="large"
+                     onClick={signInWithFacebook}
+                     sx={{ py: 2 }}>
+                     <FacebookIcon sx={{ fontSize: '2rem' }} />
+                  </Button>
+               </Grid>
+               <Grid item xs={3}>
+                  <Button
+                     variant="contained"
+                     color="github"
+                     fullWidth
+                     size="large"
+                     onClick={signInWithGithub}
+                     sx={{ py: 2 }}>
+                     <GitHubIcon sx={{ fontSize: '2rem' }} />
+                  </Button>
+               </Grid>
+               <Grid item xs={3}>
+                  <Button
+                     variant="contained"
+                     color="twitter"
+                     fullWidth
+                     size="large"
+                     onClick={signInWithTwitter}
+                     sx={{ py: 2 }}>
+                     <TwitterIcon sx={{ fontSize: '2rem', color: 'white' }} />
+                  </Button>
+               </Grid>
+            </Grid>
             <Grid
                container
                sx={{
