@@ -4,13 +4,9 @@ import { useAddress } from '../hooks/useAddress';
 import { useAuth } from './../hooks/useAuth';
 import { useCart } from '../hooks/useCart';
 import { usePayment } from '../hooks/usePayment';
-import { useOrder } from '../hooks/useOrder';
 
 import { ThemeContext } from '../context/theme-context';
 import { PaymentContext } from '../context/payment-context';
-
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 
 import { CartProductList } from './../components/CartProductList';
 import {
@@ -30,7 +26,8 @@ import AddIcon from '@mui/icons-material/Add';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
-import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
+import { useStripe, useElements, PaymentElement, Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { formatPrice } from './../util/format-price';
 
 function Checkout() {
@@ -92,6 +89,7 @@ function Checkout() {
          setTransactionLoading(false);
          console.log(result.error.message);
       } else {
+         console.log('Success!');
       }
    };
 
@@ -99,7 +97,10 @@ function Checkout() {
       if (token) {
          getAddressesForUser(token, user.uid).then((data) => {
             setAddresses(data);
-            setUserTransactionDetails({ ...userTransactionDetails, address: data[0]?.id });
+            setUserTransactionDetails({
+               ...userTransactionDetails,
+               address: data ? data[0]?.i : null
+            });
          });
          getCartForUser(token, user.uid).then((data) =>
             setUserTransactionDetails({ ...userTransactionDetails, cart: data })
@@ -264,4 +265,4 @@ const withElements =
       );
    };
 
-export default Checkout = withElements(Checkout);
+export default withElements(Checkout);
