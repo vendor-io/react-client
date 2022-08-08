@@ -12,15 +12,15 @@ RUN --mount=type=secret,id=VITE_BACKEND_SERVER \
    --mount=type=secret,id=VITE_FIREBASE_APP_ID \
    --mount=type=secret,id=VITE_STRIPE_KEY \
    --mount=type=secret,id=VITE_STRIPE_SECRET \
-   echo "VITE_BACKEND_SERVER=$(cat /run/secrets/VITE_BACKEND_SERVER)" \
-   "VITE_DOMAIN=$(cat /run/secrets/VITE_DOMAIN)" \
-   "VITE_FIREBASE_API_KEY=$(cat /run/secrets/VITE_FIREBASE_API_KEY)" \
-   "VITE_FIREBASE_AUTH_DOMAIN=$(cat /run/secrets/VITE_FIREBASE_AUTH_DOMAIN)" \
-   "VITE_FIREBASE_PROJECT_ID=$(cat /run/secrets/VITE_FIREBASE_PROJECT_ID)" \
-   "VITE_FIREBASE_STORAGE_BUCKET=$(cat /run/secrets/VITE_FIREBASE_STORAGE_BUCKET)" \
-   "VITE_FIREBASE_MESSAGING_SENDER_ID=$(cat /run/secrets/VITE_FIREBASE_MESSAGING_SENDER_ID)" \
-   "VITE_FIREBASE_APP_ID=$(cat /run/secrets/VITE_FIREBASE_APP_ID)" \
-   "VITE_STRIPE_KEY=$(cat /run/secrets/VITE_STRIPE_KEY)" \
+   echo "VITE_BACKEND_SERVER=$(cat /run/secrets/VITE_BACKEND_SERVER)\n" \
+   "VITE_DOMAIN=$(cat /run/secrets/VITE_DOMAIN)\n" \
+   "VITE_FIREBASE_API_KEY=$(cat /run/secrets/VITE_FIREBASE_API_KEY)\n" \
+   "VITE_FIREBASE_AUTH_DOMAIN=$(cat /run/secrets/VITE_FIREBASE_AUTH_DOMAIN)\n" \
+   "VITE_FIREBASE_PROJECT_ID=$(cat /run/secrets/VITE_FIREBASE_PROJECT_ID)\n" \
+   "VITE_FIREBASE_STORAGE_BUCKET=$(cat /run/secrets/VITE_FIREBASE_STORAGE_BUCKET)\n" \
+   "VITE_FIREBASE_MESSAGING_SENDER_ID=$(cat /run/secrets/VITE_FIREBASE_MESSAGING_SENDER_ID)\n" \
+   "VITE_FIREBASE_APP_ID=$(cat /run/secrets/VITE_FIREBASE_APP_ID)\n" \
+   "VITE_STRIPE_KEY=$(cat /run/secrets/VITE_STRIPE_KEY)\n" \
    "VITE_STRIPE_SECRET=$(cat /run/secrets/VITE_STRIPE_SECRET)" > .env
 
 RUN cat .env
