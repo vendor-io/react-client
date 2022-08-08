@@ -1,5 +1,9 @@
 import { createTheme } from '@mui/material';
 
+const { palette } = createTheme();
+const { augmentColor } = palette;
+const createColor = (mainColor) => augmentColor({ color: { main: mainColor } });
+
 export const theme = createTheme({
    palette: {
       type: 'light',
@@ -8,7 +12,11 @@ export const theme = createTheme({
       },
       secondary: {
          main: '#ffe082'
-      }
+      },
+      google: createColor('#e34133'),
+      facebook: createColor('#395693'),
+      github: createColor('#22272c'),
+      twitter: createColor('#00a7e7')
    },
    overrides: {
       MuiButton: {
@@ -32,7 +40,11 @@ export const darkTheme = createTheme({
       },
       secondary: {
          main: '#ffe082'
-      }
+      },
+      google: createColor('#e34133'),
+      facebook: createColor('#395693'),
+      github: createColor('#22272c'),
+      twitter: createColor('#00a7e7')
    },
    overrides: {
       MuiButton: {
