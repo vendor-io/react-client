@@ -13,7 +13,8 @@ import {
    ListItemText,
    Skeleton,
    Divider,
-   Button
+   Button,
+   Box
 } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import HomeIcon from '@mui/icons-material/Home';
@@ -52,7 +53,7 @@ export const AddressesList = (props) => {
             <Paper variant="outlined" sx={{ mt: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
                <Grid>
                   <Typography textAlign="center" variant="h5" gutterBottom>
-                     Currently you didn't add any address. 🧐
+                     Currently you don't have any address. 🧐
                   </Typography>
                   <Typography textAlign="center" variant="h5" gutterBottom>
                      Maybe it's time to add one?
