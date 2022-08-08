@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  web:
+    restart: always
+    build: .
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+ 
+networks:
+  app-network:
+    name: client-endpoint
