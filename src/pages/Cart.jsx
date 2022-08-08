@@ -55,12 +55,12 @@ function Cart() {
       );
    }
 
-   if (cart?.products?.length >= 0) {
+   if (cart?.products?.length >= 0 || !cart?.products) {
       return (
          <Container maxWidth="xl">
             <Paper variant="outlined" sx={{ mt: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
                <CartProductList
-                  products={cart.products}
+                  products={cart?.products}
                   handleDelete={handleDelete}
                   handleAmountChange={handleAmountChange}
                />
