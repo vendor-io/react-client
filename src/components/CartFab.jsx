@@ -16,11 +16,11 @@ export const CartFab = () => {
          setCartItemsAmount(parseInt(localStorage.getItem('cartItemsAmount')));
       } else {
          let cartData;
-         getCartForUser(token, user.uid).then((data) => (cartData = data?.products));
+         getCartForUser(token, user?.uid).then((data) => (cartData = data?.products));
 
-         if (cartData.length > 0) {
-            setCartItemsAmount(cartData.length);
-            localStorage.setItem('cartItemsAmount', cartData.length);
+         if (cartData?.length > 0) {
+            setCartItemsAmount(cartData?.length);
+            localStorage.setItem('cartItemsAmount', cartData?.length);
          } else {
             setCartItemsAmount(0);
             localStorage.setItem('cartItemsAmount', 0);
