@@ -28,7 +28,7 @@ export const CartProduct = (props) => {
    const { darkMode } = useContext(ThemeContext);
 
    const ProductThumbnail = styled.img`
-      max-height: ${(props) => (props.dense ? '60px' : '140px')};
+      max-height: ${(dense) => (dense ? '60px' : '140px')};
       width: 100%;
       object-fit: cover;
       border-radius: 16px;
