@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useCart } from './../hooks/useCart';
+import { usePayment } from '../hooks/usePayment';
+import { PaymentContext } from '../context/payment-context';
+
 import { CartProductList } from './../components/CartProductList';
 import { formatPrice } from './../util/format-price';
 
@@ -11,8 +14,12 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 function Cart() {
    const [cart, setCart] = useState([]);
    const [isLoading, setIsLoading] = useState(true);
+   const { setPaymentPayload } = useContext(PaymentContext);
+   const navigate = useNavigate();
+
    const { token, user } = useAuth();
    const { getCartForUser, removeProductFromCart, changeAmountOfProductInCart } = useCart();
+   const { postPaymentIntent } = usePayment();
 
    const handleDelete = (productId) => {
       if (token) {
@@ -32,6 +39,16 @@ function Cart() {
          );
          setIsLoading(false);
       }
+   };
+
+   const handleCheckout = async () => {
+      await postPaymentIntent(token, {
+         amount: cart?.totalPrice,
+         source: 'pm_card_mastercard',
+         receiptMail: user?.email
+      }).then((data) => setPaymentPayload(data));
+
+      navigate('/checkout');
    };
 
    useEffect(() => {
@@ -73,8 +90,7 @@ function Cart() {
                               color="success"
                               sx={{ p: 2 }}
                               size="large"
-                              component={RouterLink}
-                              to="/checkout"
+                              onClick={handleCheckout}
                               endIcon={<ArrowForwardIosIcon />}
                               fullWidth>
                               Complete order

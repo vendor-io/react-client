@@ -37,6 +37,7 @@ function Checkout() {
    });
    const [addresses, setAddresses] = useState([]);
    const [transactionLoading, setTransactionLoading] = useState(false);
+   console.log('transactionLoading', transactionLoading);
 
    const { darkMode } = useContext(ThemeContext);
    const { paymentPayload, setPaymentPayload } = useContext(PaymentContext);
