@@ -31,10 +31,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { formatPrice } from './../util/format-price';
 
 function Checkout() {
-   const [userTransactionDetails, setUserTransactionDetails] = useState({
-      cart: {},
-      address: null
-   });
+   const [cart, setCart] = useState({});
+   const [address, setAddress] = useState(null);
    const [addresses, setAddresses] = useState([]);
    const [transactionLoading, setTransactionLoading] = useState(false);
    console.log('transactionLoading', transactionLoading);
@@ -51,15 +49,15 @@ function Checkout() {
    const elements = useElements();
 
    const handleAddressChange = (e) => {
-      setUserTransactionDetails({ ...userTransactionDetails, address: e.target.value });
+      setAddress(e.target.value);
    };
 
    const handleStartTransaction = () => {
       setTransactionLoading(true);
       postPaymentIntent(token, {
-         amount: userTransactionDetails.cart.totalPrice,
+         amount: cart?.totalPrice,
          source: 'pm_card_mastercard',
-         receiptMail: user.email
+         receiptMail: user?.email
       }).then((data) => setPaymentPayload(data));
    };
 
@@ -69,9 +67,9 @@ function Checkout() {
 
       const orderRequest = {
          userId: user.uid,
-         addressId: userTransactionDetails.address,
-         productsInOrder: userTransactionDetails.cart.products,
-         totalPrice: userTransactionDetails.cart.totalPrice
+         addressId: address,
+         productsInOrder: cart?.products,
+         totalPrice: cart?.totalPrice
       };
 
       sessionStorage.setItem('orderRequest', JSON.stringify(orderRequest));
@@ -98,20 +96,15 @@ function Checkout() {
       if (token) {
          getAddressesForUser(token, user.uid).then((data) => {
             setAddresses(data);
-            setUserTransactionDetails({
-               ...userTransactionDetails,
-               address: data ? data[0]?.i : null
-            });
+            setAddress(data ? data[0]?.id : null);
          });
-         getCartForUser(token, user.uid).then((data) =>
-            setUserTransactionDetails({ ...userTransactionDetails, cart: data })
-         );
+         getCartForUser(token, user.uid).then((data) => setCart(data));
       }
    }, [token]);
 
    useEffect(() => {
       if (addresses) {
-         setUserTransactionDetails({ ...userTransactionDetails, address: addresses[0]?.id });
+         setAddress(addresses[0]?.id);
       }
    }, [addresses]);
 
@@ -122,8 +115,6 @@ function Checkout() {
 
       return () => setTransactionLoading(false);
    }, [paymentPayload]);
-
-   console.log('userTransactionDetails', userTransactionDetails);
 
    return (
       <Container component="main" maxWidth="xl" sx={{ mb: 4 }}>
@@ -138,7 +129,7 @@ function Checkout() {
                      <Select
                         labelId="checkout-address-select-label"
                         id="checkout-address-select"
-                        value={userTransactionDetails.address || ''}
+                        value={address || ''}
                         label="Address"
                         required
                         onChange={handleAddressChange}
@@ -166,10 +157,8 @@ function Checkout() {
                   </Button>
                </Grid>
             </Grid>
-            {!userTransactionDetails?.cart?.products && <CartProductList isLoading />}
-            {userTransactionDetails?.cart?.products && (
-               <CartProductList products={userTransactionDetails.cart.products} dense />
-            )}
+            {!cart?.products && <CartProductList isLoading />}
+            {cart?.products && <CartProductList products={cart.products} dense />}
             <Box component="form" onSubmit={handleSubmitOrder}>
                <Box sx={{ py: 1 }}>
                   <PaymentElement theme={darkMode ? 'night' : 'flat'} />
@@ -181,7 +170,7 @@ function Checkout() {
                   <Grid item xs={5}>
                      {paymentPayload.clientSecret === null && (
                         <Button
-                           disabled={!userTransactionDetails?.address}
+                           disabled={!address}
                            type="button"
                            color="warning"
                            variant="contained"
@@ -209,8 +198,8 @@ function Checkout() {
                         <Button
                            disabled={
                               !stripe ||
-                              userTransactionDetails?.cart?.products?.length === 0 ||
-                              typeof userTransactionDetails?.address === 'undefined'
+                              cart?.products?.length === 0 ||
+                              typeof address === 'undefined'
                            }
                            color="success"
                            variant="contained"
@@ -237,9 +226,9 @@ function Checkout() {
                               </Typography>
                            </Grid>
                            <Grid>
-                              {userTransactionDetails?.cart?.totalPrice && (
+                              {cart?.totalPrice && (
                                  <Typography variant="subtitle2" sx={{ fontSize: '1.25rem' }}>
-                                    ${formatPrice(userTransactionDetails?.cart?.totalPrice)}
+                                    ${formatPrice(cart?.totalPrice)}
                                  </Typography>
                               )}
                            </Grid>
