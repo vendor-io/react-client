@@ -27,8 +27,6 @@ export const CartProductSkeleton = (props) => {
       return null;
    };
 
-   // TODO: Implement changing product amount
-
    return (
       <Paper
          variant="outlined"
