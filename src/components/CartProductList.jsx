@@ -2,6 +2,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Typography, Box, Button } from '@mui/material';
 import { CartProduct } from './CartProduct';
 import { CartProductSkeleton } from './CartProductSkeleton';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 export const CartProductList = (props) => {
    const { products, isLoading, dense, handleDelete, handleAmountChange } = props;
@@ -30,7 +31,13 @@ export const CartProductList = (props) => {
                Maybe consider adding some?
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 1 }}>
-               <Button component={RouterLink} to="/products" variant="contained" size="large">
+               <Button
+                  component={RouterLink}
+                  to="/products"
+                  variant="contained"
+                  size="large"
+                  endIcon={<ShoppingBagIcon />}
+                  sx={{ mt: 2, py: 2, px: 8 }}>
                   Go to Products
                </Button>
             </Box>
