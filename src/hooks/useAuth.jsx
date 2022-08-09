@@ -58,7 +58,7 @@ export function useAuth() {
    }, [authState.user, token]);
 
    const createUser = async (data) => {
-      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/user/new`, {
+      await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/common/user/new`, {
          method: 'POST',
          mode: 'cors',
          headers: new Headers({ 'content-type': 'application/json' }),
