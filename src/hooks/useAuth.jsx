@@ -17,6 +17,7 @@ export function useAuth() {
    });
    const [token, setToken] = useState(null);
    const [response, setResponse] = useState(null);
+   const [error, setError] = useState(null);
 
    const auth = getAuth();
 
@@ -86,7 +87,7 @@ export function useAuth() {
 
       await signInWithPopup(auth, googleProvider).then((res) => (googleRes = res));
 
-      createUser({ email: googleRes.user.email, uid: googleRes.user.uid });
+      createUser({ email: googleRes?.user?.email, uid: googleRes?.user?.uid });
    };
 
    const signInWithFacebook = async () => {
@@ -95,7 +96,7 @@ export function useAuth() {
 
       await signInWithPopup(auth, facebookProvider).then((res) => (facebookRes = res));
 
-      createUser({ email: facebookRes.user.email, uid: facebookRes.user.uid });
+      createUser({ email: facebookRes?.user?.email, uid: facebookRes?.user?.uid });
    };
 
    const signInWithGithub = async () => {
@@ -104,7 +105,7 @@ export function useAuth() {
 
       await signInWithPopup(auth, githubProvider).then((res) => (githubRes = res));
 
-      createUser({ email: githubRes.user.email, uid: githubRes.user.uid });
+      createUser({ email: githubRes?.user?.email, uid: githubRes?.user?.uid });
    };
 
    const signInWithTwitter = async () => {
@@ -113,7 +114,25 @@ export function useAuth() {
 
       await signInWithPopup(auth, twitterProvider).then((res) => (twitterRes = res));
 
-      createUser({ email: twitterRes.user.email, uid: twitterRes.user.uid });
+      createUser({ email: twitterRes?.user?.email, uid: twitterRes?.user?.uid });
+   };
+
+   const assignSuperuser = async () => {
+      if (authState?.user?.uid && token) {
+         await fetch(
+            `${import.meta.env.VITE_BACKEND_SERVER}/common/superuser/assign/${authState.user.uid}`,
+            {
+               method: 'POST',
+               mode: 'cors',
+               headers: {
+                  Authorization: `Bearer ${token}`
+               }
+            }
+         )
+            .then((res) => res.json())
+            .then((resData) => setResponse(resData));
+      }
+      setError('User is not logged in OR token has been revoked.');
    };
 
    return {
@@ -126,6 +145,8 @@ export function useAuth() {
       signInWithFacebook,
       signInWithGithub,
       signInWithTwitter,
-      response
+      assignSuperuser,
+      response,
+      error
    };
 }

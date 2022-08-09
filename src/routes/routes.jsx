@@ -15,6 +15,7 @@ import Checkout from './../pages/Checkout';
 import CheckoutSuccess from '../pages/CheckoutSuccess';
 import Order from './../pages/Order';
 import Orders from '../pages/Orders';
+import AssignSuperuser from '../pages/AssignSuperuser';
 
 export const routes = [
    {
@@ -145,6 +146,18 @@ export const routes = [
             name: 'Order',
             breadcrumb: 'Order',
             component: <Order />
+         }
+      ]
+   },
+   {
+      path: '/utilities',
+      breadcrumb: 'Utilities',
+      subroutes: [
+         {
+            path: 'assign-superuser',
+            name: 'Assign Superuser',
+            breadcrumb: 'Assign Superuser',
+            component: <AssignSuperuser />
          }
       ]
    }
