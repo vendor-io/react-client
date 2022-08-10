@@ -1,8 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Typography, Box, Button } from '@mui/material';
-import { CartProduct } from './CartProduct';
-import { CartProductSkeleton } from './CartProductSkeleton';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+
+import { CartProductSkeleton } from './CartProductSkeleton';
+import { CartProduct } from './CartProduct';
 
 export const CartProductList = (props) => {
    const { products, isLoading, dense, handleDelete, handleAmountChange } = props;
@@ -12,8 +13,10 @@ export const CartProductList = (props) => {
          <Grid container>
             {Array.from({ length: 4 }).map((_item, index) => {
                return (
+                  // eslint-disable-next-line react/no-array-index-key
                   <Grid item key={index} xs={12}>
-                     <CartProductSkeleton dense={dense} odd={index % 2 === 0 ? false : true} />
+                     {/* eslint-disable-next-line react/no-array-index-key */}
+                     <CartProductSkeleton dense={dense} odd={index % 2 !== 0} />
                   </Grid>
                );
             })}
@@ -59,7 +62,7 @@ export const CartProductList = (props) => {
                      price={product.price}
                      totalPrice={product.totalPrice}
                      amount={product.amount}
-                     odd={index % 2 === 0 ? false : true}
+                     odd={index % 2 !== 0}
                      dense={dense}
                      handleDelete={handleDelete}
                      handleAmountChange={handleAmountChange}

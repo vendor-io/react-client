@@ -17,6 +17,7 @@ export const ProductListSkeleton = () => {
             <Grid container spacing={5}>
                {Array.from({ length: 8 }).map((_item, index) => {
                   return (
+                     // eslint-disable-next-line react/no-array-index-key
                      <Grid item xs={3} key={index}>
                         <Card>
                            <Skeleton variant="rectangular" height={140} />

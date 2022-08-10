@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { AddressesListItem } from './AddressesListItem';
 
 import {
    Container,
@@ -20,6 +19,8 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from '@mui/icons-material/Add';
 
+import { AddressesListItem } from './AddressesListItem';
+
 export const AddressesList = (props) => {
    const { addresses, isSkeleton } = props;
 
@@ -29,7 +30,9 @@ export const AddressesList = (props) => {
             <Paper variant="outlined" sx={{ mt: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
                <List>
                   {Array.from({ length: 3 }).map((_item, index) => (
+                     // eslint-disable-next-line react/no-array-index-key
                      <React.Fragment key={index}>
+                        {/* eslint-disable-next-line react/no-array-index-key */}
                         <ListItem key={index} sx={{ py: 2 }}>
                            <ListItemIcon>
                               <HomeIcon />
@@ -53,10 +56,10 @@ export const AddressesList = (props) => {
             <Paper variant="outlined" sx={{ mt: { xs: 3, md: 6 }, p: { xs: 1, md: 2 } }}>
                <Grid>
                   <Typography textAlign="center" variant="h5" gutterBottom>
-                     Currently you don't have any address. 🧐
+                     Currently you don&apos;t have any address. 🧐
                   </Typography>
                   <Typography textAlign="center" variant="h5" gutterBottom>
-                     Maybe it's time to add one?
+                     Maybe it&apos;s time to add one?
                   </Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 1 }}>
                      <Button

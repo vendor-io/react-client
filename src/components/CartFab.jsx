@@ -1,10 +1,11 @@
 import { useEffect, useContext } from 'react';
-import { CartContext } from '../context/cart-context';
-import { useCart } from '../hooks/useCart';
-import { useAuth } from '../hooks/useAuth';
 import { Link as RouterLink } from 'react-router-dom';
 import { Tooltip, Fab, Box, Badge } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+import { CartContext } from '../context/cart-context';
+import { useCart } from '../hooks/useCart';
+import { useAuth } from '../hooks/useAuth';
 
 export const CartFab = () => {
    const { cartItemsAmount, setCartItemsAmount } = useContext(CartContext);
@@ -13,7 +14,7 @@ export const CartFab = () => {
 
    useEffect(() => {
       if (localStorage.getItem('cartItemsAmount')) {
-         setCartItemsAmount(parseInt(localStorage.getItem('cartItemsAmount')));
+         setCartItemsAmount(parseInt(localStorage.getItem('cartItemsAmount'), 10));
       } else {
          let cartData;
          getCartForUser(token, user?.uid).then((data) => (cartData = data?.products));

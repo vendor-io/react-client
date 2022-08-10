@@ -1,8 +1,8 @@
-import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-
 import { Container, Paper, Button } from '@mui/material';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
+import { useAuth } from '../hooks/useAuth';
 
 function AssignSuperuser() {
    const navigate = useNavigate();

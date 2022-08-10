@@ -1,14 +1,13 @@
-import { Container, Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import { MainContainer } from '../components/MainContainer';
 
 function Home() {
    return (
-      <Container component="main" maxWidth="xl" sx={{ mb: 4 }}>
-         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-            <Typography component="h1" variant="h4" align="center">
-               Home {'(todo)'}
-            </Typography>
-         </Paper>
-      </Container>
+      <MainContainer>
+         <Typography component="h1" variant="h4" align="center">
+            Home (todo)
+         </Typography>
+      </MainContainer>
    );
 }
 

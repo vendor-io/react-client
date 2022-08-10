@@ -1,14 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useAddress } from '../hooks/useAddress';
-import { useAuth } from './../hooks/useAuth';
-import { useCart } from '../hooks/useCart';
-import { usePayment } from '../hooks/usePayment';
-
-import { ThemeContext } from '../context/theme-context';
-import { PaymentContext } from '../context/payment-context';
-
-import { CartProductList } from './../components/CartProductList';
 import {
    Box,
    Container,
@@ -28,14 +19,23 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 import { useStripe, useElements, PaymentElement, Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { formatPrice } from './../util/format-price';
+import { formatPrice } from '../util/format-price';
+
+import { useAddress } from '../hooks/useAddress';
+import { useAuth } from '../hooks/useAuth';
+import { useCart } from '../hooks/useCart';
+import { usePayment } from '../hooks/usePayment';
+
+import { ThemeContext } from '../context/theme-context';
+import { PaymentContext } from '../context/payment-context';
+
+import { CartProductList } from '../components/CartProductList';
 
 function Checkout() {
    const [cart, setCart] = useState({});
    const [address, setAddress] = useState(null);
    const [addresses, setAddresses] = useState([]);
    const [transactionLoading, setTransactionLoading] = useState(false);
-   console.log('transactionLoading', transactionLoading);
 
    const { darkMode } = useContext(ThemeContext);
    const { paymentPayload, setPaymentPayload } = useContext(PaymentContext);
@@ -86,8 +86,8 @@ function Checkout() {
       });
       if (result.error) {
          setTransactionLoading(false);
-         console.log(result.error.message);
       } else {
+         // eslint-disable-next-line no-console
          console.log('Success!');
       }
    };
@@ -100,7 +100,7 @@ function Checkout() {
          });
          getCartForUser(token, user.uid).then((data) => setCart(data));
       }
-   }, [token]);
+   }, [token, getAddressesForUser, getCartForUser, user?.uid]);
 
    useEffect(() => {
       if (addresses) {
@@ -244,15 +244,13 @@ function Checkout() {
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
-const withElements =
-   (Component) =>
-   ({ ...props }) => {
-      const { paymentPayload } = useContext(PaymentContext);
-      return (
-         <Elements stripe={stripePromise} options={paymentPayload}>
-            <Component {...props} />
-         </Elements>
-      );
-   };
+const withElements = (Component) => () => {
+   const { paymentPayload } = useContext(PaymentContext);
+   return (
+      <Elements stripe={stripePromise} options={paymentPayload}>
+         <Component />
+      </Elements>
+   );
+};
 
 export default withElements(Checkout);

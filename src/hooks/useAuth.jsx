@@ -36,7 +36,7 @@ export function useAuth() {
          });
       }
       return () => unregisterAuthObserver();
-   }, []);
+   }, [auth, authState]);
 
    useEffect(() => {
       if (authState.user && token) {
@@ -56,7 +56,7 @@ export function useAuth() {
 
          checkIfUserIsSuperUser();
       }
-   }, [authState.user, token]);
+   }, [authState, token]);
 
    const createUser = async (data) => {
       await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/common/user/new`, {

@@ -1,15 +1,14 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import { useCart } from './../hooks/useCart';
-import { usePayment } from '../hooks/usePayment';
-import { PaymentContext } from '../context/payment-context';
-
-import { CartProductList } from './../components/CartProductList';
-import { formatPrice } from './../util/format-price';
-
 import { Container, Paper, Grid, Typography, Button } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
+import { useAuth } from '../hooks/useAuth';
+import { useCart } from '../hooks/useCart';
+import { usePayment } from '../hooks/usePayment';
+import { PaymentContext } from '../context/payment-context';
+import { CartProductList } from '../components/CartProductList';
+import { formatPrice } from '../util/format-price';
 
 function Cart() {
    const [cart, setCart] = useState([]);
@@ -56,11 +55,7 @@ function Cart() {
          getCartForUser(token, user.uid).then((data) => setCart(data));
          setIsLoading(false);
       }
-   }, [token]);
-
-   useEffect(() => {
-      console.log(cart);
-   }, [cart]);
+   }, [token, getCartForUser, user?.uid]);
 
    if (isLoading) {
       return (

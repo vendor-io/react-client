@@ -1,9 +1,9 @@
 import { Container, Paper, CircularProgress } from '@mui/material';
 
 export const Spinner = (props) => {
-   const { variant } = props;
+   const { variant = 'sm' } = props;
    return (
-      <Container component="main" maxWidth={variant ? variant : 'sm'} sx={{ mb: 4 }}>
+      <Container component="main" maxWidth={variant} sx={{ mb: 4 }}>
          <Paper
             variant="outlined"
             sx={{

@@ -1,10 +1,9 @@
 import { useContext } from 'react';
-import { ThemeContext } from '../context/theme-context';
-
 import styled from 'styled-components';
-
 import { Paper, Box, Tooltip, Grid, Stack, IconButton, Skeleton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
+import { ThemeContext } from '../context/theme-context';
 
 export const CartProductSkeleton = (props) => {
    const { odd, dense } = props;

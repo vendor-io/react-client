@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
-import { useCart } from '../hooks/useCart';
+import { Link as RouterLink } from 'react-router-dom';
 import {
    Box,
    Grid,
@@ -15,7 +14,8 @@ import {
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DoneIcon from '@mui/icons-material/Done';
 
-import { Link as RouterLink } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import { useCart } from '../hooks/useCart';
 import { formatPrice } from '../util/format-price';
 
 export const ProductCard = (props) => {
@@ -34,8 +34,7 @@ export const ProductCard = (props) => {
 
    const handleAddToCart = () => {
       if (token) {
-         addProductToCart(token, { productId: id, userId: user.uid, amount: 1 }).then((data) => {
-            console.log(data);
+         addProductToCart(token, { productId: id, userId: user.uid, amount: 1 }).then(() => {
             addProductCooldown();
          });
       }

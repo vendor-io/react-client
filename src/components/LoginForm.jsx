@@ -1,8 +1,6 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import { useAuth } from '../hooks/useAuth';
-
 import {
    Avatar,
    Button,
@@ -21,6 +19,8 @@ import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import TwitterIcon from '@mui/icons-material/Twitter';
+
+import { useAuth } from '../hooks/useAuth';
 
 export const LoginForm = () => {
    const {
@@ -168,7 +168,7 @@ export const LoginForm = () => {
                <Grid item>
                   Don&apos;t have an account?{' '}
                   <Link component={RouterLink} to="/register" variant="body2">
-                     {'Sign Up'}
+                     Sign Up
                   </Link>
                </Grid>
             </Grid>

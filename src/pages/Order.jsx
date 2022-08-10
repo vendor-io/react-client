@@ -1,19 +1,18 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Paper, Grid, Typography, Box, Skeleton } from '@mui/material';
+import { format } from 'date-fns';
+
 import { useAuth } from '../hooks/useAuth';
 import { useOrder } from '../hooks/useOrder';
-
-import { BreadcrumbsContext } from './../context/breadcrumbs-context';
-import { format } from 'date-fns';
+import { BreadcrumbsContext } from '../context/breadcrumbs-context';
 import { formatPrice } from '../util/format-price';
 
-import { Container, Paper, Grid, Typography, Box, Skeleton } from '@mui/material';
 import { CartProductList } from '../components/CartProductList';
 
 function Order() {
    const [order, setOrder] = useState({});
    const [products, setProducts] = useState([]);
-   console.log('order', order);
    const { setCurrentBreadcrumb } = useContext(BreadcrumbsContext);
    const { oid } = useParams();
    const navigate = useNavigate();
@@ -27,17 +26,17 @@ function Order() {
       if (token) {
          getOrderForUserById(token, oid).then((data) => setOrder(data));
       }
-   }, [token]);
+   }, [token, getOrderForUserById, oid]);
 
    useEffect(() => {
       if (order?.uid !== user?.uid) {
          navigate('/orders');
       }
-   }, [order]);
+   }, [order, navigate, user?.uid]);
 
    useEffect(() => {
       if (order?.productsInOrder?.length > 0) {
-         let productsArr = [];
+         const productsArr = [];
          order.productsInOrder.forEach((product) => {
             const tempProduct = {
                ...product.product,

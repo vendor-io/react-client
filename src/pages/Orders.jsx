@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
-import { useOrder } from '../hooks/useOrder';
 import { Link as RouterLink } from 'react-router-dom';
-
 import { Container, Paper, Typography, Grid, Button } from '@mui/material';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import { OrderList } from './../components/OrderList';
+
+import { useAuth } from '../hooks/useAuth';
+import { useOrder } from '../hooks/useOrder';
+
+import { OrderList } from '../components/OrderList';
 
 function Orders() {
    const [orders, setOrders] = useState([]);
@@ -18,7 +19,7 @@ function Orders() {
       if (token) {
          getOrdersForUser(token, user.uid).then((data) => setOrders(data));
       }
-   }, [token]);
+   }, [token, getOrdersForUser, user?.uid]);
 
    if (orders || orders?.length === 0) {
       return (
@@ -35,7 +36,7 @@ function Orders() {
                   </Grid>
                   <Grid item>
                      <Typography component="p" variant="h5" align="center">
-                        Maybe it's time to place one?
+                        Maybe it&apos;s time to place one?
                      </Typography>
                   </Grid>
                   <Grid item>

@@ -1,18 +1,18 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import { useProduct } from '../hooks/useProduct';
-import { useCart } from './../hooks/useCart';
-import { BreadcrumbsContext } from '../context/breadcrumbs-context';
-import { differenceInDays } from 'date-fns';
-
 import Slider from 'react-slick';
 import { Container, Grid, Paper, Typography, Link, Divider, Button, Chip } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DoneIcon from '@mui/icons-material/Done';
+import { differenceInDays } from 'date-fns';
+
+import { useAuth } from '../hooks/useAuth';
+import { useProduct } from '../hooks/useProduct';
+import { useCart } from '../hooks/useCart';
+import { BreadcrumbsContext } from '../context/breadcrumbs-context';
 
 import { ProductPageSkeleton } from '../components/ProductPageSkeleton';
-import { AmountSelect } from './../components/AmountSelect';
+import { AmountSelect } from '../components/AmountSelect';
 import { formatPrice } from '../util/format-price';
 
 import { mainSliderOptions, subSliderOptions } from '../constant/sliderOptions';
@@ -55,8 +55,7 @@ function ProductPage() {
             productId: product.id,
             userId: user.uid,
             amount: productAmount
-         }).then((data) => {
-            console.log(data);
+         }).then(() => {
             addProductCooldown();
          });
       }
@@ -72,7 +71,7 @@ function ProductPage() {
             setProduct(data);
          });
       }
-   }, [token]);
+   }, [token, getProductById, pid]);
 
    useEffect(() => {
       if (product) {
@@ -81,7 +80,7 @@ function ProductPage() {
          setIsLoading(false);
       }
       return () => setCurrentBreadcrumb(null);
-   }, [product]);
+   }, [product, setCurrentBreadcrumb]);
 
    if (isLoading) {
       return <ProductPageSkeleton />;
@@ -97,8 +96,8 @@ function ProductPage() {
                      ref={(slider1) => setMainNav(slider1)}
                      style={{ borderRadius: '16px', overflow: 'hidden' }}
                      {...mainSliderOptions}>
-                     {images.map((img, index) => (
-                        <div key={index}>
+                     {images.map((img) => (
+                        <div key={img}>
                            <img src={img} alt="" style={{ aspectRatio: 1, width: '100%' }} />
                         </div>
                      ))}
@@ -107,8 +106,8 @@ function ProductPage() {
                      asNavFor={mainNav}
                      ref={(slider2) => setSubNav(slider2)}
                      {...subSliderOptions}>
-                     {images.map((img, index) => (
-                        <div key={index}>
+                     {images.map((img) => (
+                        <div key={img}>
                            <img
                               src={img}
                               alt=""

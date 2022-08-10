@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from './../hooks/useAuth';
-import { useAddress } from './../hooks/useAddress';
+import { useAuth } from '../hooks/useAuth';
+import { useAddress } from '../hooks/useAddress';
 
 import { AddressesList } from '../components/AddressesList';
 
@@ -18,11 +18,7 @@ function Addresses() {
             setIsLoading(false);
          });
       }
-   }, [token]);
-
-   useEffect(() => {
-      console.log('addresses', addresses);
-   }, [addresses]);
+   }, [token, getAddressesForUser, user?.uid]);
 
    if (isLoading) {
       return <AddressesList isSkeleton />;

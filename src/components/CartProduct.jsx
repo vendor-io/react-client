@@ -1,14 +1,26 @@
 import { useContext } from 'react';
-import { ThemeContext } from './../context/theme-context';
-
 import { Link as RouterLink } from 'react-router-dom';
-
-import styled from 'styled-components';
-import { formatPrice } from './../util/format-price';
-import { AmountSelect } from './AmountSelect';
-
 import { Paper, Tooltip, Grid, Typography, Stack, IconButton, Box } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
+import styled from 'styled-components';
+import { AmountSelect } from './AmountSelect';
+import { formatPrice } from '../util/format-price';
+import { ThemeContext } from '../context/theme-context';
+
+const GridElement = styled(Grid)`
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+`;
+
+const ProductThumbnail = styled.img`
+   max-height: ${(props) => (props.dense ? '60px' : '140px')};
+   width: 100%;
+   object-fit: cover;
+   border-radius: 16px;
+`;
 
 export const CartProduct = (props) => {
    const {
@@ -26,20 +38,6 @@ export const CartProduct = (props) => {
    } = props;
 
    const { darkMode } = useContext(ThemeContext);
-
-   const ProductThumbnail = styled.img`
-      max-height: ${(dense) => (dense ? '60px' : '140px')};
-      width: 100%;
-      object-fit: cover;
-      border-radius: 16px;
-   `;
-
-   const GridElement = styled(Grid)`
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-   `;
 
    const handleProductAmountChange = (e) => {
       if (amount !== e.target.value) {

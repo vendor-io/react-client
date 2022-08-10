@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
-import { useCategory } from '../hooks/useCategory';
 import { NavLink, Link as RouterLink } from 'react-router-dom';
 
 import {
@@ -25,6 +23,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
+import { useCategory } from '../hooks/useCategory';
+import { useAuth } from '../hooks/useAuth';
 import { DarkModeSwitch } from './DarkModeSwitch';
 
 const userLinks = [
@@ -81,7 +81,7 @@ export const Navbar = (props) => {
       if (token) {
          getCategories(token).then((data) => setCategories(data));
       }
-   }, [token]);
+   }, [token, getCategories]);
 
    return (
       <>
@@ -249,9 +249,9 @@ export const Navbar = (props) => {
                            }}
                            open={Boolean(anchorElSuperUser)}
                            onClose={handleCloseSuperUserMenu}>
-                           {superUserLinks.map((link, index) => (
+                           {superUserLinks.map((link) => (
                               <MenuItem
-                                 key={index}
+                                 key={link.path}
                                  color="inherit"
                                  underline="none"
                                  component={RouterLink}
@@ -282,7 +282,7 @@ export const Navbar = (props) => {
                            open={Boolean(anchorElUser)}
                            onClose={handleCloseUserMenu}>
                            {userLinks.map((link, index) => (
-                              <Box key={index}>
+                              <Box key={link.path}>
                                  {index === userLinks.length - 1 && <Divider sx={{ mb: 1 }} />}
                                  <MenuItem
                                     color="inherit"

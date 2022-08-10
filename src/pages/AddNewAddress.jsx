@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { Container, Paper, Typography, Grid, TextField, Button } from '@mui/material';
+
+import { Spinner } from '../components/Spinner';
 import { useAuth } from '../hooks/useAuth';
 import { useAddress } from '../hooks/useAddress';
-
-import { Container, Paper, Typography, Grid, TextField, Button } from '@mui/material';
-import { Spinner } from '../components/Spinner';
 
 function AddNewAddress() {
    const [isLoading, setIsLoading] = useState(true);
@@ -24,8 +24,8 @@ function AddNewAddress() {
    }, [token]);
 
    const onSubmit = (data) => {
-      data = { userId: user.uid, ...data };
-      addNewAddress(token, data);
+      const submitData = { userId: user.uid, ...data };
+      addNewAddress(token, submitData);
       navigate('/addresses');
    };
 

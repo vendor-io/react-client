@@ -1,11 +1,11 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../hooks/useAuth';
-
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import { Avatar, Button, TextField, Link, Box, Grid, Typography, Alert } from '@mui/material';
 import KeyIcon from '@mui/icons-material/Key';
+
+import { useAuth } from '../hooks/useAuth';
 
 export const RegisterForm = () => {
    const {
@@ -24,17 +24,13 @@ export const RegisterForm = () => {
 
       await createUserWithEmailAndPassword(authentication, data.email, data.password).then(
          (response) => {
-            console.log('response', response);
-
             newUserData = {
                email: data.email,
                uid: response.user.uid
             };
          }
       );
-      console.log('left await block');
       createUser(newUserData);
-      console.log('newUserData', newUserData);
 
       navigate('/products');
    };

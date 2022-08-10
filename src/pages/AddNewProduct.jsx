@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useProduct } from '../hooks/useProduct';
-import { useAuth } from '../hooks/useAuth';
-import { useCategory } from '../hooks/useCategory';
-
 import {
    Container,
    Paper,
@@ -26,6 +22,10 @@ import {
 } from '@mui/material';
 import PanoramaIcon from '@mui/icons-material/Panorama';
 import { Spinner } from '../components/Spinner';
+
+import { useProduct } from '../hooks/useProduct';
+import { useAuth } from '../hooks/useAuth';
+import { useCategory } from '../hooks/useCategory';
 
 function AddNewProduct() {
    const [isLoading, setIsLoading] = useState(true);
@@ -50,21 +50,20 @@ function AddNewProduct() {
          getCategories(token).then((data) => setCategories(data));
          setIsLoading(false);
       }
-   }, [token]);
+   }, [token, getCategories]);
 
    const productImages = watch('productImages');
 
    const onSubmit = (data) => {
-      data = { ...data, productCategory: category };
-      addNewProduct(data, token, user.uid);
+      const productData = { ...data, productCategory: category };
+      addNewProduct(productData, token, user.uid);
    };
 
    useEffect(() => {
       if (typeof response?.id !== 'undefined') {
-         console.log(response);
          navigate(`/products/${response?.id}`);
       }
-   }, [response]);
+   }, [response, navigate]);
 
    if (isLoading) {
       return <Spinner />;
@@ -162,7 +161,7 @@ function AddNewProduct() {
                <Grid item xs={12}>
                   <label htmlFor="productImages">
                      <Input
-                        multiple={true}
+                        multiple
                         type="file"
                         name="productImages"
                         id="productImages"
@@ -185,8 +184,8 @@ function AddNewProduct() {
                {productImages && productImages.length > 0 && (
                   <Grid item xs={12}>
                      <ImageList sx={{ width: '99%' }} cols={3} rowHeight={164}>
-                        {Array.from(productImages).map((image, index) => (
-                           <ImageListItem key={index}>
+                        {Array.from(productImages).map((image) => (
+                           <ImageListItem key={URL.createObjectURL(image)}>
                               <img
                                  src={URL.createObjectURL(image)}
                                  alt={image.name}

@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
-import { BreadcrumbsContext } from '../context/breadcrumbs-context';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Container, Paper, Breadcrumbs, Link, Skeleton } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
+import { BreadcrumbsContext } from '../context/breadcrumbs-context';
 import { routes } from '../routes/routes';
 
 export const NavBreadcrumbs = () => {
@@ -44,8 +44,8 @@ export const NavBreadcrumbs = () => {
    const getBreadcrumbsComponents = () => {
       const allRoutes = getAllRoutes();
 
-      let elements = [];
-      breadcrumbs.map((breadcrumb) => {
+      const elements = [];
+      breadcrumbs.forEach((breadcrumb) => {
          const route = allRoutes.find((element) => {
             return element.path === breadcrumb.key;
          });
@@ -76,4 +76,5 @@ export const NavBreadcrumbs = () => {
          </Container>
       );
    }
+   return null;
 };

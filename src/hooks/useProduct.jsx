@@ -39,9 +39,10 @@ export const useProduct = () => {
       if (Object.values(data).every((item) => typeof item !== 'undefined')) {
          const productData = new FormData();
 
+         // eslint-disable-next-line no-restricted-syntax
          for (const key in data) {
             if (key === 'productImages') {
-               Array.from(data.productImages).map((image) => {
+               Array.from(data.productImages).forEach((image) => {
                   productData.append('productImages', image, image.name);
                });
             } else {
