@@ -134,10 +134,10 @@ function Checkout() {
                         required
                         onChange={handleAddressChange}
                         disabled={addresses?.length === 1}>
-                        {addresses.map((address) => {
+                        {addresses.map((addressItem) => {
                            return (
-                              <MenuItem key={address.id} value={address.id}>
-                                 {`${address.firstName} ${address.lastName}, ${address.street} ${address.houseNumber}, ${address.phoneNumber}`}
+                              <MenuItem key={addressItem.id} value={addressItem.id}>
+                                 {`${addressItem.firstName} ${addressItem.lastName}, ${addressItem.street} ${addressItem.houseNumber}, ${addressItem.phoneNumber}`}
                               </MenuItem>
                            );
                         })}
