@@ -67,6 +67,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'keyboardify-client'
-          slot-name: 'Production'
+          slot-name: 'Staging'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BDE6CCD38F7847E893104ECC8CA6D835 }}
           images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
