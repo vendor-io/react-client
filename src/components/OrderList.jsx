@@ -1,5 +1,5 @@
 import { List } from '@mui/material';
-import { OrderListItem } from './OrderListItem';
+import { OrderListItem } from 'components/OrderListItem';
 
 export const OrderList = (props) => {
    const { orders } = props;

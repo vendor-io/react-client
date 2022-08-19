@@ -32,7 +32,14 @@ module.exports = {
          jsx: true
       }
    },
-   extends: ['airbnb', 'prettier', 'plugin:jsx-a11y/recommended', 'plugin:react/jsx-runtime'],
+   extends: [
+      'airbnb',
+      'prettier',
+      'plugin:jsx-a11y/recommended',
+      'plugin:react/jsx-runtime',
+      'plugin:import/errors',
+      'plugin:import/warnings'
+   ],
    plugins: ['react', 'jsx-a11y', 'react-hooks'],
    rules: {
       'linebreak-style': 0,
@@ -91,6 +98,9 @@ module.exports = {
                return: 'returns'
             }
          }
-      ]
-   }
+      ],
+      'import/no-extraneous-dependencies': 'off'
+   },
+   settings: { 'import/resolver': { node: { moduleDirectory: ['node_modules', 'src'] } } },
+   project: 'packages/*/jsconfig.json'
 };

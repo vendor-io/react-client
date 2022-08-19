@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { ListItemButton, ListItemIcon, ListItemText, Divider, Chip } from '@mui/material';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
-import { formatPrice } from './../util/format-price';
+import { formatPrice } from 'util/format-price';
 
 export const OrderListItem = (props) => {
    const { id, createdAt, totalPrice, orderStatus, isLast } = props;

@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { useProduct } from '../hooks/useProduct';
-import { useCategory } from '../hooks/useCategory';
-import { useAuth } from '../hooks/useAuth';
-import { BreadcrumbsContext } from '../context/breadcrumbs-context';
+import { useProduct } from 'hooks/useProduct';
+import { useCategory } from 'hooks/useCategory';
+import { useAuth } from 'hooks/useAuth';
+import { BreadcrumbsContext } from 'context/breadcrumbs-context';
 
-import { ProductList } from '../components/ProductList';
-import { ProductListSkeleton } from '../components/ProductListSkeleton';
+import { ProductList } from 'components/ProductList';
+import { ProductListSkeleton } from 'components/ProductListSkeleton';
 
 function AllCategoryProducts() {
    const [products, setProducts] = useState([]);

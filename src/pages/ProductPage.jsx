@@ -6,16 +6,16 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DoneIcon from '@mui/icons-material/Done';
 import { differenceInDays } from 'date-fns';
 
-import { useAuth } from '../hooks/useAuth';
-import { useProduct } from '../hooks/useProduct';
-import { useCart } from '../hooks/useCart';
-import { BreadcrumbsContext } from '../context/breadcrumbs-context';
+import { useAuth } from 'hooks/useAuth';
+import { useProduct } from 'hooks/useProduct';
+import { useCart } from 'hooks/useCart';
+import { BreadcrumbsContext } from 'context/breadcrumbs-context';
 
-import { ProductPageSkeleton } from '../components/ProductPageSkeleton';
-import { AmountSelect } from '../components/AmountSelect';
-import { formatPrice } from '../util/format-price';
+import { ProductPageSkeleton } from 'components/ProductPageSkeleton';
+import { AmountSelect } from 'components/AmountSelect';
+import { formatPrice } from 'util/format-price';
 
-import { mainSliderOptions, subSliderOptions } from '../constant/sliderOptions';
+import { mainSliderOptions, subSliderOptions } from 'constant/sliderOptions';
 
 function ProductPage() {
    const [isLoading, setIsLoading] = useState(true);

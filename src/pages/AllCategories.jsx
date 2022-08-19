@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { CategoryList } from '../components/CategoryList';
-import { useAuth } from '../hooks/useAuth';
-import { useCategory } from '../hooks/useCategory';
-import { Spinner } from '../components/Spinner';
+import { CategoryList } from 'components/CategoryList';
+import { useAuth } from 'hooks/useAuth';
+import { useCategory } from 'hooks/useCategory';
+import { Spinner } from 'components/Spinner';
 
 function AllCategories() {
    const [categories, setCategories] = useState([]);

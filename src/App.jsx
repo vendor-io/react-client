@@ -6,23 +6,23 @@ import { ToastContainer } from 'react-toastify';
 
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebase/config';
-import { useAuth } from './hooks/useAuth';
+import { useAuth } from 'hooks/useAuth';
 
-import Dev from './pages/Dev';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import { routes } from './routes/routes';
-import { theme, darkTheme } from './styles/theme';
+import Dev from 'pages/Dev';
+import Login from 'pages/Login';
+import Register from 'pages/Register';
+import { routes } from 'routes/routes';
+import { theme, darkTheme } from 'styles/theme';
 
-import { Navbar } from './components/Navbar';
-import { CartFab } from './components/CartFab';
-import { ScrollToTopFab } from './components/ScrollToTopFab';
-import { NavBreadcrumbs } from './components/NavBreadcrumbs';
+import { Navbar } from 'components/Navbar';
+import { CartFab } from 'components/CartFab';
+import { ScrollToTopFab } from 'components/ScrollToTopFab';
+import { NavBreadcrumbs } from 'components/NavBreadcrumbs';
 
-import { BreadcrumbsContext } from './context/breadcrumbs-context';
-import { ThemeContext } from './context/theme-context';
-import { CartContext } from './context/cart-context';
-import { PaymentContext } from './context/payment-context';
+import { BreadcrumbsContext } from 'context/breadcrumbs-context';
+import { ThemeContext } from 'context/theme-context';
+import { CartContext } from 'context/cart-context';
+import { PaymentContext } from 'context/payment-context';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

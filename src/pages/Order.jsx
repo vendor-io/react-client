@@ -3,12 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Paper, Grid, Typography, Box, Skeleton } from '@mui/material';
 import { format } from 'date-fns';
 
-import { useAuth } from '../hooks/useAuth';
-import { useOrder } from '../hooks/useOrder';
-import { BreadcrumbsContext } from '../context/breadcrumbs-context';
-import { formatPrice } from '../util/format-price';
+import { useAuth } from 'hooks/useAuth';
+import { useOrder } from 'hooks/useOrder';
+import { BreadcrumbsContext } from 'context/breadcrumbs-context';
+import { formatPrice } from 'util/format-price';
 
-import { CartProductList } from '../components/CartProductList';
+import { CartProductList } from 'components/CartProductList';
 
 function Order() {
    const [order, setOrder] = useState({});

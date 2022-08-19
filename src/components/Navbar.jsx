@@ -23,9 +23,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-import { useCategory } from '../hooks/useCategory';
-import { useAuth } from '../hooks/useAuth';
-import { DarkModeSwitch } from './DarkModeSwitch';
+import { useCategory } from 'hooks/useCategory';
+import { useAuth } from 'hooks/useAuth';
+import { DarkModeSwitch } from 'components/DarkModeSwitch';
 
 const userLinks = [
    { name: 'Cart', path: '/cart' },

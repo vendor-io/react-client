@@ -1,5 +1,5 @@
 import { Container, Paper, Grid, Typography } from '@mui/material';
-import { ProductCard } from './ProductCard';
+import { ProductCard } from 'components/ProductCard';
 
 export const ProductList = (props) => {
    const { products } = props;

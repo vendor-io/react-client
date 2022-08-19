@@ -3,7 +3,7 @@ import { Box, Tooltip, IconButton } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-import { ThemeContext } from '../context/theme-context';
+import { ThemeContext } from 'context/theme-context';
 
 export const DarkModeSwitch = () => {
    const { darkMode, setDarkMode } = useContext(ThemeContext);

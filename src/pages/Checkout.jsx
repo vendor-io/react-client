@@ -19,17 +19,17 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 import { useStripe, useElements, PaymentElement, Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { formatPrice } from '../util/format-price';
+import { formatPrice } from 'util/format-price';
 
-import { useAddress } from '../hooks/useAddress';
-import { useAuth } from '../hooks/useAuth';
-import { useCart } from '../hooks/useCart';
-import { usePayment } from '../hooks/usePayment';
+import { useAddress } from 'hooks/useAddress';
+import { useAuth } from 'hooks/useAuth';
+import { useCart } from 'hooks/useCart';
+import { usePayment } from 'hooks/usePayment';
 
-import { ThemeContext } from '../context/theme-context';
-import { PaymentContext } from '../context/payment-context';
+import { ThemeContext } from 'context/theme-context';
+import { PaymentContext } from 'context/payment-context';
 
-import { CartProductList } from '../components/CartProductList';
+import { CartProductList } from 'components/CartProductList';
 
 function Checkout() {
    const [cart, setCart] = useState({});

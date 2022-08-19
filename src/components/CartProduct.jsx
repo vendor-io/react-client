@@ -4,9 +4,9 @@ import { Paper, Tooltip, Grid, Typography, Stack, IconButton, Box } from '@mui/m
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import styled from 'styled-components';
-import { AmountSelect } from './AmountSelect';
-import { formatPrice } from '../util/format-price';
-import { ThemeContext } from '../context/theme-context';
+import { AmountSelect } from 'components/AmountSelect';
+import { formatPrice } from 'util/format-price';
+import { ThemeContext } from 'context/theme-context';
 
 const GridElement = styled(Grid)`
    display: flex;

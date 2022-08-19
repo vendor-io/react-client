@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
-import { ThemeContext } from '../context/theme-context';
-import { CartContext } from '../context/cart-context';
+import { ThemeContext } from 'context/theme-context';
+import { CartContext } from 'context/cart-context';
 
 export function useCart() {
    const { darkMode } = useContext(ThemeContext);

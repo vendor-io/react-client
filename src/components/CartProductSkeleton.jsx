@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Paper, Box, Tooltip, Grid, Stack, IconButton, Skeleton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-import { ThemeContext } from '../context/theme-context';
+import { ThemeContext } from 'context/theme-context';
 
 const GridElement = styled(Grid)`
    display: flex;

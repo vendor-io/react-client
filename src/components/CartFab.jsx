@@ -3,9 +3,9 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Tooltip, Fab, Box, Badge } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-import { CartContext } from '../context/cart-context';
-import { useCart } from '../hooks/useCart';
-import { useAuth } from '../hooks/useAuth';
+import { CartContext } from 'context/cart-context';
+import { useCart } from 'hooks/useCart';
+import { useAuth } from 'hooks/useAuth';
 
 export const CartFab = () => {
    const { cartItemsAmount, setCartItemsAmount } = useContext(CartContext);

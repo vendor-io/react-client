@@ -14,9 +14,9 @@ import {
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DoneIcon from '@mui/icons-material/Done';
 
-import { useAuth } from '../hooks/useAuth';
-import { useCart } from '../hooks/useCart';
-import { formatPrice } from '../util/format-price';
+import { useAuth } from 'hooks/useAuth';
+import { useCart } from 'hooks/useCart';
+import { formatPrice } from 'util/format-price';
 
 export const ProductCard = (props) => {
    const { name, price, image, id } = props;

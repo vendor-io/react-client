@@ -5,7 +5,7 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { Avatar, Button, TextField, Link, Box, Grid, Typography, Alert } from '@mui/material';
 import KeyIcon from '@mui/icons-material/Key';
 
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from 'hooks/useAuth';
 
 export const RegisterForm = () => {
    const {

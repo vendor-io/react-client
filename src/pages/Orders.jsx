@@ -3,10 +3,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Container, Paper, Typography, Grid, Button } from '@mui/material';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
-import { useAuth } from '../hooks/useAuth';
-import { useOrder } from '../hooks/useOrder';
+import { useAuth } from 'hooks/useAuth';
+import { useOrder } from 'hooks/useOrder';
 
-import { OrderList } from '../components/OrderList';
+import { OrderList } from 'components/OrderList';
 
 function Orders() {
    const [orders, setOrders] = useState([]);

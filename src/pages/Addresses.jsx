@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
-import { useAddress } from '../hooks/useAddress';
+import { useAuth } from 'hooks/useAuth';
+import { useAddress } from 'hooks/useAddress';
 
-import { AddressesList } from '../components/AddressesList';
+import { AddressesList } from 'components/AddressesList';
 
 function Addresses() {
    const [isLoading, setIsLoading] = useState(true);

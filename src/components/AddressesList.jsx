@@ -19,7 +19,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from '@mui/icons-material/Add';
 
-import { AddressesListItem } from './AddressesListItem';
+import { AddressesListItem } from 'components/AddressesListItem';
 
 export const AddressesList = (props) => {
    const { addresses, isSkeleton } = props;

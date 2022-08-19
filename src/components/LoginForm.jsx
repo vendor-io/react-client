@@ -20,7 +20,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from 'hooks/useAuth';
 
 export const LoginForm = () => {
    const {

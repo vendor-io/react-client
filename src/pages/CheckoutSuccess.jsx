@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import { useOrder } from '../hooks/useOrder';
+import { useAuth } from 'hooks/useAuth';
+import { useOrder } from 'hooks/useOrder';
 
-import { CartContext } from '../context/cart-context';
+import { CartContext } from 'context/cart-context';
 
 import { Container, Paper, Grid, Typography, Skeleton, Button } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';

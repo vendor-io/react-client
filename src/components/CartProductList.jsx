@@ -2,8 +2,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Typography, Box, Button } from '@mui/material';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
-import { CartProductSkeleton } from './CartProductSkeleton';
-import { CartProduct } from './CartProduct';
+import { CartProductSkeleton } from 'components/CartProductSkeleton';
+import { CartProduct } from 'components/CartProduct';
 
 export const CartProductList = (props) => {
    const { products, isLoading, dense, handleDelete, handleAmountChange } = props;

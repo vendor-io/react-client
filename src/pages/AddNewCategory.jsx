@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Container, Paper, Typography, Grid, TextField, Button } from '@mui/material';
-import { Spinner } from '../components/Spinner';
+import { Spinner } from 'components/Spinner';
 
-import { useAuth } from '../hooks/useAuth';
-import { useCategory } from '../hooks/useCategory';
+import { useAuth } from 'hooks/useAuth';
+import { useCategory } from 'hooks/useCategory';
 
 function AddNewCategory() {
    const [isLoading, setIsLoading] = useState(true);

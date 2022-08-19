@@ -21,11 +21,11 @@ import {
    ImageListItem
 } from '@mui/material';
 import PanoramaIcon from '@mui/icons-material/Panorama';
-import { Spinner } from '../components/Spinner';
+import { Spinner } from 'components/Spinner';
 
-import { useProduct } from '../hooks/useProduct';
-import { useAuth } from '../hooks/useAuth';
-import { useCategory } from '../hooks/useCategory';
+import { useProduct } from 'hooks/useProduct';
+import { useAuth } from 'hooks/useAuth';
+import { useCategory } from 'hooks/useCategory';
 
 function AddNewProduct() {
    const [isLoading, setIsLoading] = useState(true);
