@@ -5,16 +5,16 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import { ThemeContext } from '../context/theme-context';
 
+const GridElement = styled(Grid)`
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+`;
+
 export const CartProductSkeleton = (props) => {
    const { odd, dense } = props;
 
    const { darkMode } = useContext(ThemeContext);
-
-   const GridElement = styled(Grid)`
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-   `;
 
    const backgroundColorResolver = () => {
       if (odd) {
