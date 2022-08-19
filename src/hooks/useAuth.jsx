@@ -36,7 +36,7 @@ export function useAuth() {
          });
       }
       return () => unregisterAuthObserver();
-   }, [auth, authState]);
+   }, [auth]);
 
    useEffect(() => {
       if (authState.user && token) {
