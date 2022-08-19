@@ -22,4 +22,7 @@ todo 💀
 - Distinguish UI (including User/Producer/Panel) between User, Producer and Admin
 - Implement Toastify to more actions and hooks
 - Implement Edit Product and Edit Category
+- Add icons to User Menu (and Producer/Admin Menu) in Navbar
+- Add Favorite Products functionality
+- Add Saved Cart functionality 
 - During Adding/Editting product, show which image will be main image
